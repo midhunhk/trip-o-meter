@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Trip O Meter</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_version_name">0.1.1</string>
+
+    <!-- Messages used in the app -->
+    <string name="str_trip_distance">Trip Distance</string>
+    <string name="str_fuel_price">Fuel Price</string>
+    <string name="str_mileage">Mileage</string>
+    <string name="str_calculate">Calculate</string>
+    <string name="str_hero_image">Hero image</string>
+
+    <string name="str_total_fuel_price">Total Fuel Price %s</string>
+    <string name="str_total_fuel_needed">Fuel Needed %s</string>
+
+    <string name="str_error_empty_inputs">Please enter all data</string>
+    <string name="str_error_no_mileage">Please enter correct mileage</string>
+</resources>
