@@ -40,6 +40,10 @@ public class MainActivityFragment extends Fragment {
         lblFuelNeeded = (TextView) inflatedView.findViewById(R.id.lblFuelNeeded);
         lblTotalCost = (TextView) inflatedView.findViewById(R.id.lblTotalCost);
 
+        // Show result text without placeholders on load
+        lblFuelNeeded.setText( getResources().getString(R.string.str_total_fuel_needed, ""));
+        lblTotalCost.setText(getResources().getString(R.string.str_total_fuel_price, ""));
+
         // Find and handle Calculate button clicks
         Button calculate = (Button) inflatedView.findViewById(R.id.btnCalculate);
         calculate.setOnClickListener(new View.OnClickListener() {
