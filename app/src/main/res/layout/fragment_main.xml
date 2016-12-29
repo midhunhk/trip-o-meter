@@ -111,6 +111,7 @@
             <Button
                 android:id="@+id/btnCalculate"
                 android:text="@string/str_calculate"
+                app:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
