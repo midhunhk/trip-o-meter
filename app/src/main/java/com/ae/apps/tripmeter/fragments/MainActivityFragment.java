@@ -1,6 +1,9 @@
 package com.ae.apps.tripmeter.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,12 +28,19 @@ public class MainActivityFragment extends Fragment {
     private TextView lblTotalCost;
     private TextView lblFuelNeeded;
 
+    private Context mContext;
+
+    private static String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
+    private static String PREF_KEY_MILEAGE = "pref_key_mileage";
+
     public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mContext = getActivity().getBaseContext();
+
         View inflatedView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Find text inputs and labels to show result
@@ -53,7 +63,14 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        // TODO Read last saved mileage and fuel price
+        // Read last saved mileage and fuel price if exists
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String strFuelPrice = sharedPreferences.getString(PREF_KEY_FUEL_PRICE, null);
+        String strMileage = sharedPreferences.getString(PREF_KEY_MILEAGE, null);
+        if(null != strFuelPrice && null != strMileage){
+            txtFuelPrice.setText(strFuelPrice);
+            txtMileage.setText(strMileage);
+        }
 
         return inflatedView;
     }
@@ -74,19 +91,21 @@ public class MainActivityFragment extends Fragment {
                 float totalFuelPrice = fuelPrice * fuelNeeded;
 
                 // Update labels in result card view
-                lblFuelNeeded.setText( getResources().getString(
-                        R.string.str_total_fuel_needed, String.format(FORMAT, fuelNeeded)));
-                lblTotalCost.setText(getResources().getString(
-                        R.string.str_total_fuel_price, String.format(FORMAT, totalFuelPrice)));
+                String strFuelNeeded = String.format(FORMAT, fuelNeeded);
+                lblFuelNeeded.setText( getResources().getString(R.string.str_total_fuel_needed, strFuelNeeded));
+                String strMileage = String.format(FORMAT, totalFuelPrice);
+                lblTotalCost.setText(getResources().getString(R.string.str_total_fuel_price, strMileage));
 
-                // TODO Store Mileage and Current Fuel Price
+                // Store Mileage and Current Fuel Price
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                preferences.edit().putString(PREF_KEY_FUEL_PRICE, strFuelNeeded).commit();
+                preferences.edit().putString(PREF_KEY_MILEAGE, strMileage).commit();
+
             } else {
-                Toast.makeText(getActivity().getBaseContext(),
-                        R.string.str_error_no_mileage, Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, R.string.str_error_no_mileage, Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(getActivity().getBaseContext(),
-                    R.string.str_error_empty_inputs, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.str_error_empty_inputs, Toast.LENGTH_LONG).show();
         }
     }
 }
