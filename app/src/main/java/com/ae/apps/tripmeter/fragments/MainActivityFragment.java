@@ -1,4 +1,4 @@
-package com.ae.apps.tripmeter;
+package com.ae.apps.tripmeter.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ae.apps.tripmeter.R;
 
 /**
  * A placeholder fragment containing a simple view.
