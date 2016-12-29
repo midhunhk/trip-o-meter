@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
     <string name="action_settings">Settings</string>
-    <string name="app_version_name">0.1.1</string>
+    <string name="app_version_name">0.1.2</string>
 
     <!-- Messages used in the app -->
     <string name="str_trip_distance">Trip Distance</string>
@@ -15,4 +15,12 @@
 
     <string name="str_error_empty_inputs">Please enter all data</string>
     <string name="str_error_no_mileage">Please enter correct mileage</string>
+    <string name="empty_text"/>
+    <string name="app_release_date">Dec 2016</string>
+    <string name="github_source_visible_url">https://github.com/midhunhk/trip-o-meter</string>
+    <string name="menu_license">License</string>
+    <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
+    <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
+    <string name="app_developer_info">Designed and Developed by ae app labs</string>
+    <string name="action_about">About</string>
 </resources>

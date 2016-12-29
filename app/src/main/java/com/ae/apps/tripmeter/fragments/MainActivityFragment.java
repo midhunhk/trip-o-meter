@@ -93,13 +93,13 @@ public class MainActivityFragment extends Fragment {
                 // Update labels in result card view
                 String strFuelNeeded = String.format(FORMAT, fuelNeeded);
                 lblFuelNeeded.setText( getResources().getString(R.string.str_total_fuel_needed, strFuelNeeded));
-                String strMileage = String.format(FORMAT, totalFuelPrice);
-                lblTotalCost.setText(getResources().getString(R.string.str_total_fuel_price, strMileage));
+                String strTotalFuelPrice = String.format(FORMAT, totalFuelPrice);
+                lblTotalCost.setText(getResources().getString(R.string.str_total_fuel_price, strTotalFuelPrice));
 
                 // Store Mileage and Current Fuel Price
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                preferences.edit().putString(PREF_KEY_FUEL_PRICE, strFuelNeeded).commit();
-                preferences.edit().putString(PREF_KEY_MILEAGE, strMileage).commit();
+                preferences.edit().putString(PREF_KEY_FUEL_PRICE, String.valueOf(fuelPrice)).commit();
+                preferences.edit().putString(PREF_KEY_MILEAGE, String.valueOf(mileage)).commit();
 
             } else {
                 Toast.makeText(mContext, R.string.str_error_no_mileage, Toast.LENGTH_LONG).show();
