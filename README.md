@@ -11,7 +11,11 @@ A short description of the motivation behind the creation and maintenance of the
 Clone this repo and open the project in Android Studio. This is a gradle based Android project.
 
 # Contribute
-You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase.
+You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase. Follow below links.
+
+- [Ideas and Enhancements](https://github.com/midhunhk/trip-o-meter/projects/1)  
+- [Found a bug? Raise an Issue](https://github.com/midhunhk/trip-o-meter/issues)  
+- [Project wiki](https://github.com/midhunhk/trip-o-meter/wiki)
 
 # License
 This project is released under MIT license
