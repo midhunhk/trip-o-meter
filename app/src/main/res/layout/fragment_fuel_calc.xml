@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.ae.apps.tripmeter.fragments.MainActivityFragment"
+    tools:context="com.ae.apps.tripmeter.fragments.FuelCalcFragment"
     tools:showIn="@layout/activity_main">
 
     <!-- Hero Image -->
@@ -17,7 +17,7 @@
         android:src="@drawable/hero_trips_1"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="120dp"
         android:contentDescription="@string/str_hero_image"/>
 
     <!-- User input Card -->
@@ -40,8 +40,9 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@+id/lblDistance"
@@ -65,7 +66,9 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <TextView
                     android:id="@+id/lblFuelPrice"
@@ -88,7 +91,9 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
                 <!-- Mileage -->
                 <TextView
                     android:id="@+id/lblMileage"
@@ -111,10 +116,10 @@
             <Button
                 android:id="@+id/btnCalculate"
                 android:text="@string/str_calculate"
-                app:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_gravity="end"/>
 
         </LinearLayout>

@@ -1,3 +1,26 @@
+/**
+ * MIT License
+
+ Copyright (c) 2016 Midhun Harikumar
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
@@ -19,7 +42,7 @@ import com.ae.apps.tripmeter.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class FuelCalcFragment extends Fragment {
 
     public static final String FORMAT = "%.02f";
     private EditText txtTripDistance;
@@ -33,7 +56,11 @@ public class MainActivityFragment extends Fragment {
     private static String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
     private static String PREF_KEY_MILEAGE = "pref_key_mileage";
 
-    public MainActivityFragment() {
+    public FuelCalcFragment() {
+    }
+
+    public static FuelCalcFragment newInstance(){
+        return new FuelCalcFragment();
     }
 
     @Override
@@ -41,7 +68,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         mContext = getActivity().getBaseContext();
 
-        View inflatedView = inflater.inflate(R.layout.fragment_main, container, false);
+        View inflatedView = inflater.inflate(R.layout.fragment_fuel_calc, container, false);
 
         // Find text inputs and labels to show result
         txtTripDistance = (EditText) inflatedView.findViewById(R.id.txtDistance);

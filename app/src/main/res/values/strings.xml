@@ -27,4 +27,9 @@
 
     <!-- Configuration, not to be translated-->
     <string name="github_source_visible_url" translatable="false">https://github.com/midhunhk/trip-o-meter</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_fuel_price">Price</string>
+    <string name="menu_calc">Calc</string>
 </resources>

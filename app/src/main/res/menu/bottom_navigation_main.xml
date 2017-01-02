@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_trip_calc"
+        android:enabled="true"
+        android:title="@string/menu_calc"
+        android:icon="@drawable/icon_calc"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_fuel_price"
+        android:enabled="true"
+        android:title="@string/menu_fuel_price"
+        android:icon="@drawable/icon_coin"
+        app:showAsAction="ifRoom"/>
+</menu>
