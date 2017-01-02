@@ -5,13 +5,13 @@
         android:id="@+id/action_trip_calc"
         android:enabled="true"
         android:title="@string/menu_calc"
-        android:icon="@drawable/icon_calc"
+        android:icon="@drawable/icon_fuel"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_fuel_price"
         android:enabled="true"
         android:title="@string/menu_fuel_price"
-        android:icon="@drawable/icon_coin"
+        android:icon="@drawable/icon_price"
         app:showAsAction="ifRoom"/>
 </menu>
