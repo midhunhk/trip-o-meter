@@ -8,7 +8,7 @@
 A short description of the motivation behind the creation and maintenance of the project. 
 
 # Installation
-Clone this repo and open the project in Android Studio. This is a gradle based Android project.
+Clone this repo and import the project as an existing Android project in Android Studio. This is a gradle based Android project.
 
 # Contribute
 You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase. Follow below links.
@@ -16,6 +16,12 @@ You can contribute to this project by sharing ideas or features you would like t
 - [Ideas and Enhancements](https://github.com/midhunhk/trip-o-meter/projects/1)  
 - [Found a bug? Raise an Issue](https://github.com/midhunhk/trip-o-meter/issues)  
 - [Project wiki](https://github.com/midhunhk/trip-o-meter/wiki)
+
+# Components
+[Trip O Meter](https://github.com/RaghuChandrasekaran/trip-o-meter-api) by @[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) API provides current fuel prices in India.
+
+# App Page
+[The App Page is hosted at http://midhunhk.github.io/tip-o-meter/](http://midhunhk.github.io/tip-o-meter/)
 
 # License
 This project is released under MIT license
