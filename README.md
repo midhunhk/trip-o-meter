@@ -21,7 +21,7 @@ You can contribute to this project by sharing ideas or features you would like t
 [Trip O Meter](https://github.com/RaghuChandrasekaran/trip-o-meter-api) by @[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) API provides current fuel prices in India.
 
 # App Page
-[The App Page is hosted at http://midhunhk.github.io/tip-o-meter/](http://midhunhk.github.io/tip-o-meter/)
+[The App Page is hosted at http://midhunhk.github.io/tip-o-meter/](https://midhunhk.github.io/trip-o-meter/)
 
 # License
 This project is released under MIT license
