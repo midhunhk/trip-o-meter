@@ -1,6 +1,6 @@
 # Trip-O-Meter
 
-<img alt="Trip O Meter" src="/resources/screenshots/v0.1.1_landing.png" width="220"/>
+<img alt="Trip O Meter" src="/resources/promotional/sc_02_w800.png" width="220"/>
 
 "Trip O Meter" is an Android app to calculate fuel or cost for a trip.
 
