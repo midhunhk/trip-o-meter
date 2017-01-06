@@ -9,3 +9,4 @@ Version 0.1 (Atlantis)
 
 **Trip O Meter 0.1.3 [Jan 2017]**
 * Add Fuel Price Fragment and Bottom Navigation Sheet
+* First Public Beta Release in PlayStore
