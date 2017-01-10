@@ -45,11 +45,11 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:contentDescription="@string/empty_text"
-                        android:padding="@dimen/cardview_content_padding"
+                        android:padding="8dip"
                         android:src="@drawable/icon_app"/>
 
                     <TextView
-                        android:id="@+id/appVersion"
+                        android:id="@+id/appName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
@@ -60,10 +60,10 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/appDeveloper"
+                        android:id="@+id/appVersion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/appVersion"
+                        android:layout_below="@+id/appName"
                         android:layout_gravity="start"
                         android:layout_margin="2dip"
                         android:layout_toEndOf="@+id/appIcon"
@@ -74,7 +74,7 @@
                         android:id="@+id/appReleaseDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/appDeveloper"
+                        android:layout_below="@+id/appVersion"
                         android:layout_gravity="start"
                         android:layout_margin="2dip"
                         android:layout_toEndOf="@+id/appIcon"
@@ -82,14 +82,23 @@
                         android:text="@string/app_release_date"/>
 
                     <TextView
+                        android:id="@+id/appDeveloper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/appReleaseDate"
+                        android:layout_gravity="start"
+                        android:text="@string/app_developer_info"
+                        android:layout_below="@id/appReleaseDate"
+                        android:layout_toRightOf="@+id/appIcon"
+                        android:layout_toEndOf="@+id/appIcon"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/appDeveloper"
                         android:layout_gravity="start"
                         android:layout_margin="2dip"
-                        android:layout_toEndOf="@+id/appIcon"
-                        android:layout_toRightOf="@+id/appIcon"
-                        android:text="@string/app_developer_info"/>
+                        android:paddingTop="@dimen/cardview_content_padding"
+                        android:text="@string/app_version_code"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
@@ -116,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_margin="2dip"
                         android:text="@string/app_disclaim"/>
 
                     <Button
