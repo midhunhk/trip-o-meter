@@ -36,8 +36,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
+import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
 
 /**
  * The Main Activity
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         if (id == R.id.action_about) {
