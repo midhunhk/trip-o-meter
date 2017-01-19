@@ -38,13 +38,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.managers.FuelCalcManager;
+import com.ae.apps.tripmeter.models.FuelCalcResult;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class FuelCalcFragment extends Fragment {
 
-    public static final String FORMAT = "%.02f";
     private EditText txtTripDistance;
     private EditText txtFuelPrice;
     private EditText txtMileage;
@@ -52,9 +54,7 @@ public class FuelCalcFragment extends Fragment {
     private TextView lblFuelNeeded;
 
     private Context mContext;
-
-    private static String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
-    private static String PREF_KEY_MILEAGE = "pref_key_mileage";
+    private FuelCalcManager fuelCalcManager;
 
     public FuelCalcFragment() {
     }
@@ -90,10 +90,13 @@ public class FuelCalcFragment extends Fragment {
             }
         });
 
+        // Create an instance of the Fuel Calc Manager
+        fuelCalcManager = new FuelCalcManager(mContext);
+
         // Read last saved mileage and fuel price if exists
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String strFuelPrice = sharedPreferences.getString(PREF_KEY_FUEL_PRICE, null);
-        String strMileage = sharedPreferences.getString(PREF_KEY_MILEAGE, null);
+        String strFuelPrice = sharedPreferences.getString(AppConstants.PREF_KEY_FUEL_PRICE, null);
+        String strMileage = sharedPreferences.getString(AppConstants.PREF_KEY_MILEAGE, null);
         if(null != strFuelPrice && null != strMileage){
             txtFuelPrice.setText(strFuelPrice);
             txtMileage.setText(strMileage);
@@ -112,22 +115,16 @@ public class FuelCalcFragment extends Fragment {
             float fuelPrice = Float.parseFloat(txtFuelPrice.getText().toString());
             float mileage = Float.parseFloat(txtMileage.getText().toString());
 
+            // Calculate the fuel and price needed
+            FuelCalcResult calcResult = fuelCalcManager.calculateFuelAndPrice(tripDistance, fuelPrice, mileage);
+
             // Check for mileage greater than 0
-            if(mileage > 0){
-                float fuelNeeded =  tripDistance / mileage;
-                float totalFuelPrice = fuelPrice * fuelNeeded;
-
+            if(!calcResult.isDataError()){
                 // Update labels in result card view
-                String strFuelNeeded = String.format(FORMAT, fuelNeeded);
+                String strFuelNeeded = String.format(AppConstants.RESULT_FORMAT, calcResult.getFuelQuantityNeeded());
                 lblFuelNeeded.setText( getResources().getString(R.string.str_total_fuel_needed, strFuelNeeded));
-                String strTotalFuelPrice = String.format(FORMAT, totalFuelPrice);
+                String strTotalFuelPrice = String.format(AppConstants.RESULT_FORMAT, calcResult.getFuelPriceTotal());
                 lblTotalCost.setText(getResources().getString(R.string.str_total_fuel_price, strTotalFuelPrice));
-
-                // Store Mileage and Current Fuel Price
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                preferences.edit().putString(PREF_KEY_FUEL_PRICE, String.valueOf(fuelPrice)).commit();
-                preferences.edit().putString(PREF_KEY_MILEAGE, String.valueOf(mileage)).commit();
-
             } else {
                 Toast.makeText(mContext, R.string.str_error_no_mileage, Toast.LENGTH_LONG).show();
             }
