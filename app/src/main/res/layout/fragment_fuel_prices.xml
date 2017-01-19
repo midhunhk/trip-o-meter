@@ -17,6 +17,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:drawableTop="@android:drawable/ic_dialog_alert"
+            android:drawablePadding="@dimen/fab_margin"
             android:text="@string/str_feature_placeholder"/>
     </android.support.v7.widget.CardView>
 </FrameLayout>
