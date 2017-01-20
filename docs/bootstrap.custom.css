@@ -1,6 +1,6 @@
 #custom-bootstrap-menu.navbar-default .navbar-brand {
-    /*color: rgba(123, 31, 162, 1);*/
-    text-shadow: 1px 1px #121212;
+    color: rgba(123, 31, 162, 1);
+    /*text-shadow: 1px 1px #121212;*/
 }
 #custom-bootstrap-menu.navbar-default {
     font-size: 16px;
