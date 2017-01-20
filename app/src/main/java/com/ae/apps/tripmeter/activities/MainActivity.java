@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
             case R.id.action_trip_calc:
                 fragment = FuelCalcFragment.newInstance();
                 break;
+            // Both items below point to coming soon fragments
             case R.id.action_fuel_price:
+            case R.id.action_trip_expenses:
                 fragment = FuelPricesFragment.newInstance("", "");
                 break;
         }
