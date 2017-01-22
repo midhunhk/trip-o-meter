@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
+import com.ae.apps.tripmeter.fragments.TripExpensesFragment;
 
 /**
  * The Main Activity
@@ -89,8 +90,10 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
                 break;
             // Both items below point to coming soon fragments
             case R.id.action_fuel_price:
-            case R.id.action_trip_expenses:
                 fragment = FuelPricesFragment.newInstance("", "");
+                break;
+            case R.id.action_trip_expenses:
+                fragment = TripExpensesFragment.newInstance();
                 break;
         }
 

@@ -23,6 +23,8 @@
  */
 package com.ae.apps.tripmeter.activities;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -65,7 +67,19 @@ public class AboutActivity extends AppCompatActivity {
         viewLicenseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                // Will use from ae-apps-lib in future
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getBaseContext())
+                        .setCancelable(true)
+                        .setTitle(R.string.menu_license)
+                        .setMessage(R.string.str_license)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.show();
             }
         });
     }
