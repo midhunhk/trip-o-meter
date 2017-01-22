@@ -23,6 +23,7 @@
  */
 package com.ae.apps.tripmeter.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,13 +63,14 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
+        final Context context = this;
         // Show the License
         Button viewLicenseBtn = (Button) findViewById(R.id.viewLicense);
         viewLicenseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 // Will use from ae-apps-lib in future
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getBaseContext())
+                AlertDialog.Builder builder = new AlertDialog.Builder(context)
                         .setCancelable(true)
                         .setTitle(R.string.menu_license)
                         .setMessage(R.string.str_license)
