@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -46,6 +47,8 @@ import com.ae.apps.tripmeter.utils.AppConstants;
  * A placeholder fragment containing a simple view.
  */
 public class FuelCalcFragment extends Fragment {
+
+    private static final String KEY_TRIP_DISTANCE = "key_trip_distance";
 
     private EditText txtTripDistance;
     private EditText txtFuelPrice;
@@ -68,8 +71,35 @@ public class FuelCalcFragment extends Fragment {
                              Bundle savedInstanceState) {
         mContext = getActivity().getBaseContext();
 
+        // Create an instance of the Fuel Calc Manager
+        fuelCalcManager = new FuelCalcManager(mContext);
+
         View inflatedView = inflater.inflate(R.layout.fragment_fuel_calc, container, false);
 
+        initializeViews(inflatedView);
+
+        retainPreviousValues(savedInstanceState);
+
+        return inflatedView;
+    }
+
+    private void retainPreviousValues(Bundle bundle) {
+        // Read last saved mileage and fuel price if exists
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String strFuelPrice = sharedPreferences.getString(AppConstants.PREF_KEY_FUEL_PRICE, null);
+        String strMileage = sharedPreferences.getString(AppConstants.PREF_KEY_MILEAGE, null);
+        if(null != strFuelPrice && null != strMileage){
+            txtFuelPrice.setText(strFuelPrice);
+            txtMileage.setText(strMileage);
+        }
+
+        // Retain Trip Distance text on orientation changes
+        if(null != bundle){
+            txtTripDistance.setText(bundle.getString(KEY_TRIP_DISTANCE, ""));
+        }
+    }
+
+    private void initializeViews(View inflatedView) {
         // Find text inputs and labels to show result
         txtTripDistance = (EditText) inflatedView.findViewById(R.id.txtDistance);
         txtFuelPrice = (EditText) inflatedView.findViewById(R.id.txtFuelPrice);
@@ -89,20 +119,22 @@ public class FuelCalcFragment extends Fragment {
                 validateAndCalculateTripCosts();
             }
         });
+    }
 
-        // Create an instance of the Fuel Calc Manager
-        fuelCalcManager = new FuelCalcManager(mContext);
-
-        // Read last saved mileage and fuel price if exists
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String strFuelPrice = sharedPreferences.getString(AppConstants.PREF_KEY_FUEL_PRICE, null);
-        String strMileage = sharedPreferences.getString(AppConstants.PREF_KEY_MILEAGE, null);
-        if(null != strFuelPrice && null != strMileage){
-            txtFuelPrice.setText(strFuelPrice);
-            txtMileage.setText(strMileage);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if(!TextUtils.isEmpty(txtTripDistance.getText().toString())){
+            outState.putString(KEY_TRIP_DISTANCE, txtTripDistance.getText().toString());
         }
+        super.onSaveInstanceState(outState);
+    }
 
-        return inflatedView;
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        if(null != savedInstanceState){
+            txtTripDistance.setText(savedInstanceState.getString(KEY_TRIP_DISTANCE, ""));
+        }
+        super.onViewStateRestored(savedInstanceState);
     }
 
     private void validateAndCalculateTripCosts() {
