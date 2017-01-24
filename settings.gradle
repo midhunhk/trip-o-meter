@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ":AeAppsLibrary"
+project(":AeAppsLibrary").projectDir = new File(settingsDir, "../AeAppsLib/app")
