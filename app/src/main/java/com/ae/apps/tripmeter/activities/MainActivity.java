@@ -30,11 +30,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
@@ -43,16 +42,11 @@ import com.ae.apps.tripmeter.fragments.TripExpensesFragment;
 /**
  * The Main Activity
  */
-public class MainActivity extends AppCompatActivity implements FuelPricesFragment.OnFragmentInteractionListener {
+public class MainActivity extends ToolBarBaseActivity implements FuelPricesFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // Setup the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         // Implementing BottomNavigationView
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -78,9 +72,19 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
          */
     }
 
+    @Override
+    protected int getToolbarResourceId() {
+        return R.id.toolbar;
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
+    }
+
     /**
      * Update the fragment
-     * @param itemId
+     * @param itemId id of the menu
      */
     private void updateDisplayedFragment(int itemId) {
         Fragment fragment = null;

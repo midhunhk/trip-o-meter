@@ -34,22 +34,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.ae.apps.common.activities.ToolBarBaseActivity;
+import com.ae.apps.common.utils.DialogUtils;
 import com.ae.apps.tripmeter.R;
 
 /**
  * The About Activity
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends ToolBarBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
+        displayHomeAsUp();
 
         // Navigate to GitHub Page
         Button viewSourceCodeBtn = (Button) findViewById(R.id.viewSourceCode);
@@ -64,25 +62,25 @@ public class AboutActivity extends AppCompatActivity {
         });
 
         final Context context = this;
-        // Show the License
+
+        // Show the License as a dialog
         Button viewLicenseBtn = (Button) findViewById(R.id.viewLicense);
         viewLicenseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // Will use from ae-apps-lib in future
-                AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setCancelable(true)
-                        .setTitle(R.string.menu_license)
-                        .setMessage(R.string.str_license)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                builder.show();
+                DialogUtils.showMaterialInfoDialog(context, R.string.menu_license,
+                        R.string.str_license, android.R.string.ok);
             }
         });
+    }
+
+    @Override
+    protected int getToolbarResourceId() {
+        return R.id.toolbar;
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_about;
     }
 }
