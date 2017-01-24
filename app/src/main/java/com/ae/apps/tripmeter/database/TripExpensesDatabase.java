@@ -23,9 +23,13 @@
  */
 package com.ae.apps.tripmeter.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import com.ae.apps.common.db.DataBaseHelper;
+import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.models.TripExpense;
+import com.ae.apps.tripmeter.models.TripMemberShare;
 
 /**
  * Provides and manages the database for TripExpenses
@@ -36,5 +40,38 @@ public class TripExpensesDatabase extends DataBaseHelper {
         super(context, DatabaseConstants.DATABASE_NAME, null,
                 DatabaseConstants.DATABASE_VERSION,
                 DatabaseConstants.CREATE_TABLES_SQL);
+    }
+
+    /**
+     * Creates a trip and returns the created row id
+     * @param trip Trip data to be added
+     * @return
+     */
+    public long createTrip(Trip trip){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_TRIP_NAME, trip.getName());
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS, trip.getMemberIds());
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE, trip.getStartDate());
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_TRIP_TOTAL_EXPENSES, trip.getTotalExpenses());
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_EXPENSES_SETTLED, trip.isSettled());
+        return insert(DatabaseConstants.TRIPS_MASTER_TABLE, contentValues);
+    }
+
+    /**
+     * Adds a trip expense row
+     * @param tripExpense expnese
+     * @return
+     */
+    public long addExpense(TripExpense tripExpense){
+        return 0;
+    }
+
+    /**
+     * Adds a members share
+     * @param memberShare member's share
+     * @return
+     */
+    public long addMemberShare(TripMemberShare memberShare){
+        return 0;
     }
 }

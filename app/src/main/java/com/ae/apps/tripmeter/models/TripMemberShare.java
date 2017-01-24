@@ -1,9 +1,7 @@
 package com.ae.apps.tripmeter.models;
 
-import java.math.BigDecimal;
-
 /**
- * Represents the share of a memeber
+ * Represents the share of a member
  */
 
 public class TripMemberShare {
@@ -11,7 +9,7 @@ public class TripMemberShare {
     private long tripId;
     private long memberId;
     private long expenseId;
-    private BigDecimal share;
+    private float share;
 
     public long getId() {
         return id;
@@ -45,11 +43,11 @@ public class TripMemberShare {
         this.expenseId = expenseId;
     }
 
-    public BigDecimal getShare() {
+    public float getShare() {
         return share;
     }
 
-    public void setShare(BigDecimal share) {
+    public void setShare(float share) {
         this.share = share;
     }
 }

@@ -1,7 +1,5 @@
 package com.ae.apps.tripmeter.models;
 
-import java.math.BigDecimal;
-
 /**
  * Represents an expense
  */
@@ -9,7 +7,7 @@ import java.math.BigDecimal;
 public class TripExpense {
     private long id;
     private long tripId;
-    private BigDecimal amount;
+    private float amount;
     private String memberIds;
     private String paidById;
     private String category;
@@ -31,11 +29,11 @@ public class TripExpense {
         this.tripId = tripId;
     }
 
-    public BigDecimal getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
