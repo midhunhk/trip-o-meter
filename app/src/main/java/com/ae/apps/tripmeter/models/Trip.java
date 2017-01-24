@@ -1,8 +1,60 @@
 package com.ae.apps.tripmeter.models;
-
 /**
- * Created by user on 1/25/2017.
+ * Represents a Trip
  */
-
 public class Trip {
+    private long id;
+    private String name;
+    private String memberIds;
+    private int startDate;
+    private float totalExpenses;
+    private boolean isSettled;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setMemberIds(String memberIds) {
+        this.memberIds = memberIds;
+    }
+
+    public String getMemberIds() {
+        return memberIds;
+    }
+
+    public void setStartDate(int startDate) {
+        this.startDate = startDate;
+    }
+
+    public int getStartDate() {
+        return startDate;
+    }
+
+    public void setTotalExpenses(float totalExpenses) {
+        this.totalExpenses = totalExpenses;
+    }
+
+    public float getTotalExpenses() {
+        return totalExpenses;
+    }
+
+    public void setSettled(boolean settled) {
+        isSettled = settled;
+    }
+
+    public boolean isSettled() {
+        return isSettled;
+    }
 }

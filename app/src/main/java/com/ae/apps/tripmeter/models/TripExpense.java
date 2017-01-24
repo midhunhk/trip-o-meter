@@ -1,0 +1,73 @@
+package com.ae.apps.tripmeter.models;
+
+import java.math.BigDecimal;
+
+/**
+ * Represents an expense
+ */
+
+public class TripExpense {
+    private long id;
+    private long tripId;
+    private BigDecimal amount;
+    private String memberIds;
+    private String paidById;
+    private String category;
+    private String note;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(long tripId) {
+        this.tripId = tripId;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public String getMemberIds() {
+        return memberIds;
+    }
+
+    public void setMemberIds(String memberIds) {
+        this.memberIds = memberIds;
+    }
+
+    public String getPaidById() {
+        return paidById;
+    }
+
+    public void setPaidById(String paidById) {
+        this.paidById = paidById;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+}
