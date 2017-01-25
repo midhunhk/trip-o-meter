@@ -88,20 +88,23 @@ public class MainActivity extends ToolBarBaseActivity implements FuelPricesFragm
      */
     private void updateDisplayedFragment(int itemId) {
         Fragment fragment = null;
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
                 fragment = FuelCalcFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.menu_calc));
                 break;
             // Both items below point to coming soon fragments
             case R.id.action_fuel_price:
                 fragment = FuelPricesFragment.newInstance("", "");
+                setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
                 break;
             case R.id.action_trip_expenses:
                 fragment = TripExpensesFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
         }
 
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
     }
 
