@@ -37,7 +37,7 @@ import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
-import com.ae.apps.tripmeter.fragments.TripExpensesFragment;
+import com.ae.apps.tripmeter.fragments.TripsListFragment;
 
 /**
  * The Main Activity
@@ -100,7 +100,7 @@ public class MainActivity extends ToolBarBaseActivity implements FuelPricesFragm
                 setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
                 break;
             case R.id.action_trip_expenses:
-                fragment = TripExpensesFragment.newInstance();
+                fragment = TripsListFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
         }

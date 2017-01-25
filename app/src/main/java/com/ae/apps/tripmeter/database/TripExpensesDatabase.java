@@ -25,11 +25,15 @@ package com.ae.apps.tripmeter.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.ae.apps.common.db.DataBaseHelper;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.models.TripMemberShare;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides and manages the database for TripExpenses
@@ -73,5 +77,29 @@ public class TripExpensesDatabase extends DataBaseHelper {
      */
     public long addMemberShare(TripMemberShare memberShare){
         return 0;
+    }
+
+    /**
+     * Get all the trips
+     * @return
+     */
+    public List<Trip> getAllTrips() {
+        Cursor tripsCursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
+                DatabaseConstants.TRIPS_MASTER_COLUMNS,
+                null, null, null, null, null);
+        List<Trip> tripsList = new ArrayList<>();
+        try {
+            Trip trip;
+            while (tripsCursor.moveToNext()) {
+                trip = new Trip();
+                trip.setId(tripsCursor.getLong(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
+                trip.setName(tripsCursor.getString(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
+                trip.setStartDate(tripsCursor.getInt(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
+                tripsList.add(trip);
+            }
+        } finally{
+            tripsCursor.close();
+        }
+        return tripsList;
     }
 }
