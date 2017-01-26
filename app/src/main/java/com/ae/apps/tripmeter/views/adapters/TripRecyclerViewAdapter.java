@@ -36,7 +36,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mTripName.setText(mValues.get(position).getName());
-        holder.mTripDate.setText(mValues.get(position).getStartDate());
+        holder.mTripDate.setText(String.valueOf(mValues.get(position).getStartDate()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +63,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
         public ViewHolder(View view) {
             super(view);
+            view.setClickable(true);
             mView = view;
             mTripName = (TextView) view.findViewById(R.id.tripName);
             mTripDate = (TextView) view.findViewById(R.id.tripDate);
