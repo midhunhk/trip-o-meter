@@ -1,4 +1,4 @@
-package com.ae.apps.tripmeter.adapters;
+package com.ae.apps.tripmeter.views.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,22 +7,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.fragments.TripsListFragment;
+import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Trip} and makes a call to the
- * specified {@link com.ae.apps.tripmeter.fragments.TripsListFragment.OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ * {@link RecyclerView.Adapter} that can display a {@link Trip}
  */
 public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerViewAdapter.ViewHolder> {
 
     private final List<Trip> mValues;
-    private final TripsListFragment.OnListFragmentInteractionListener mListener;
+    private final ExpensesInteractionListener mListener;
 
-    public TripRecyclerViewAdapter(List<Trip> items, TripsListFragment.OnListFragmentInteractionListener listener) {
+    public TripRecyclerViewAdapter(List<Trip> items, ExpensesInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -46,7 +44,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    // mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
         });

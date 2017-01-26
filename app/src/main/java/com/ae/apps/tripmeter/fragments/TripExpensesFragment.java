@@ -60,4 +60,6 @@ public class TripExpensesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_trip_expenses, container, false);
     }
 
+    public interface OnListFragmentInteractionListener {
+    }
 }

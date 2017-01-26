@@ -105,7 +105,7 @@ public class DatabaseConstants {
             EXPENSE_SHARE_TRIP_ID + TEXT + "," +
             EXPENSE_SHARE_MEMBER_ID + TEXT + "," +
             EXPENSE_SHARE_EXPENSE_ID + TEXT + "," +
-            EXPENSE_SHARE_MEMBER_SHARE + NUMERIC + "," +
+            EXPENSE_SHARE_MEMBER_SHARE + NUMERIC +
          ")";
 
     public static final String [] EXPENSE_SHARE_COLUMNS = {

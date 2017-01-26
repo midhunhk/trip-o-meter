@@ -10,21 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.adapters.TripRecyclerViewAdapter;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
+import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link ExpensesInteractionListener}
  * interface.
  */
 public class TripsListFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private ExpensesInteractionListener mListener;
 
     private TripExpensesDatabase mExpensesDatabase;
 
@@ -72,8 +73,8 @@ public class TripsListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof ExpensesInteractionListener) {
+            mListener = (ExpensesInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -86,17 +87,4 @@ public class TripsListFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Trip trip);
-    }
 }
