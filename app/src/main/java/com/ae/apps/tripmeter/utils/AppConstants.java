@@ -30,4 +30,7 @@ public interface AppConstants {
     String RESULT_FORMAT = "%.02f";
     String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
     String PREF_KEY_MILEAGE = "pref_key_mileage";
+    String PREF_KEY_LAST_FEATURE = "pref_key_last_feature";
+
+    String KEY_TRIP_ID = "key_trip_id";
 }

@@ -25,6 +25,7 @@ package com.ae.apps.tripmeter.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -37,9 +38,11 @@ import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
+import com.ae.apps.tripmeter.fragments.TripDetailsFragment;
 import com.ae.apps.tripmeter.fragments.TripsListFragment;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 /**
  * The Main Activity
@@ -47,7 +50,10 @@ import com.ae.apps.tripmeter.models.Trip;
 public class MainActivity extends ToolBarBaseActivity
         implements ExpensesInteractionListener{
 
+    public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
     private FragmentManager mFragmentManager;
+
+    private static final int FRAGMENT_TRIP_DETAILS = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +66,16 @@ public class MainActivity extends ToolBarBaseActivity
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                updateDisplayedFragment(item.getItemId());
+                updateDisplayedFragment(item.getItemId(), null);
                 return false;
             }
         });
 
-        updateDisplayedFragment(R.id.action_trip_calc);
+        // Check for the last feature that was used by the user, else default
+        int featureFragment = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+                .getInt(AppConstants.PREF_KEY_LAST_FEATURE, DEFAULT_FEATURE);
+
+        updateDisplayedFragment(featureFragment, null);
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -93,15 +103,15 @@ public class MainActivity extends ToolBarBaseActivity
      * Update the fragment
      * @param itemId id of the menu
      */
-    private void updateDisplayedFragment(int itemId) {
+    private void updateDisplayedFragment(int itemId, Bundle bundle) {
         Fragment fragment = null;
+        int feature = itemId;
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
                 fragment = FuelCalcFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.app_name));
                 break;
-            // Both items below point to coming soon fragments
             case R.id.action_fuel_price:
                 fragment = FuelPricesFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
@@ -110,8 +120,21 @@ public class MainActivity extends ToolBarBaseActivity
                 fragment = TripsListFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
+            // Inner fragment of Trip Expenses
+            case FRAGMENT_TRIP_DETAILS:
+                // Store parent feature id
+                feature = R.id.action_trip_expenses;
+                fragment = TripDetailsFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
+                break;
         }
-
+        // Pass in the argument bundle if it exists
+        if(null != bundle){
+            fragment.setArguments(bundle);
+        }
+        PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+                .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
+                .commit();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
     }
 
@@ -144,6 +167,10 @@ public class MainActivity extends ToolBarBaseActivity
 
     @Override
     public void showTripDetails(Trip trip) {
-        // TODO Show trip details fragment
+        // Pass in the trip id as a parameter when creating and switching to the details
+        Bundle bundle = new Bundle();
+        bundle.putLong(AppConstants.KEY_TRIP_ID, trip.getId());
+
+        updateDisplayedFragment(FRAGMENT_TRIP_DETAILS, bundle);
     }
 }

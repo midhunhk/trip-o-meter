@@ -23,7 +23,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link ExpensesInteractionListener}
  * interface.
  */
-public class TripsListFragment extends Fragment {
+public class TripsListFragment extends Fragment
+        {
 
     private ExpensesInteractionListener mListener;
 
@@ -55,6 +56,13 @@ public class TripsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
+
+        /* TODO Remove temporary adding a trip
+        Trip trip = new Trip();
+        trip.setName("Test Trip");
+        trip.setStartDate(102012);
+        trip.setMemberIds("23,45,67,88");
+        mExpensesDatabase.createTrip(trip); */
 
         // Set the adapter
         if (view instanceof RecyclerView) {
