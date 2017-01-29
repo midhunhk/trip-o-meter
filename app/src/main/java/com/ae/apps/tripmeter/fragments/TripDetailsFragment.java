@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
 /**
@@ -19,8 +21,10 @@ import com.ae.apps.tripmeter.utils.AppConstants;
  */
 public class TripDetailsFragment extends Fragment {
 
-    private ExpensesInteractionListener mListener;
     private long mTripId;
+    private Trip mTrip;
+    private TripExpensesDatabase mExpensesDatabase;
+    private ExpensesInteractionListener mListener;
 
     public TripDetailsFragment() {
         // Required empty public constructor
@@ -44,10 +48,14 @@ public class TripDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_trip_details, container, false);
 
-        if(null != savedInstanceState){
-            mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
-            // TODO Read the data from db corresponding to this trip
+        if (null == savedInstanceState) {
+            throw new IllegalArgumentException("TripId cannot be null");
         }
+
+        mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
+
+        mExpensesDatabase = new TripExpensesDatabase(getActivity());
+        mExpensesDatabase.getTrip(mTripId);
         return inflatedView;
     }
 

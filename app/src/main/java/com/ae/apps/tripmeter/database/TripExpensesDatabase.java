@@ -102,4 +102,13 @@ public class TripExpensesDatabase extends DataBaseHelper {
         }
         return tripsList;
     }
+
+    /**
+     * Returns a trip model by tripId
+     *
+     * @param mTripId
+     */
+    public Trip getTrip(long mTripId) {
+        return null;
+    }
 }
