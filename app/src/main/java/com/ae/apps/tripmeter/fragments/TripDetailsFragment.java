@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
@@ -62,7 +65,23 @@ public class TripDetailsFragment extends Fragment {
         }
 
         mExpensesDatabase = new TripExpensesDatabase(getActivity());
-        // mExpensesDatabase.getTrip(mTripId);
+        mTrip = mExpensesDatabase.getTrip(mTripId);
+
+        TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
+        TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
+
+        tripName.setText(mTrip.getName());
+        // TODO Format the date when displaying
+        tripDate.setText(mTrip.getStartDate());
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddExpenseDialog();
+            }
+        });
+
         return inflatedView;
     }
 
@@ -87,6 +106,17 @@ public class TripDetailsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    /**
+     *
+     * See https://guides.codepath.com/android/Using-DialogFragment#passing-data-to-parent-fragment
+     */
+    private void showAddExpenseDialog(){
+        FragmentManager fragmentManager = getFragmentManager();
+        AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
+        dialogFragment.show(fragmentManager, "fragment_add_expense");
     }
 
 }

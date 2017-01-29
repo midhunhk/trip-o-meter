@@ -27,6 +27,13 @@
     <string name="str_total_fuel_needed">Fuel Needed %s</string>
     <string name="str_feature_placeholder">Feature Coming Soon</string>
 
+    <!-- Add Expenses Dialog -->
+    <string name="str_expense_amount">Amount</string>
+    <string name="str_expense_contributor">Contributor</string>
+    <string name="str_expense_members">Members</string>
+    <string name="str_expense_category">Category</string>
+    <string name="str_expense_note">Notes</string>
+
     <!-- Validation Error Messages -->
     <string name="str_error_empty_inputs">Please enter all data</string>
     <string name="str_error_no_mileage">Please enter correct mileage</string>

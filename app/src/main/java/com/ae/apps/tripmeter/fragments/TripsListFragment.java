@@ -18,8 +18,8 @@ import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 import java.util.List;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
+ * A fragment representing a list of Trips. A trip can also be added.
+ *
  * Activities containing this fragment MUST implement the {@link ExpensesInteractionListener}
  * interface.
  */
@@ -34,10 +34,6 @@ public class TripsListFragment extends Fragment
 
     private List<Trip> mTrips;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public TripsListFragment() {
     }
 

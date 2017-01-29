@@ -1,14 +1,54 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.ae.apps.tripmeter.fragments.TripDetailsFragment">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ae.apps.tripmeter.fragments.TripDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.CardView
+        android:id="@+id/headerCardContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/card_padding"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/cardview_content_padding">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTripName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/card_padding"
+                android:text="@string/hello_blank_fragment"
+                android:textSize="@dimen/text_size_large"/>
+
+            <TextView
+                android:id="@+id/txtTripDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/card_padding"
+                android:text="@string/hello_blank_fragment"/>
+
+            <!-- Display included members in the trip -->
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_margin="@dimen/fab_margin"
+        app:elevation="8dp"
+        app:layout_anchor="@+id/headerCardContainer"
+        app:layout_anchorGravity="bottom|end|right"/>
+
+</android.support.design.widget.CoordinatorLayout>

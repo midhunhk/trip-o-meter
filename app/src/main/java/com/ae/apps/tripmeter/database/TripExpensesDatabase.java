@@ -89,13 +89,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
                 null, null, null, null, null);
         List<Trip> tripsList = new ArrayList<>();
         try {
-            Trip trip;
             while (tripsCursor.moveToNext()) {
-                trip = new Trip();
-                trip.setId(tripsCursor.getLong(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
-                trip.setName(tripsCursor.getString(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
-                trip.setStartDate(tripsCursor.getInt(tripsCursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
-                tripsList.add(trip);
+                tripsList.add(createTripModel(tripsCursor));
             }
         } finally{
             tripsCursor.close();
@@ -104,11 +99,43 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
+     * Creates a Trip model object from a database cursor
+     *
+     * @param cursor
+     * @return
+     */
+    private Trip createTripModel(Cursor cursor){
+        Trip trip = new Trip();
+        trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
+        trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
+        trip.setStartDate(cursor.getInt(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
+        trip.setMemberIds(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS)));
+        trip.setTotalExpenses(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_TOTAL_EXPENSES)));
+        return trip;
+    }
+
+    /**
      * Returns a trip model by tripId
      *
      * @param mTripId
      */
     public Trip getTrip(long mTripId) {
-        return null;
+        String[] args = {String.valueOf(mTripId)};
+        Cursor cursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
+                DatabaseConstants.TRIPS_MASTER_COLUMNS,
+                DatabaseConstants.TRIPS_MASTER_ID + " = ? ",
+                args, null, null, null);
+        if(null == cursor || cursor.getCount() == 0) {
+            return null;
+        }
+
+        Trip trip;
+        try {
+            cursor.moveToNext();
+            trip = createTripModel(cursor);
+        } finally{
+            cursor.close();
+        }
+        return trip;
     }
 }

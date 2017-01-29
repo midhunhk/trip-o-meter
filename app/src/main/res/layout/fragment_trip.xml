@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/text_margin"
         android:layout_marginLeft="@dimen/text_margin"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_large"
         android:textAppearance="?attr/textAppearanceListItem"/>
 
     <TextView
