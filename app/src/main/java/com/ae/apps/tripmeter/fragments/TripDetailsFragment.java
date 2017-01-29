@@ -3,6 +3,7 @@ package com.ae.apps.tripmeter.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,22 +49,27 @@ public class TripDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View inflatedView = inflater.inflate(R.layout.fragment_trip_details, container, false);
 
-        if (null == savedInstanceState) {
-            throw new IllegalArgumentException("TripId cannot be null");
+        if (null == getArguments() && null == savedInstanceState) {
+            throw new IllegalArgumentException("TripId is required");
         }
 
-        mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
+        if(null != getArguments()){
+            mTripId = getArguments().getLong(AppConstants.KEY_TRIP_ID);
+        }
+
+        if(null != savedInstanceState){
+            mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
+        }
 
         mExpensesDatabase = new TripExpensesDatabase(getActivity());
-        mExpensesDatabase.getTrip(mTripId);
+        // mExpensesDatabase.getTrip(mTripId);
         return inflatedView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            // mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(AppConstants.KEY_TRIP_ID, mTripId);
     }
 
     @Override
