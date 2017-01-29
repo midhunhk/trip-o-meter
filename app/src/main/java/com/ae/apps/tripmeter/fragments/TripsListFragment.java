@@ -52,7 +52,7 @@ public class TripsListFragment extends Fragment {
 
     private Trip addATrip() {
         Trip trip = new Trip();
-        trip.setName("Trip " + Math.round(Math.random() * 10));
+        trip.setName("Trip ABCD " + Math.round(Math.random() * 10));
         trip.setStartDate(Calendar.getInstance().getTimeInMillis());
         trip.setMemberIds("23,45,67,88");
         long result = mExpensesDatabase.createTrip(trip);

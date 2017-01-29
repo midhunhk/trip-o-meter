@@ -18,6 +18,9 @@ import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Activities that contain this fragment must implement the
  * {@link ExpensesInteractionListener} interface
@@ -71,8 +74,11 @@ public class TripDetailsFragment extends Fragment {
         TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
 
         tripName.setText(mTrip.getName());
-        // TODO Format the date when displaying
-        tripDate.setText(mTrip.getStartDate() + "");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(mTrip.getStartDate());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        tripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

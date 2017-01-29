@@ -10,6 +10,8 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -37,7 +39,11 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mTripName.setText(mValues.get(position).getName());
-        holder.mTripDate.setText(String.valueOf(mValues.get(position).getStartDate()));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(mValues.get(position).getStartDate());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
