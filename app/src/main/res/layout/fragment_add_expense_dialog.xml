@@ -95,6 +95,13 @@
                     android:inputType="number"/>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnAddExpense"
+                android:text="@string/str_expense_add"
+                android:layout_gravity="right|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

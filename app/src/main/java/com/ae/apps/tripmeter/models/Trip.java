@@ -6,7 +6,7 @@ public class Trip {
     private long id;
     private String name;
     private String memberIds;
-    private int startDate;
+    private long startDate;
     private float totalExpenses;
     private boolean isSettled;
 
@@ -34,11 +34,11 @@ public class Trip {
         return memberIds;
     }
 
-    public void setStartDate(int startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public int getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
