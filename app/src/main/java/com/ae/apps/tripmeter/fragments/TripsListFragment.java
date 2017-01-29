@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
@@ -53,12 +54,13 @@ public class TripsListFragment extends Fragment
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
 
-        /* TODO Remove temporary adding a trip
-        Trip trip = new Trip();
-        trip.setName("Test Trip");
+        // TODO Remove temporary adding a trip
+        /*Trip trip = new Trip();
+        trip.setName("Trip PQRST " + Math.random());
         trip.setStartDate(102012);
         trip.setMemberIds("23,45,67,88");
-        mExpensesDatabase.createTrip(trip); */
+        long result = mExpensesDatabase.createTrip(trip);
+        Toast.makeText(getActivity(), "add row result " + result, Toast.LENGTH_SHORT).show(); */
 
         // Set the adapter
         if (view instanceof RecyclerView) {

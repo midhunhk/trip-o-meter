@@ -72,7 +72,7 @@ public class TripDetailsFragment extends Fragment {
 
         tripName.setText(mTrip.getName());
         // TODO Format the date when displaying
-        tripDate.setText(mTrip.getStartDate());
+        tripDate.setText(mTrip.getStartDate() + "");
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

@@ -64,7 +64,7 @@ public class DatabaseConstants {
     public static final String EXPENSE_SHARE_MEMBER_SHARE = "member_share";
 
     public static final String TRIPS_MASTER_SQL = "CREATE TABLE " + TRIPS_MASTER_TABLE + " (" +
-            TRIPS_MASTER_ID + NUMERIC + " PRIMARY KEY, " +
+            TRIPS_MASTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TRIPS_MASTER_TRIP_NAME + TEXT + "," +
             TRIPS_MASTER_MEMBER_IDS + TEXT + "," +
             TRIPS_MASTER_TRIP_START_DATE + NUMERIC + "," +
@@ -82,7 +82,7 @@ public class DatabaseConstants {
         };
 
     public static final String TRIP_EXPENSE_SQL = "CREATE TABLE " + TRIP_EXPENSE_TABLE + " (" +
-            TRIP_EXPENSE_ID + NUMERIC + " PRIMARY KEY, " +
+            TRIP_EXPENSE_ID + NUMERIC + " PRIMARY KEY AUTOINCREMENT, " +
             TRIP_EXPENSE_TRIP_ID + TEXT + ", " +
             TRIP_EXPENSE_AMOUNT + NUMERIC + "," +
             TRIP_EXPENSE_PAID_BY + TEXT + "," +
@@ -101,7 +101,7 @@ public class DatabaseConstants {
             TRIP_EXPENSE_NOTE };
 
     public static final String EXPENSE_SHARE_SQL = "CREATE TABLE " + EXPENSE_SHARE_TABLE + " (" +
-            EXPENSE_SHARE_ID + NUMERIC + " PRIMARY KEY," +
+            EXPENSE_SHARE_ID + NUMERIC + " PRIMARY KEY AUTOINCREMENT," +
             EXPENSE_SHARE_TRIP_ID + TEXT + "," +
             EXPENSE_SHARE_MEMBER_ID + TEXT + "," +
             EXPENSE_SHARE_EXPENSE_ID + TEXT + "," +
