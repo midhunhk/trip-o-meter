@@ -67,7 +67,14 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @return
      */
     public long addExpense(TripExpense tripExpense){
-        return 0;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_TRIP_ID, trip.getId());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_AMOUNT, trip.getAmount());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_PAID_BY, trip.getPaidById());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_MEMBERS, trip.getMemberIds());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_CATEGORY, trip.getCategory());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_NOTE, trip.getNote());
+        return insert(DatabaseConstants.TRIP_EXPENSE_TABLE, contentValues);
     }
 
     /**
@@ -76,7 +83,12 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @return
      */
     public long addMemberShare(TripMemberShare memberShare){
-        return 0;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_TRIP_ID, trip.getTripId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, trip.getMemberId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_EXPENSE_ID, trip.getExpenseId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE, trip.getShare());
+        return insert(DatabaseConstants.EXPENSE_SHARE_TABLE, contentValues);
     }
 
     /**
@@ -89,8 +101,9 @@ public class TripExpensesDatabase extends DataBaseHelper {
                 null, null, null, null, null);
         List<Trip> tripsList = new ArrayList<>();
         try {
+            // Create Trip models from the cursor
             while (tripsCursor.moveToNext()) {
-                tripsList.add(createTripModel(tripsCursor));
+                tripsList.add(mapTripModel(tripsCursor));
             }
         } finally{
             tripsCursor.close();
@@ -104,7 +117,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param cursor
      * @return
      */
-    private Trip createTripModel(Cursor cursor){
+    private Trip mapTripModel(Cursor cursor){
         Trip trip = new Trip();
         trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
         trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
@@ -132,7 +145,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
         Trip trip;
         try {
             cursor.moveToNext();
-            trip = createTripModel(cursor);
+            trip = mapTripModel(cursor);
         } finally{
             cursor.close();
         }
