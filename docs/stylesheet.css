@@ -65,3 +65,4 @@ h2 {font-family: 'Merriweather', serif;}
 .feature-sub-heading { color: #eaeaea !important;}
 .footer-divider {height: 1px; width: 100%; background-color: #ddd; position: relative; margin: 50px 0 40px; }
 .footer-header{color: white;}
+.outer-container{background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.4); height: 100%;}
