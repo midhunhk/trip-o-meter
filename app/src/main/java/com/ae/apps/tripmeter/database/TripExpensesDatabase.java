@@ -90,6 +90,15 @@ public class TripExpensesDatabase extends DataBaseHelper {
         contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE, trip.getShare());
         return insert(DatabaseConstants.EXPENSE_SHARE_TABLE, contentValues);
     }
+    
+    /**
+     * Get the total expenses for a trip
+     */
+    public float getTotalTripExpenses(long tripId){
+        // rawQuery("SELECT SUM(" + DatabaseConstants.TRIP_EXPENSE_AMOUNT  + ") FROM " + 
+        //      DatabaseConstants.TRIP_EXPENSE_TABLE + " WHERE " + DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ?");
+       return 0.0f; 
+    }
 
     /**
      * Get all the trips
