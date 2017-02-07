@@ -82,7 +82,7 @@ public class DatabaseConstants {
         };
 
     public static final String TRIP_EXPENSE_SQL = "CREATE TABLE " + TRIP_EXPENSE_TABLE + " (" +
-            TRIP_EXPENSE_ID + NUMERIC + " PRIMARY KEY AUTOINCREMENT, " +
+            TRIP_EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TRIP_EXPENSE_TRIP_ID + TEXT + ", " +
             TRIP_EXPENSE_AMOUNT + NUMERIC + "," +
             TRIP_EXPENSE_PAID_BY + TEXT + "," +
@@ -101,7 +101,7 @@ public class DatabaseConstants {
             TRIP_EXPENSE_NOTE };
 
     public static final String EXPENSE_SHARE_SQL = "CREATE TABLE " + EXPENSE_SHARE_TABLE + " (" +
-            EXPENSE_SHARE_ID + NUMERIC + " PRIMARY KEY AUTOINCREMENT," +
+            EXPENSE_SHARE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             EXPENSE_SHARE_TRIP_ID + TEXT + "," +
             EXPENSE_SHARE_MEMBER_ID + TEXT + "," +
             EXPENSE_SHARE_EXPENSE_ID + TEXT + "," +
