@@ -125,6 +125,7 @@ public class MainActivity extends ToolBarBaseActivity
                 // Store parent feature id
                 feature = R.id.action_trip_expenses;
                 fragment = TripDetailsFragment.newInstance();
+                fragmentTransaction.addToBackStack("TripExpense");
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
         }
@@ -143,6 +144,15 @@ public class MainActivity extends ToolBarBaseActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mFragmentManager.getBackStackEntryCount() > 0){
+            mFragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
