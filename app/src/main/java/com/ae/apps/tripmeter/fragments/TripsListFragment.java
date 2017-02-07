@@ -72,7 +72,8 @@ public class TripsListFragment extends Fragment {
         trip.setStartDate(Calendar.getInstance().getTimeInMillis());
         trip.setMemberIds("23,45,67,88");
 
-        mContactManager.getContactsFromIds(trip.getMemberIds());
+        // Convert the memberIds to list of contact vos
+        trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
 
         long result = mExpensesDatabase.createTrip(trip);
         Toast.makeText(getActivity(), "add row result " + result, Toast.LENGTH_SHORT).show();
@@ -96,15 +97,20 @@ public class TripsListFragment extends Fragment {
         }
     }
 
+    private void updateTripsWithContactVos(){
+        for (Trip trip : mTrips){
+            trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
-
-        // Set the adapter
         View recyclerView = view.findViewById(R.id.list);
 
         mTrips = mExpensesDatabase.getAllTrips();
+        updateTripsWithContactVos();
         final TripRecyclerViewAdapter viewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
 
         if (recyclerView instanceof RecyclerView) {
