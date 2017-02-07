@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
@@ -34,6 +35,7 @@ public class TripDetailsFragment extends Fragment {
     private long mTripId;
     private Trip mTrip;
     private TripExpensesDatabase mExpensesDatabase;
+    private ExpenseContactManager mContactManager;
     private ExpensesInteractionListener mListener;
 
     public TripDetailsFragment() {
@@ -72,6 +74,10 @@ public class TripDetailsFragment extends Fragment {
 
         mExpensesDatabase = new TripExpensesDatabase(getActivity());
         mTrip = mExpensesDatabase.getTrip(mTripId);
+
+        // Update the trip with the ContactVos from member ids
+        mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
+        mTrip.getMembers().addAll(mContactManager.getContactsFromIds(mTrip.getMemberIds()));
 
         TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
         TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);

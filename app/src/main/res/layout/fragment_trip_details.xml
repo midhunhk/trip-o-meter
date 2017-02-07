@@ -38,6 +38,8 @@
 
             <!-- Display included members in the trip -->
 
+            <!-- Tabs with expenses and current shares -->
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

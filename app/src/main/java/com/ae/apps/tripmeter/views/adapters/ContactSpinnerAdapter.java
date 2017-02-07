@@ -24,10 +24,15 @@ public class ContactSpinnerAdapter extends ArrayAdapter<ContactVo> {
     private List<ContactVo> mValues;
 
     public ContactSpinnerAdapter(Context context, List<ContactVo> contacts) {
-        super(context, R.layout.contact_spinner_item);
+        super(context, R.layout.contact_spinner_item, contacts);
 
         this.mContext = context;
         mValues = contacts;
+    }
+
+    @Override
+    public int getCount() {
+        return mValues.size();
     }
 
     @Override
