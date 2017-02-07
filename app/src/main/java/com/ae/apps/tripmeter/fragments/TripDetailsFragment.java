@@ -1,12 +1,14 @@
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +79,7 @@ public class TripDetailsFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mTrip.getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
         tripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
@@ -122,7 +124,21 @@ public class TripDetailsFragment extends Fragment {
         FragmentManager fragmentManager = getFragmentManager();
         AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance();
         dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
-        dialogFragment.show(fragmentManager, "fragment_add_expense");
+        // dialogFragment.show(fragmentManager, "fragment_add_expense");
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(R.layout.fragment_add_expense_dialog)
+                .setCancelable(true)
+                .setTitle(R.string.menu_trip_expenses)
+                .setPositiveButton(R.string.str_expense_add, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Add expense
+                    }
+                });
+        builder.show();
+
     }
 
 }

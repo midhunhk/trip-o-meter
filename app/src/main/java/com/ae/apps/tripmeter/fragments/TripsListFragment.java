@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
@@ -42,7 +44,7 @@ public class TripsListFragment extends Fragment {
 
     private TripExpensesDatabase mExpensesDatabase;
 
-    private ContactManager mContactManager;
+    private ExpenseContactManager mContactManager;
 
     private RecyclerView mRecyclerView;
 
@@ -60,14 +62,18 @@ public class TripsListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mExpensesDatabase = new TripExpensesDatabase(getActivity());
-        mContactManager = new ContactManager(getActivity().getContentResolver());
+        mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
     }
 
     private Trip addATrip() {
+
         Trip trip = new Trip();
         trip.setName("Trip ABCD " + Math.round(Math.random() * 10));
         trip.setStartDate(Calendar.getInstance().getTimeInMillis());
         trip.setMemberIds("23,45,67,88");
+
+        mContactManager.getContactsFromIds(trip.getMemberIds());
+
         long result = mExpensesDatabase.createTrip(trip);
         Toast.makeText(getActivity(), "add row result " + result, Toast.LENGTH_SHORT).show();
 
