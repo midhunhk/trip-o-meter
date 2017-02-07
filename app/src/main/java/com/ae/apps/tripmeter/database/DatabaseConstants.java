@@ -67,7 +67,7 @@ public class DatabaseConstants {
             TRIPS_MASTER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TRIPS_MASTER_TRIP_NAME + TEXT + "," +
             TRIPS_MASTER_MEMBER_IDS + TEXT + "," +
-            TRIPS_MASTER_TRIP_START_DATE + NUMERIC + "," +
+            TRIPS_MASTER_TRIP_START_DATE + " INTEGER " + "," +
             TRIPS_MASTER_TRIP_TOTAL_EXPENSES + NUMERIC + "," +
             TRIPS_MASTER_EXPENSES_SETTLED +
         ")";
