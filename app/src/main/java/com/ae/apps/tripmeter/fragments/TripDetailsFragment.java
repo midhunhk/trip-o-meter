@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -122,11 +123,12 @@ public class TripDetailsFragment extends Fragment {
      */
     private void showAddExpenseDialog(){
         FragmentManager fragmentManager = getFragmentManager();
-        AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance();
+        AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance(mTrip);
         dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
-        // dialogFragment.show(fragmentManager, "fragment_add_expense");
+        // dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
+        dialogFragment.show(fragmentManager, "fragment_add_expense");
 
-
+        /*
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(R.layout.fragment_add_expense_dialog)
                 .setCancelable(true)
@@ -138,7 +140,7 @@ public class TripDetailsFragment extends Fragment {
                     }
                 });
         builder.show();
-
+*/
     }
 
 }

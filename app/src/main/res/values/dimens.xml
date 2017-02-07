@@ -8,4 +8,6 @@
 
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
+
+    <dimen name="image_size">30dp</dimen>
 </resources>
