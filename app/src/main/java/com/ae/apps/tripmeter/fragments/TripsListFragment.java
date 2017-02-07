@@ -97,14 +97,15 @@ public class TripsListFragment extends Fragment {
 
         // Set the adapter
         View recyclerView = view.findViewById(R.id.list);
+
+        mTrips = mExpensesDatabase.getAllTrips();
+        final TripRecyclerViewAdapter viewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
+
         if (recyclerView instanceof RecyclerView) {
-
-            mTrips = mExpensesDatabase.getAllTrips();
-
             Context context = view.getContext();
             mRecyclerView = (RecyclerView) recyclerView;
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mRecyclerView.setAdapter(new TripRecyclerViewAdapter(mTrips, mListener));
+            mRecyclerView.setAdapter(viewAdapter);
         }
 
         // Locate the FAB and add a trip when its clicked
@@ -112,8 +113,10 @@ public class TripsListFragment extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO refresh the list of trips
                 mTrips.add( addATrip() );
+                if(null != viewAdapter) {
+                    viewAdapter.notifyDataSetChanged();
+                }
             }
         });
 

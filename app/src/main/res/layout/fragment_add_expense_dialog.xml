@@ -95,6 +95,56 @@
                     android:inputType="number"/>
             </LinearLayout>
 
+            <!-- Expense Note -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_note"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/txtExpenseNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="right"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Expense Category -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_category"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/txtExpenseCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="right"
+                    android:inputType="number"/>
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btnAddExpense"
                 android:text="@string/str_expense_add"
