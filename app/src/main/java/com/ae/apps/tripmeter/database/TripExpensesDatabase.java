@@ -68,12 +68,12 @@ public class TripExpensesDatabase extends DataBaseHelper {
      */
     public long addExpense(TripExpense tripExpense){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_TRIP_ID, trip.getId());
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_AMOUNT, trip.getAmount());
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_PAID_BY, trip.getPaidById());
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_MEMBERS, trip.getMemberIds());
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_CATEGORY, trip.getCategory());
-        contentValues.put(DatabaseConstants.TRIP_EXPENSE_NOTE, trip.getNote());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_TRIP_ID, tripExpense.getTripId());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_AMOUNT, tripExpense.getAmount());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_PAID_BY, tripExpense.getPaidById());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_MEMBERS, tripExpense.getMemberIds());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_CATEGORY, tripExpense.getCategory());
+        contentValues.put(DatabaseConstants.TRIP_EXPENSE_NOTE, tripExpense.getNote());
         return insert(DatabaseConstants.TRIP_EXPENSE_TABLE, contentValues);
     }
 
@@ -84,10 +84,10 @@ public class TripExpensesDatabase extends DataBaseHelper {
      */
     public long addMemberShare(TripMemberShare memberShare){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseConstants.EXPENSE_SHARE_TRIP_ID, trip.getTripId());
-        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, trip.getMemberId());
-        contentValues.put(DatabaseConstants.EXPENSE_SHARE_EXPENSE_ID, trip.getExpenseId());
-        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE, trip.getShare());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_TRIP_ID, memberShare.getTripId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, memberShare.getMemberId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_EXPENSE_ID, memberShare.getExpenseId());
+        contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE, memberShare.getShare());
         return insert(DatabaseConstants.EXPENSE_SHARE_TABLE, contentValues);
     }
     
