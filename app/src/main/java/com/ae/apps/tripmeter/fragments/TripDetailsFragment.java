@@ -79,7 +79,7 @@ public class TripDetailsFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mTrip.getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
         tripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);

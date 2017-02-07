@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,8 +43,14 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mValues.get(position).getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
         holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
+
+        // List of members for a trip includes the current user, hence the +1 below
+        if(null != holder.mItem.getMemberIds()){
+            int membersCount = holder.mItem.getMemberIds().split(",").length + 1;
+            holder.mTripMemberCount.setText( membersCount + " Members");
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +73,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         public final View mView;
         public final TextView mTripName;
         public final TextView mTripDate;
+        public final TextView mTripMemberCount;
         public Trip mItem;
 
         public ViewHolder(View view) {
@@ -74,6 +82,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             mView = view;
             mTripName = (TextView) view.findViewById(R.id.tripName);
             mTripDate = (TextView) view.findViewById(R.id.tripDate);
+            mTripMemberCount = (TextView) view.findViewById(R.id.tripMemberCount);
         }
 
         @Override

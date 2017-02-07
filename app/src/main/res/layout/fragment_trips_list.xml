@@ -11,8 +11,10 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/fragment_trip"/>
 
@@ -21,11 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginEnd="2dp"
+        android:layout_gravity="bottom|end"
+        android:layout_alignParentRight="true"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_alignParentBottom="true"
         android:src="@android:drawable/ic_input_add"
         app:elevation="8dp"
+        app:layout_anchor="@+id/list"
         />
 
 </android.support.design.widget.CoordinatorLayout>

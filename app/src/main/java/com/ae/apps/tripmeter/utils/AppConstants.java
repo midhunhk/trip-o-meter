@@ -33,4 +33,5 @@ public interface AppConstants {
     String PREF_KEY_LAST_FEATURE = "pref_key_last_feature";
 
     String KEY_TRIP_ID = "key_trip_id";
+    String TRIP_DATE_FORMAT = "EEE, dd MMM yyyy";
 }
