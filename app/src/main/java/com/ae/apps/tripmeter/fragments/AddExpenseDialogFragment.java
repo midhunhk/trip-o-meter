@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.ContactSpinnerAdapter;
 
@@ -51,10 +54,28 @@ public class AddExpenseDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_expense_dialog, container, false);
+        final View view = inflater.inflate(R.layout.fragment_add_expense_dialog, container, false);
 
-        Spinner expenseContributor = (Spinner) view.findViewById(R.id.txtExpenseContributor);
+        final Spinner expenseContributor = (Spinner) view.findViewById(R.id.txtExpenseContributor);
         expenseContributor.setAdapter(new ContactSpinnerAdapter(getActivity(), trip.getMembers()));
+
+        Button btnAdd = (Button) view.findViewById(R.id.btnExpenseAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ContactVo contactVo = (ContactVo) expenseContributor.getSelectedItem();
+                TextView txtAmount = (TextView) view.findViewById(R.id.txtExpenseAmount);
+
+                TripExpense tripExpense = new TripExpense();
+                tripExpense.setAmount(Float.parseFloat(txtAmount.getText().toString()));
+                tripExpense.setPaidById(contactVo.getId());
+                tripExpense.setMemberIds(trip.getMemberIds());
+
+                // Pass back this TripExpense to parent fragment to store in the database
+
+                dismiss();
+            }
+        });
 
         return view;
     }
