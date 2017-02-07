@@ -38,17 +38,18 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mItem = mValues.get(position);
-        holder.mTripName.setText(mValues.get(position).getName());
+        Trip trip = mValues.get(position);
+        holder.mItem = trip;
+        holder.mTripName.setText(trip.getName());
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(mValues.get(position).getStartDate());
+        calendar.setTimeInMillis(trip.getStartDate());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
         holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         // List of members for a trip includes the current user, hence the +1 below
-        if(null != holder.mItem.getMemberIds()){
-            int membersCount = holder.mItem.getMemberIds().split(",").length + 1;
+        if(null != trip.getMemberIds()){
+            int membersCount = trip.getMemberIds().split(",").length + 1;
             holder.mTripMemberCount.setText( membersCount + " Members");
         }
 
