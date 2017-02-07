@@ -30,9 +30,19 @@ public class ContactSpinnerAdapter extends ArrayAdapter<ContactVo> {
         mValues = contacts;
     }
 
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getCustomView(position, convertView);
+    }
+
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        return getCustomView(position, convertView);
+    }
+
+    @NonNull
+    private View getCustomView(int position, View convertView) {
         if (null == convertView) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.contact_spinner_item, null);

@@ -70,7 +70,7 @@ public class TripsListFragment extends Fragment {
         Trip trip = new Trip();
         trip.setName("Test Trip " + Math.round(Math.random() * 10));
         trip.setStartDate(Calendar.getInstance().getTimeInMillis());
-        trip.setMemberIds("23,45,67,88");
+        trip.setMemberIds("27799,28104,49741");
 
         // Convert the memberIds to list of contact vos
         trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
@@ -94,6 +94,7 @@ public class TripsListFragment extends Fragment {
             String contactId = result.getLastPathSegment();
 
             ContactVo contactVo = mContactManager.getContactInfo(contactId);
+            Toast.makeText(getActivity(), " id " + contactVo.getId(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -126,6 +127,7 @@ public class TripsListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mTrips.add( addATrip() );
+                // pickContact();
                 if(null != viewAdapter) {
                     viewAdapter.notifyDataSetChanged();
                 }
