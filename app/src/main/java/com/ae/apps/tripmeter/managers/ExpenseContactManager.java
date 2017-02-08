@@ -1,6 +1,8 @@
 package com.ae.apps.tripmeter.managers;
 
 import android.content.ContentResolver;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 
 import com.ae.apps.common.managers.ContactManager;
@@ -13,6 +15,22 @@ import java.util.List;
  * Wrapper over ContactManager
  */
 public class ExpenseContactManager extends ContactManager {
+
+    private static ExpenseContactManager instance;
+
+    /**
+     * Return a reference to the ExpenseContactManager implementation
+     *
+     * @param contentResolver
+     * @return
+     */
+    public static ExpenseContactManager newInstance(ContentResolver contentResolver){
+        if(null == instance){
+            instance = new ExpenseContactManager(contentResolver);
+        }
+        return instance;
+    }
+
     public ExpenseContactManager(ContentResolver contentResolver) {
         super(contentResolver);
     }
@@ -37,6 +55,34 @@ public class ExpenseContactManager extends ContactManager {
                 contacts.add(contactVo);
             }
         }
+
         return contacts;
+    }
+
+    /**
+     * Finds and returns the default contact (current user)
+     *
+     * Owner details are stored in ContactsContract.Profile for ICS and up
+     *
+     * @return
+     */
+    public ContactVo getDefaultContact(){
+        ContactVo contactVo = new ContactVo();
+
+        boolean userFound = false;
+        Cursor cursor = contentResolver.query( ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+        if(cursor.moveToFirst()){
+            contactVo.setName(cursor.getString(cursor.getColumnIndex( ContactsContract.Profile.DISPLAY_NAME)));
+            contactVo.setId(cursor.getString(cursor.getColumnIndex( ContactsContract.Profile._ID)));
+            userFound = true;
+        }
+        cursor.close();
+
+        if(!userFound){
+            contactVo.setName("You");
+            contactVo.setId("0");
+        }
+
+        return contactVo;
     }
 }
