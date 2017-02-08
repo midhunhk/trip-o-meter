@@ -76,7 +76,7 @@ public class TripDetailsFragment extends Fragment {
         mTrip = mExpensesDatabase.getTrip(mTripId);
 
         // Update the trip with the ContactVos from member ids
-        mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
+        mContactManager = ExpenseContactManager.newInstance(getActivity().getContentResolver());
         mTrip.getMembers().addAll(mContactManager.getContactsFromIds(mTrip.getMemberIds()));
 
         TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
