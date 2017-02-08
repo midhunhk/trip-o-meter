@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,19 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ae.apps.common.managers.ContactManager;
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A fragment representing a list of Trips. A trip can also be added.
@@ -36,7 +34,8 @@ import java.util.Set;
  * Activities containing this fragment MUST implement the {@link ExpensesInteractionListener}
  * interface.
  */
-public class TripsListFragment extends Fragment {
+public class TripsListFragment extends Fragment
+        implements AddExpenseDialogFragment.AddExpenseDialogListener {
 
     private final int CONTACT_PICKER_RESULT = 1001;
 
@@ -126,7 +125,10 @@ public class TripsListFragment extends Fragment {
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTrips.add( addATrip() );
+                showAddTripDialog();
+
+                // TODO below items on add success callback
+                // mTrips.add( addATrip() );
                 // pickContact();
                 if(null != viewAdapter) {
                     viewAdapter.notifyDataSetChanged();
@@ -155,4 +157,16 @@ public class TripsListFragment extends Fragment {
         mListener = null;
     }
 
+    private void showAddTripDialog(){
+        FragmentManager fragmentManager = getFragmentManager();
+        AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(TripsListFragment.this, 300);
+        // dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
+        dialogFragment.show(fragmentManager, "fragment_add_trip");
+    }
+
+    @Override
+    public void onExpenseAdded(TripExpense tripExpense) {
+        // TODO Ask TripExpenseManager to add this expense and calculate the share
+    }
 }
