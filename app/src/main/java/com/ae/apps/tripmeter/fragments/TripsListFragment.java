@@ -13,14 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
-import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -36,12 +33,6 @@ public class TripsListFragment extends Fragment
 
     private ExpenseManager mExpenseManager;
 
-    private TripExpensesDatabase mExpensesDatabase;
-
-    private ExpenseContactManager mContactManager;
-
-    private RecyclerView mRecyclerView;
-
     private TripRecyclerViewAdapter mViewAdapter;
 
     private List<Trip> mTrips;
@@ -50,56 +41,29 @@ public class TripsListFragment extends Fragment
     }
 
     public static TripsListFragment newInstance() {
-        TripsListFragment fragment = new TripsListFragment();
-        return fragment;
+        return new TripsListFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mExpenseManager = new ExpenseManager(getActivity());
-
-        mExpensesDatabase = new TripExpensesDatabase(getActivity());
-        mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
-    }
-
-    private Trip addATrip() {
-
-        Trip trip = new Trip();
-        trip.setName("Test Trip " + Math.round(Math.random() * 10));
-        trip.setStartDate(Calendar.getInstance().getTimeInMillis());
-        trip.setMemberIds("27799,28104,49741");
-
-        // Convert the memberIds to list of contact vos
-        trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
-
-        long result = mExpensesDatabase.createTrip(trip);
-        Toast.makeText(getActivity(), "add row result " + result, Toast.LENGTH_SHORT).show();
-
-        return trip;
-    }
-
-    private void updateTripsWithContactVos(){
-        for (Trip trip : mTrips){
-            trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
-        View recyclerView = view.findViewById(R.id.list);
+        View list = view.findViewById(R.id.list);
 
-        mTrips = mExpensesDatabase.getAllTrips();
-        updateTripsWithContactVos();
+        mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
 
-        if (recyclerView instanceof RecyclerView) {
+        if (list instanceof RecyclerView) {
             Context context = view.getContext();
-            mRecyclerView = (RecyclerView) recyclerView;
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mRecyclerView.setAdapter(mViewAdapter);
+            RecyclerView recyclerView = (RecyclerView) list;
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(mViewAdapter);
         }
 
         // Locate the FAB and add a trip when its clicked
@@ -136,16 +100,18 @@ public class TripsListFragment extends Fragment
         FragmentManager fragmentManager = getFragmentManager();
         AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();
         dialogFragment.setTargetFragment(TripsListFragment.this, 300);
-        // dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
         dialogFragment.show(fragmentManager, "fragment_add_trip");
     }
 
     @Override
     public void onTripAdded(Trip trip) {
         // add trip to database, update with the tripId
-        // add trip to list view
+        mExpenseManager.addTrip(trip);
 
-        // mTrips.add( addATrip() );
+        Toast.makeText(getActivity(), "added new row with id " + trip.getId(), Toast.LENGTH_SHORT).show();
+
+        // add trip to list view
+        mTrips.add(trip);
         if(null != mViewAdapter) {
             mViewAdapter.notifyDataSetChanged();
         }

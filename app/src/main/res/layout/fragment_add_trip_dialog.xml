@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Expense Amount -->
+        <!-- Trip Name -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="numberDecimal"/>
+                android:inputType="text"/>
         </LinearLayout>
 
         <!-- Members included -->
@@ -59,6 +59,12 @@
                 android:gravity="right"
                 android:inputType="number"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnTripMemberAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_trip_add"/>
 
         <Button
             android:id="@+id/btnTripAdd"

@@ -17,7 +17,11 @@ import android.widget.Toast;
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
+import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Dialog fragment that adds a Trip
@@ -26,7 +30,9 @@ public class AddTripDialogFragment extends DialogFragment {
 
     private final int CONTACT_PICKER_RESULT = 1001;
 
-    private ExpenseContactManager mContactManager;
+    private ExpenseManager mExpenseManager;
+
+    private List<ContactVo> mExpenseMembers;
 
     /**
      * Create a new instance of AddTripDialogFragment
@@ -45,7 +51,7 @@ public class AddTripDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
+        mExpenseManager = new ExpenseManager(getActivity());
     }
 
     @Override
@@ -54,6 +60,12 @@ public class AddTripDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_trip_dialog, container, false);
 
+        mExpenseMembers = new ArrayList<>();
+
+        //add defaultContact(current user) to list of members
+        mExpenseMembers.add(mExpenseManager.getDefaultContact());
+
+        // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -69,6 +81,16 @@ public class AddTripDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
+
+        // Set action for add contact button
+        Button btnTripMemberAdd = (Button) view.findViewById(R.id.btnTripMemberAdd);
+        btnTripMemberAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                pickContact();
+            }
+        });
+
         return view;
     }
 
@@ -82,7 +104,6 @@ public class AddTripDialogFragment extends DialogFragment {
         } else{
             throw new RuntimeException(" must implement the interface AddTripDialogListener");
         }
-
     }
 
     private void pickContact(){
@@ -97,7 +118,7 @@ public class AddTripDialogFragment extends DialogFragment {
             Uri result = data.getData();
             String contactId = result.getLastPathSegment();
 
-            ContactVo contactVo = mContactManager.getContactInfo(contactId);
+            ContactVo contactVo = mExpenseManager.getContactFromContactId(contactId);
             Toast.makeText(getActivity(), " id " + contactVo.getId(), Toast.LENGTH_SHORT).show();
         }
     }

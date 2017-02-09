@@ -62,6 +62,16 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
+     * Remove a Trip from the database
+     *
+     * @param trip Trip to remove
+     * @return result
+     */
+    public long removeTrip(Trip trip){
+        return -1;
+    }
+
+    /**
      * Adds a trip expense row
      * @param tripExpense expnese
      * @return
