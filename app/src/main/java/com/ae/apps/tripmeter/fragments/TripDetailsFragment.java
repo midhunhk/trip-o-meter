@@ -20,6 +20,7 @@ import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +31,8 @@ import java.util.Calendar;
  * {@link ExpensesInteractionListener} interface
  * to handle interaction events.
  */
-public class TripDetailsFragment extends Fragment {
+public class TripDetailsFragment extends Fragment
+        implements AddExpenseDialogFragment.AddExpenseDialogListener{
 
     private long mTripId;
     private Trip mTrip;
@@ -133,20 +135,10 @@ public class TripDetailsFragment extends Fragment {
         dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
         // dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
         dialogFragment.show(fragmentManager, "fragment_add_expense");
-
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.fragment_add_expense_dialog)
-                .setCancelable(true)
-                .setTitle(R.string.menu_trip_expenses)
-                .setPositiveButton(R.string.str_expense_add, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Add expense
-                    }
-                });
-        builder.show();
-*/
     }
 
+    @Override
+    public void onExpenseAdded(TripExpense tripExpense) {
+        // TODO Ask TripExpenseManager to add this expense and calculate the share
+    }
 }

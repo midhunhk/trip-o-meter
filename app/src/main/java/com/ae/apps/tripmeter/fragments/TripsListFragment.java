@@ -1,11 +1,7 @@
 package com.ae.apps.tripmeter.fragments;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,13 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.models.Trip;
-import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.Calendar;
@@ -35,9 +29,7 @@ import java.util.List;
  * interface.
  */
 public class TripsListFragment extends Fragment
-        implements AddExpenseDialogFragment.AddExpenseDialogListener {
-
-    private final int CONTACT_PICKER_RESULT = 1001;
+        implements AddTripDialogFragment.AddTripDialogListener {
 
     private ExpensesInteractionListener mListener;
 
@@ -46,6 +38,8 @@ public class TripsListFragment extends Fragment
     private ExpenseContactManager mContactManager;
 
     private RecyclerView mRecyclerView;
+
+    private TripRecyclerViewAdapter mViewAdapter;
 
     private List<Trip> mTrips;
 
@@ -80,23 +74,6 @@ public class TripsListFragment extends Fragment
         return trip;
     }
 
-    private void pickContact(){
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent, CONTACT_PICKER_RESULT);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && requestCode == CONTACT_PICKER_RESULT){
-            // Handle Contact pick
-            Uri result = data.getData();
-            String contactId = result.getLastPathSegment();
-
-            ContactVo contactVo = mContactManager.getContactInfo(contactId);
-            Toast.makeText(getActivity(), " id " + contactVo.getId(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void updateTripsWithContactVos(){
         for (Trip trip : mTrips){
             trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
@@ -111,13 +88,13 @@ public class TripsListFragment extends Fragment
 
         mTrips = mExpensesDatabase.getAllTrips();
         updateTripsWithContactVos();
-        final TripRecyclerViewAdapter viewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
+        mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
 
         if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
             mRecyclerView = (RecyclerView) recyclerView;
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-            mRecyclerView.setAdapter(viewAdapter);
+            mRecyclerView.setAdapter(mViewAdapter);
         }
 
         // Locate the FAB and add a trip when its clicked
@@ -126,13 +103,6 @@ public class TripsListFragment extends Fragment
             @Override
             public void onClick(View v) {
                 showAddTripDialog();
-
-                // TODO below items on add success callback
-                // mTrips.add( addATrip() );
-                // pickContact();
-                if(null != viewAdapter) {
-                    viewAdapter.notifyDataSetChanged();
-                }
             }
         });
 
@@ -166,7 +136,13 @@ public class TripsListFragment extends Fragment
     }
 
     @Override
-    public void onExpenseAdded(TripExpense tripExpense) {
-        // TODO Ask TripExpenseManager to add this expense and calculate the share
+    public void onTripAdded(Trip trip) {
+        // add trip to database, update with the tripId
+        // add trip to list view
+
+        // mTrips.add( addATrip() );
+        if(null != mViewAdapter) {
+            mViewAdapter.notifyDataSetChanged();
+        }
     }
 }
