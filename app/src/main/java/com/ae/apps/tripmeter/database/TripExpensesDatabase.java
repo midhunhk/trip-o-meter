@@ -62,16 +62,6 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
-     * Remove a Trip from the database
-     *
-     * @param trip Trip to remove
-     * @return result
-     */
-    public long removeTrip(Trip trip){
-        return -1;
-    }
-
-    /**
      * Adds a trip expense row
      * @param tripExpense expnese
      * @return
@@ -109,43 +99,11 @@ public class TripExpensesDatabase extends DataBaseHelper {
         //      DatabaseConstants.TRIP_EXPENSE_TABLE + " WHERE " + DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ?");
        return 0.0f; 
     }
-
-    /**
-     * Get all the trips
-     * @return
-     */
-    public List<Trip> getAllTrips() {
-        Cursor tripsCursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
-                DatabaseConstants.TRIPS_MASTER_COLUMNS,
-                null, null, null, null, null);
-        List<Trip> tripsList = new ArrayList<>();
-        try {
-            // Create Trip models from the cursor
-            while (tripsCursor.moveToNext()) {
-                tripsList.add(mapTripModel(tripsCursor));
-            }
-        } finally{
-            tripsCursor.close();
-        }
-        return tripsList;
-    }
-
-    /**
-     * Creates a Trip model object from a database cursor
-     *
-     * @param cursor
-     * @return
-     */
-    private Trip mapTripModel(Cursor cursor){
-        Trip trip = new Trip();
-        trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
-        trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
-        trip.setStartDate(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
-        trip.setMemberIds(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS)));
-        trip.setTotalExpenses(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_TOTAL_EXPENSES)));
-        return trip;
-    }
-
+    
+    //-----------------------------------------------------------
+    // Read data from the database
+    //-----------------------------------------------------------
+    
     /**
      * Returns a trip model by tripId
      *
@@ -168,6 +126,105 @@ public class TripExpensesDatabase extends DataBaseHelper {
         } finally{
             cursor.close();
         }
+        return trip;
+    }
+
+    /**
+     * Get all the trips
+     * @return
+     */
+    public List<Trip> getAllTrips() {
+        Cursor tripsCursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
+                DatabaseConstants.TRIPS_MASTER_COLUMNS,
+                null, null, null, null, null);
+        List<Trip> tripsList = new ArrayList<>();
+        try {
+            // Create Trip models from the cursor
+            while (tripsCursor.moveToNext()) {
+                tripsList.add(mapTripModel(tripsCursor));
+            }
+        } finally{
+            tripsCursor.close();
+        }
+        return tripsList;
+    }
+    
+    //-----------------------------------------------------------
+    // Data Removal
+    //-----------------------------------------------------------
+    
+    /**
+     * Remove a Trip from the database
+     *
+     * @param trip Trip to remove
+     * @return result
+     */
+    public long removeTrip(String tripId){
+        removeTripExpensesByTripId(tripId);
+        return delete(DatabaseConstants.TRIPS_MASTER_TABLE, TRIPS_MASTER_ID + "=?", new String[]{ tripId });
+    }
+    
+    /**
+     * Remove Trip Expenses by TripId
+     *
+     * @param tripId Trip to remove
+     * @return result
+     */
+    public long removeTripExpensesByTripId(String tripId){
+        removeTripExpenseSharesByTripId(tripId);
+        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, TRIP_EXPENSE_ID + "=?", new String[]{ tripId });
+    }
+    
+
+    /**
+     * Remove Trip Expense Shares by TripId
+     *
+     * @param tripId Trip to remove
+     * @return result
+     */
+    public long removeTripExpenseSharesByTripId(String tripId){
+        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, EXPENSE_SHARE_TRIP_ID  + "=?", new String[]{ tripId });
+    }
+    
+    /**
+     * Remove an Expense from the database
+     *
+     * @param trip Trip to remove
+     * @return result
+     */
+    public long removeTripExpenseByExpenseId(TripExpense tripExpense){
+        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, TRIP_EXPENSE_ID + "=?", new String[]{ tripExpense.getId() });
+    }
+    
+    /**
+     * Remove an Expense from the database
+     *
+     * @param trip Trip to remove
+     * @return result
+     */
+    public long removeTripExpenseSharesByExpenseId(TripExpense tripExpense){
+        String [] tripExpenseId = new String[]{tripExpense.getId()};
+        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, EXPENSE_SHARE_EXPENSE_ID + "=?", tripExpenseId);
+    }
+    
+    
+    //-----------------------------------------------------------
+    // Methods for mapping and conversions
+    //-----------------------------------------------------------
+
+    /**
+     * Creates a Trip model object from a database cursor
+     *
+     * @param cursor
+     * @return
+     */
+    private Trip mapTripModel(Cursor cursor){
+        Trip trip = new Trip();
+        trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
+        trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
+        trip.setStartDate(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
+        trip.setMemberIds(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS)));
+        trip.setTotalExpenses(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_TOTAL_EXPENSES)));
         return trip;
     }
 }
