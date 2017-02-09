@@ -4,10 +4,16 @@
 
 "Trip O Meter" is an Android app to calculate fuel or cost for a trip.
 
-# Motivation
-The idea for Trip O Meter was to bring tools and features to help out when you are on a trip.
+## Motivation
+The idea for Trip O Meter is to support you on a trip.
 
-# Installation
+## Development Branch Name
+***Balanjar*** 
+Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.
+
+See more - [Codenames](https://github.com/midhunhk/trip-o-meter/wiki/Codenames)
+
+## Installation
 Clone this repo and import the project as an existing Android project in Android Studio. This is a gradle based Android project that supports API 16 and up (Jelly Bean).
 
 ### Source Code
@@ -28,24 +34,24 @@ Get the latest release version of the app from the Google Play Store.
 
 [](https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter)
 
-# Contribute
+## Contribute
 You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase. Follow below links.
 
 - [Ideas and Enhancements](https://github.com/midhunhk/trip-o-meter/projects/1)  
 - [Found a bug? Raise an Issue](https://github.com/midhunhk/trip-o-meter/issues)  
 - [Project wiki](https://github.com/midhunhk/trip-o-meter/wiki)
 
-# Components
+## Components
 * [Ae Apps Lib](https://github.com/midhunhk/ae-apps-library)
 * [Trip O Meter API](https://github.com/RaghuChandrasekaran/trip-o-meter-api) 
 * [Trip O Meter Web](https://github.com/RaghuChandrasekaran/trip-o-meter-web)
 
 @[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) contributes the API for current fuel prices in India.
 
-# App Page
+## App Page
 The App Page is hosted at [https://midhunhk.github.io/trip-o-meter/](https://midhunhk.github.io/trip-o-meter/)
 
-# License
+## License
 This project is released under MIT license
 
 MIT License
