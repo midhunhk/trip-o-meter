@@ -16,6 +16,7 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
+import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
@@ -32,6 +33,8 @@ public class TripsListFragment extends Fragment
         implements AddTripDialogFragment.AddTripDialogListener {
 
     private ExpensesInteractionListener mListener;
+
+    private ExpenseManager mExpenseManager;
 
     private TripExpensesDatabase mExpensesDatabase;
 
@@ -54,6 +57,8 @@ public class TripsListFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mExpenseManager = new ExpenseManager(getActivity());
+
         mExpensesDatabase = new TripExpensesDatabase(getActivity());
         mContactManager = new ExpenseContactManager(getActivity().getContentResolver());
     }
