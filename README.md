@@ -5,10 +5,28 @@
 "Trip O Meter" is an Android app to calculate fuel or cost for a trip.
 
 # Motivation
-A short description of the motivation behind the creation and maintenance of the project. 
+The idea for Trip O Meter was to bring tools and features to help out when you are on a trip.
 
 # Installation
-Clone this repo and import the project as an existing Android project in Android Studio. This is a gradle based Android project.
+Clone this repo and import the project as an existing Android project in Android Studio. This is a gradle based Android project that supports API 16 and up (Jelly Bean).
+
+### Source Code
+Clone this repo and checkout the latest development branch for bleeding edge features.
+
+```
+git clone https://github.com/midhunhk/trip-o-meter.git
+
+Open the project in Android Studio
+```
+
+### Play Store
+Get the latest release version of the app from the Google Play Store.
+
+  <a class="btn btn-large" href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter" title="Android app on Google Play">
+	  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
+	</a>
+
+[](https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter)
 
 # Contribute
 You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase. Follow below links.
@@ -18,7 +36,11 @@ You can contribute to this project by sharing ideas or features you would like t
 - [Project wiki](https://github.com/midhunhk/trip-o-meter/wiki)
 
 # Components
-[Trip O Meter](https://github.com/RaghuChandrasekaran/trip-o-meter-api) by @[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) API provides current fuel prices in India.
+* [Ae Apps Lib](https://github.com/midhunhk/ae-apps-library)
+* [Trip O Meter API](https://github.com/RaghuChandrasekaran/trip-o-meter-api) 
+* [Trip O Meter Web](https://github.com/RaghuChandrasekaran/trip-o-meter-web)
+
+@[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) contributes the API for current fuel prices in India.
 
 # App Page
 The App Page is hosted at [https://midhunhk.github.io/trip-o-meter/](https://midhunhk.github.io/trip-o-meter/)
