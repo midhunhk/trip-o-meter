@@ -9,6 +9,11 @@ Version 2.0 (Balanjar)
 * [ADDED] Remember and restore last used feature
 * [FIXED] NullPointer on orientation changes in trip details
 
+**Trip O Meter 2.0.8 [Feb 2017]**
+* [ADDED] Add Trips List Fragment
+* [ADDED] Add AddTripDialog Fragment
+* [ADDED] Add AddTripExpenseDialog Fragment
+
 Version 1.0 (Atlantis)
 ----------------------
 **Trip O Meter 1.0.0 [Jan 2017]**
