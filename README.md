@@ -1,4 +1,4 @@
-# Trip-O-Meter
+<img alt="Trip O Meter" src="/resources/app_title.png" height="60"/>
 
 <img alt="Trip O Meter" src="/resources/promotional/sc_02_w800.png" width="220"/>
 
