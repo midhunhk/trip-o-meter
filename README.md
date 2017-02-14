@@ -1,10 +1,10 @@
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v1.png" width="850"/>
 
+"Trip 'O Meter" is an Android app to help you with planning and expenses on a trip.
+
 ## Screenshots
 <img alt="Trip O Meter" src="/resources/promotional/sc_02_w800.png" width="220"/>
 <img alt="Trip O Meter" src="/resources/promotional/sc_01_w800.png" width="220"/>
-
-"Trip 'O Meter" is an Android app to help you with planning and expenses on a trip.
 
 ## Motivation
 The idea for Trip O Meter was born out of past experiences with my trips. An ease to calculate fuel required for road trips and to manage expenses when going with friends. It is great to 
