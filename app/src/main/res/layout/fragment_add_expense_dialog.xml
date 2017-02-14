@@ -79,7 +79,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="number"/>
+                android:inputType="text"/>
         </LinearLayout>
 
         <!-- Expense Note -->
@@ -104,7 +104,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="number"/>
+                android:inputType="textCapSentences|textAutoCorrect"/>
         </LinearLayout>
 
         <!-- Expense Category -->
@@ -122,6 +122,9 @@
                 android:text="@string/str_expense_category"
                 android:textSize="18sp"/>
 
+            <!-- Will be changed to a dropdown if required in future release -->
+            <!-- Possible Values : Transportation, Food and Beverages, Accomodation, Leisure, Medical -->
+          
             <EditText
                 android:id="@+id/txtExpenseCategory"
                 android:layout_width="0dp"
@@ -129,7 +132,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="number"/>
+                android:inputType="textCapSentences|textAutoCorrect"/>
         </LinearLayout>
 
         <Button
