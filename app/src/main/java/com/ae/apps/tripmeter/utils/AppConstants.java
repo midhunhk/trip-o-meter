@@ -27,6 +27,7 @@ package com.ae.apps.tripmeter.utils;
  * Constants used in the application
  */
 public interface AppConstants {
+
     String RESULT_FORMAT = "%.02f";
     String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
     String PREF_KEY_MILEAGE = "pref_key_mileage";
@@ -34,4 +35,6 @@ public interface AppConstants {
 
     String KEY_TRIP_ID = "key_trip_id";
     String TRIP_DATE_FORMAT = "EEE, dd MMM yyyy";
+
+    String CONTACT_ID_SEPARATOR = ",";
 }

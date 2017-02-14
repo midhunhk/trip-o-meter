@@ -64,7 +64,7 @@
             android:id="@+id/btnTripMemberAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_trip_add"/>
+            android:text="@string/str_trip_add_member"/>
 
         <Button
             android:id="@+id/btnTripAdd"

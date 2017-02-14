@@ -1,6 +1,5 @@
 package com.ae.apps.tripmeter.fragments;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,27 +19,33 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * The Dialog fragment that adds a Trip
+ *
+ * The interface AddTripDialogListener should be implemented by invoking Activity / Fragment
  */
 public class AddTripDialogFragment extends DialogFragment {
+
+    private static final String TAG = "AddTripDialog";
 
     private final int CONTACT_PICKER_RESULT = 1001;
 
     private ExpenseManager mExpenseManager;
 
-    private List<ContactVo> mExpenseMembers;
+    private Collection<ContactVo> mExpenseMembers;
 
     /**
      * Create a new instance of AddTripDialogFragment
      * @return fragment instance
      */
     public static AddTripDialogFragment newInstance() {
-        // fragment.setTrip(trip);
         return new AddTripDialogFragment();
     }
 
@@ -60,7 +66,7 @@ public class AddTripDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_trip_dialog, container, false);
 
-        mExpenseMembers = new ArrayList<>();
+        mExpenseMembers = new HashSet<>();
 
         //add defaultContact(current user) to list of members
         mExpenseMembers.add(mExpenseManager.getDefaultContact());
@@ -74,7 +80,13 @@ public class AddTripDialogFragment extends DialogFragment {
                 //do callback and save
                 Trip trip = new Trip();
                 trip.setName("");
-                trip.setMemberIds("");
+                StringBuilder builder = new StringBuilder();
+                for(ContactVo contactVo : mExpenseMembers){
+                    builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
+                }
+                builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
+
+                trip.setMemberIds(builder.toString());
 
                 sendResult(trip);
 
@@ -120,11 +132,15 @@ public class AddTripDialogFragment extends DialogFragment {
 
             ContactVo contactVo = mExpenseManager.getContactFromContactId(contactId);
             Toast.makeText(getActivity(), " id " + contactVo.getId(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Added contact with id " + contactVo.getId());
+
+            mExpenseMembers.add(contactVo);
         }
     }
 
     /**
-     *
+     * Activity/Fragment that invokes this DialogFragment should implement this
+     * interface to pass data back
      */
     public interface AddTripDialogListener{
         void onTripAdded(Trip trip);
