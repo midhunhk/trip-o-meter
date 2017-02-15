@@ -32,6 +32,7 @@ public interface AppConstants {
     String PREF_KEY_FUEL_PRICE = "pref_key_fuel_price";
     String PREF_KEY_MILEAGE = "pref_key_mileage";
     String PREF_KEY_LAST_FEATURE = "pref_key_last_feature";
+    String PREF_KEY_CURRENT_PROFILE = "pref_key_profile_contact_id";
 
     String KEY_TRIP_ID = "key_trip_id";
     String TRIP_DATE_FORMAT = "EEE, dd MMM yyyy";

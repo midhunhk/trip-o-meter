@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,23 +17,20 @@ import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.managers.ExpenseContactManager;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * The Dialog fragment that adds a Trip
  *
  * The interface AddTripDialogListener should be implemented by invoking Activity / Fragment
  */
-public class AddTripDialogFragment extends DialogFragment {
+public class AddTripDialogFragment extends AppCompatDialogFragment {
 
     private static final String TAG = "AddTripDialog";
 
@@ -58,6 +55,14 @@ public class AddTripDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -69,8 +74,6 @@ public class AddTripDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_trip_dialog, container, false);
-
-        getDialog().setTitle(R.string.str_trip_add);
 
         mExpenseMembers = new HashSet<>();
 

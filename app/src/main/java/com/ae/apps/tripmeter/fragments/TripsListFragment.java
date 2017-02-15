@@ -1,12 +1,15 @@
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.List;
@@ -56,6 +60,8 @@ public class TripsListFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
         View list = view.findViewById(R.id.list);
 
+        checkForDefaultProfile();
+
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
 
@@ -76,6 +82,14 @@ public class TripsListFragment extends Fragment
         });
 
         return view;
+    }
+
+    private void checkForDefaultProfile() {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
+        if(TextUtils.isEmpty(profileId)){
+
+        }
     }
 
 
