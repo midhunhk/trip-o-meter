@@ -61,6 +61,9 @@ public class AddExpenseDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_add_expense_dialog, container, false);
+
+        getDialog().setTitle(R.string.str_expense_add);
+
         mContext = getContext();
 
         initViews(view);

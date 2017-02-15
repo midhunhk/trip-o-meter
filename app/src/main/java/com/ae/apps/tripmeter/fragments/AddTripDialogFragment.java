@@ -70,6 +70,8 @@ public class AddTripDialogFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_trip_dialog, container, false);
 
+        getDialog().setTitle(R.string.str_trip_add);
+
         mExpenseMembers = new HashSet<>();
 
         //add defaultContact(current user) to list of members

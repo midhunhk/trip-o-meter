@@ -60,7 +60,7 @@ public class ExpenseContactManager extends ContactManager {
     }
 
     /**
-     * Finds and returns the default contact (current user)
+     * Finds and returns the default Profile (current user)
      *
      * Owner details are stored in ContactsContract.Profile for ICS and up
      *
