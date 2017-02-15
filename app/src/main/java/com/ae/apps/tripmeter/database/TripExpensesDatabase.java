@@ -48,10 +48,11 @@ public class TripExpensesDatabase extends DataBaseHelper {
 
     /**
      * Creates a trip and returns the created row id
+     *
      * @param trip Trip data to be added
      * @return
      */
-    public long createTrip(Trip trip){
+    public long createTrip(Trip trip) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseConstants.TRIPS_MASTER_TRIP_NAME, trip.getName());
         contentValues.put(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS, trip.getMemberIds());
@@ -63,10 +64,11 @@ public class TripExpensesDatabase extends DataBaseHelper {
 
     /**
      * Adds a trip expense row
+     *
      * @param tripExpense expnese
      * @return
      */
-    public long addExpense(TripExpense tripExpense){
+    public long addExpense(TripExpense tripExpense) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseConstants.TRIP_EXPENSE_TRIP_ID, tripExpense.getTripId());
         contentValues.put(DatabaseConstants.TRIP_EXPENSE_AMOUNT, tripExpense.getAmount());
@@ -79,10 +81,11 @@ public class TripExpensesDatabase extends DataBaseHelper {
 
     /**
      * Adds a members share
+     *
      * @param memberShare member's share
      * @return
      */
-    public long addMemberShare(TripMemberShare memberShare){
+    public long addMemberShare(TripMemberShare memberShare) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseConstants.EXPENSE_SHARE_TRIP_ID, memberShare.getTripId());
         contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, memberShare.getMemberId());
@@ -90,20 +93,20 @@ public class TripExpensesDatabase extends DataBaseHelper {
         contentValues.put(DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE, memberShare.getShare());
         return insert(DatabaseConstants.EXPENSE_SHARE_TABLE, contentValues);
     }
-    
+
     /**
      * Get the total expenses for a trip
      */
-    public float getTotalTripExpenses(long tripId){
+    public float getTotalTripExpenses(long tripId) {
         // rawQuery("SELECT SUM(" + DatabaseConstants.TRIP_EXPENSE_AMOUNT  + ") FROM " + 
         //      DatabaseConstants.TRIP_EXPENSE_TABLE + " WHERE " + DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ?");
-       return 0.0f; 
+        return 0.0f;
     }
-    
+
     //-----------------------------------------------------------
     // Read data from the database
     //-----------------------------------------------------------
-    
+
     /**
      * Returns a trip model by tripId
      *
@@ -115,7 +118,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
                 DatabaseConstants.TRIPS_MASTER_COLUMNS,
                 DatabaseConstants.TRIPS_MASTER_ID + " = ? ",
                 args, null, null, null);
-        if(null == cursor || cursor.getCount() == 0) {
+        if (null == cursor || cursor.getCount() == 0) {
             return null;
         }
 
@@ -123,7 +126,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
         try {
             cursor.moveToNext();
             trip = mapTripModel(cursor);
-        } finally{
+        } finally {
             cursor.close();
         }
         return trip;
@@ -131,6 +134,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
 
     /**
      * Get all the trips
+     *
      * @return
      */
     public List<Trip> getAllTrips() {
@@ -143,38 +147,38 @@ public class TripExpensesDatabase extends DataBaseHelper {
             while (tripsCursor.moveToNext()) {
                 tripsList.add(mapTripModel(tripsCursor));
             }
-        } finally{
+        } finally {
             tripsCursor.close();
         }
         return tripsList;
     }
-    
+
     //-----------------------------------------------------------
     // Data Removal
     //-----------------------------------------------------------
-    
+
     /**
      * Remove a Trip from the database
      *
-     * @param trip Trip to remove
+     * @param tripId Trip to remove
      * @return result
      */
-    public long removeTrip(String tripId){
+    public long removeTrip(String tripId) {
         removeTripExpensesByTripId(tripId);
-        return delete(DatabaseConstants.TRIPS_MASTER_TABLE, TRIPS_MASTER_ID + "=?", new String[]{ tripId });
+        return delete(DatabaseConstants.TRIPS_MASTER_TABLE, DatabaseConstants.TRIPS_MASTER_ID + "=?", new String[]{tripId});
     }
-    
+
     /**
      * Remove Trip Expenses by TripId
      *
      * @param tripId Trip to remove
      * @return result
      */
-    public long removeTripExpensesByTripId(String tripId){
+    public long removeTripExpensesByTripId(String tripId) {
         removeTripExpenseSharesByTripId(tripId);
-        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, TRIP_EXPENSE_ID + "=?", new String[]{ tripId });
+        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, DatabaseConstants.TRIP_EXPENSE_ID + "=?", new String[]{tripId});
     }
-    
+
 
     /**
      * Remove Trip Expense Shares by TripId
@@ -182,32 +186,32 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param tripId Trip to remove
      * @return result
      */
-    public long removeTripExpenseSharesByTripId(String tripId){
-        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, EXPENSE_SHARE_TRIP_ID  + "=?", new String[]{ tripId });
+    public long removeTripExpenseSharesByTripId(String tripId) {
+        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, DatabaseConstants.EXPENSE_SHARE_TRIP_ID + "=?", new String[]{tripId});
     }
-    
+
     /**
      * Remove an Expense from the database
      *
-     * @param trip Trip to remove
+     * @param tripExpense Trip Expense to remove
      * @return result
      */
-    public long removeTripExpenseByExpenseId(TripExpense tripExpense){
-        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, TRIP_EXPENSE_ID + "=?", new String[]{ tripExpense.getId() });
+    public long removeTripExpenseByExpenseId(TripExpense tripExpense) {
+        return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, DatabaseConstants.TRIP_EXPENSE_ID + "=?", new String[]{String.valueOf(tripExpense.getId())});
     }
-    
+
     /**
      * Remove an Expense from the database
      *
-     * @param trip Trip to remove
+     * @param tripExpense Trip Expense to remove
      * @return result
      */
-    public long removeTripExpenseSharesByExpenseId(TripExpense tripExpense){
-        String [] tripExpenseId = new String[]{tripExpense.getId()};
-        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, EXPENSE_SHARE_EXPENSE_ID + "=?", tripExpenseId);
+    public long removeTripExpenseSharesByExpenseId(TripExpense tripExpense) {
+        String[] tripExpenseId = new String[]{String.valueOf(tripExpense.getId())};
+        return delete(DatabaseConstants.EXPENSE_SHARE_TABLE, DatabaseConstants.EXPENSE_SHARE_EXPENSE_ID + "=?", tripExpenseId);
     }
-    
-    
+
+
     //-----------------------------------------------------------
     // Methods for mapping and conversions
     //-----------------------------------------------------------
@@ -218,7 +222,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param cursor
      * @return
      */
-    private Trip mapTripModel(Cursor cursor){
+    private Trip mapTripModel(Cursor cursor) {
         Trip trip = new Trip();
         trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
         trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
