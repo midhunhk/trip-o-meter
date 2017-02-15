@@ -2,6 +2,10 @@
 
 Version 2.0 (Balanjar)
 ----------------------
+**Trip O Meter 2.0.12 [Feb 2017]**
+* [ADDED] Default Profile Picker
+* [ADDED] Material style DialogFragments
+
 **Trip O Meter 2.0.10 [Feb 2017]**
 * [ADDED] More Database interactions
 
