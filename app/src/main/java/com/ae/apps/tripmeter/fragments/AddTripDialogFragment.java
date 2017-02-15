@@ -82,10 +82,13 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         //add defaultContact(current user) to list of members
         mExpenseMembers.add(mExpenseManager.getDefaultContact());
+        // TODO Add default contact to the container
+        // addMemberToContainer();
 
         txtTripName = (EditText) view.findViewById(R.id.txtTripName);
 
         mMembersContainer = (LinearLayout) view.findViewById(R.id.selectedContactsContainer);
+
 
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
@@ -163,15 +166,19 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
             Log.d(TAG, debugInfo.toString());
 
             // Create and add the selected contact
-            TextView textView = new TextView(getActivity());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            textView.setLayoutParams(layoutParams);
-            textView.setText(contactVo.getName());
-            mMembersContainer.addView(textView);
+            addMemberToContainer(contactVo);
 
             mExpenseMembers.add(contactVo);
         }
+    }
+
+    private void addMemberToContainer(ContactVo contactVo) {
+        TextView textView = new TextView(getActivity());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setLayoutParams(layoutParams);
+        textView.setText(contactVo.getName());
+        mMembersContainer.addView(textView);
     }
 
     /**

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
@@ -31,7 +32,8 @@ import java.util.List;
  * interface.
  */
 public class TripsListFragment extends Fragment
-        implements AddTripDialogFragment.AddTripDialogListener {
+        implements AddTripDialogFragment.AddTripDialogListener,
+        PickProfileDialogFragment.SelectProfileListener {
 
     private ExpensesInteractionListener mListener;
 
@@ -85,10 +87,9 @@ public class TripsListFragment extends Fragment
     }
 
     private void checkForDefaultProfile() {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
-        if(TextUtils.isEmpty(profileId)){
-
+        ContactVo contactVo = mExpenseManager.getDefaultProfile();
+        if (null == contactVo) {
+            showSelectProfileDialog();
         }
     }
 
@@ -110,11 +111,19 @@ public class TripsListFragment extends Fragment
         mListener = null;
     }
 
-    private void showAddTripDialog(){
+    private void showAddTripDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();
         dialogFragment.setTargetFragment(TripsListFragment.this, 300);
         dialogFragment.show(fragmentManager, "fragment_add_trip");
+    }
+
+    private void showSelectProfileDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        PickProfileDialogFragment dialogFragment = PickProfileDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(TripsListFragment.this, 300);
+        dialogFragment.setCancelable(false);
+        dialogFragment.show(fragmentManager, "fragment_select_profile");
     }
 
     @Override
@@ -126,8 +135,14 @@ public class TripsListFragment extends Fragment
 
         // add trip to list view
         mTrips.add(trip);
-        if(null != mViewAdapter) {
+        if (null != mViewAdapter) {
             mViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onProfileSelected(String contactId) {
+        // Save this id in shared preferences
+        mExpenseManager.saveDefaultProfile(contactId);
     }
 }

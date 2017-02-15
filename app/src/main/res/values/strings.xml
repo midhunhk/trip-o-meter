@@ -43,6 +43,12 @@
     <string name="str_trip_add_title">Add New Trip</string>
     <string name="str_trip_delete_confirm">Delete this trip?</string>
 
+    <!-- Add Profile Dialog -->
+    <string name="str_profile_select_title">Choose Profile</string>
+    <string name="str_profile_select_text">To use Expenses, we need to know you.</string>
+    <string name="str_profile_select_pick">Select</string>
+    <string name="str_profile_select_button">Choose</string>
+
     <!-- Validation Error Messages -->
     <string name="str_error_empty_inputs">Please enter all data</string>
     <string name="str_error_no_mileage">Please enter correct mileage</string>

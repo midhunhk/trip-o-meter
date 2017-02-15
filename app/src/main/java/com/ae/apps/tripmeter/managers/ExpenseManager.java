@@ -1,11 +1,15 @@
 package com.ae.apps.tripmeter.managers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.util.Calendar;
 import java.util.List;
@@ -31,8 +35,8 @@ public class ExpenseManager {
      * @param context the context
      * @return
      */
-    public static ExpenseManager newInstance(final Context context){
-        if(null == sInstance){
+    public static ExpenseManager newInstance(final Context context) {
+        if (null == sInstance) {
             sInstance = new ExpenseManager(context);
         }
         return sInstance;
@@ -40,9 +44,10 @@ public class ExpenseManager {
 
     /**
      * Create an instance of ExpenseManager
+     *
      * @param context new instance
      */
-    private ExpenseManager(final Context context){
+    private ExpenseManager(final Context context) {
         mContext = context;
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
@@ -54,7 +59,7 @@ public class ExpenseManager {
      * @param trip trip to be added
      * @return trip with tripId
      */
-    public Trip addTrip(final Trip trip){
+    public Trip addTrip(final Trip trip) {
         long rowId = mExpensesDatabase.createTrip(trip);
         ContactVo defaultContact = mContactManager.getDefaultContact();
         trip.setId(rowId);
@@ -62,7 +67,7 @@ public class ExpenseManager {
         return trip;
     }
 
-    public void deleteTrip(final Trip trip){
+    public void deleteTrip(final Trip trip) {
         mExpensesDatabase.removeTrip(String.valueOf(trip.getId()));
     }
 
@@ -71,11 +76,11 @@ public class ExpenseManager {
      *
      * @return contactVo
      */
-    public ContactVo getDefaultContact(){
+    public ContactVo getDefaultContact() {
         return mContactManager.getDefaultContact();
     }
 
-    public List<Trip> getAllTrips(){
+    public List<Trip> getAllTrips() {
         List<Trip> trips = mExpensesDatabase.getAllTrips();
         updateTripsWithContactVos(trips);
 
@@ -87,14 +92,13 @@ public class ExpenseManager {
      *
      * @param trips list of trips
      */
-    private void updateTripsWithContactVos(final List<Trip> trips){
-        for (Trip trip : trips){
+    private void updateTripsWithContactVos(final List<Trip> trips) {
+        for (Trip trip : trips) {
             trip.getMembers().addAll(mContactManager.getContactsFromIds(trip.getMemberIds()));
         }
     }
 
     /**
-     *
      * @return
      */
     private Trip getMockTrip() {
@@ -113,5 +117,25 @@ public class ExpenseManager {
      */
     public ContactVo getContactFromContactId(String contactId) {
         return mContactManager.getContactInfo(contactId);
+    }
+
+    /**
+     * @param contactId
+     */
+    public void saveDefaultProfile(String contactId) {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
+        preferenceManager.edit().putString(AppConstants.PREF_KEY_CURRENT_PROFILE, contactId).commit();
+    }
+
+    /**
+     * @return
+     */
+    public ContactVo getDefaultProfile() {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
+        if (TextUtils.isEmpty(profileId)) {
+            return null;
+        }
+        return getContactFromContactId(profileId);
     }
 }
