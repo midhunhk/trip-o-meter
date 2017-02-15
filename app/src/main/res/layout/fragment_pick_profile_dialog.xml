@@ -16,8 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/str_profile_select_text"
-        android:textStyle="bold"/>
+        android:text="@string/str_profile_select_text"/>
 
     <Button
         android:id="@+id/btnSelectProfile"
@@ -27,9 +26,9 @@
 
     <FrameLayout
         android:id="@+id/profileContainer"
-        android:padding="@dimen/card_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="@dimen/card_padding"/>
 
     <Button
         android:id="@+id/btnChooseAsProfile"
