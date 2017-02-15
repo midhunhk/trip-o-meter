@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
@@ -22,6 +23,7 @@ import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +43,8 @@ public class AddTripDialogFragment extends DialogFragment {
 
     private Collection<ContactVo> mExpenseMembers;
 
+    private EditText txtTripName;
+
     /**
      * Create a new instance of AddTripDialogFragment
      * @return fragment instance
@@ -57,7 +61,7 @@ public class AddTripDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExpenseManager = new ExpenseManager(getActivity());
+        mExpenseManager = ExpenseManager.newInstance(getActivity());
     }
 
     @Override
@@ -71,22 +75,14 @@ public class AddTripDialogFragment extends DialogFragment {
         //add defaultContact(current user) to list of members
         mExpenseMembers.add(mExpenseManager.getDefaultContact());
 
+        txtTripName = (EditText) view.findViewById(R.id.txtTripName);
+
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
         btnAdd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                //do callback and save
-                Trip trip = new Trip();
-                trip.setName("");
-                StringBuilder builder = new StringBuilder();
-                for(ContactVo contactVo : mExpenseMembers){
-                    builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
-                }
-                builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
-
-                trip.setMemberIds(builder.toString());
+                Trip trip = saveTrip();
 
                 sendResult(trip);
 
@@ -104,6 +100,21 @@ public class AddTripDialogFragment extends DialogFragment {
         });
 
         return view;
+    }
+
+    private Trip saveTrip() {
+        Trip trip = new Trip();
+        trip.setName(txtTripName.getText().toString());
+        trip.setStartDate(Calendar.getInstance().getTimeInMillis());
+
+        StringBuilder builder = new StringBuilder();
+        for(ContactVo contactVo : mExpenseMembers){
+            builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
+        }
+        builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
+
+        trip.setMemberIds(builder.toString());
+        return trip;
     }
 
     /**
@@ -131,8 +142,15 @@ public class AddTripDialogFragment extends DialogFragment {
             String contactId = result.getLastPathSegment();
 
             ContactVo contactVo = mExpenseManager.getContactFromContactId(contactId);
-            Toast.makeText(getActivity(), " id " + contactVo.getId(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "Added contact with id " + contactVo.getId());
+
+            // Debug data
+            StringBuilder debugInfo = new StringBuilder("Added contact with id " + contactVo.getId());
+            if(null != contactVo.getName()){
+                debugInfo.append(" " + contactVo.getName());
+            }
+
+            Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, debugInfo.toString());
 
             mExpenseMembers.add(contactVo);
         }

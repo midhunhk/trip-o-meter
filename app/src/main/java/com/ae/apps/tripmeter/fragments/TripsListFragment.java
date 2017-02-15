@@ -47,7 +47,7 @@ public class TripsListFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mExpenseManager = new ExpenseManager(getActivity());
+        mExpenseManager = ExpenseManager.newInstance(getActivity());
     }
 
     @Override

@@ -19,15 +19,30 @@ public class ExpenseManager {
 
     private Context mContext;
 
+    private static ExpenseManager sInstance;
+
     private TripExpensesDatabase mExpensesDatabase;
 
     private ExpenseContactManager mContactManager;
 
     /**
+     * Use this method to return an instance of the Expense Manager
+     *
+     * @param context the context
+     * @return
+     */
+    public static ExpenseManager newInstance(final Context context){
+        if(null == sInstance){
+            sInstance = new ExpenseManager(context);
+        }
+        return sInstance;
+    }
+
+    /**
      * Create an instance of ExpenseManager
      * @param context new instance
      */
-    public ExpenseManager(final Context context){
+    private ExpenseManager(final Context context){
         mContext = context;
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
@@ -45,6 +60,10 @@ public class ExpenseManager {
         trip.setId(rowId);
         Log.d(TAG, "Added trip with id " + rowId + " and name " + trip.getName());
         return trip;
+    }
+
+    public void deleteTrip(final Trip trip){
+        mExpensesDatabase.removeTrip(String.valueOf(trip.getId()));
     }
 
     /**
