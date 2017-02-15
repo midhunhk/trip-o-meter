@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
@@ -41,6 +43,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
     private Collection<ContactVo> mExpenseMembers;
 
     private EditText txtTripName;
+    private LinearLayout mMembersContainer;
 
     /**
      * Create a new instance of AddTripDialogFragment
@@ -81,6 +84,8 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         mExpenseMembers.add(mExpenseManager.getDefaultContact());
 
         txtTripName = (EditText) view.findViewById(R.id.txtTripName);
+
+        mMembersContainer = (LinearLayout) view.findViewById(R.id.selectedContactsContainer);
 
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
@@ -156,6 +161,14 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
             Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, debugInfo.toString());
+
+            // Create and add the selected contact
+            TextView textView = new TextView(getActivity());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            textView.setLayoutParams(layoutParams);
+            textView.setText(contactVo.getName());
+            mMembersContainer.addView(textView);
 
             mExpenseMembers.add(contactVo);
         }
