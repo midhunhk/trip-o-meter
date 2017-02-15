@@ -14,8 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_trip_add_title"
-            android:textStyle="bold"
-            android:textSize="22sp"/>
+            android:textSize="22sp"
+            android:textStyle="bold"/>
 
         <!-- Trip Name -->
         <LinearLayout
@@ -39,7 +39,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="text"/>
+                android:inputType="text"
+                tools:ignore="RtlHardcoded"/>
         </LinearLayout>
 
         <!-- Members included -->
@@ -61,14 +62,13 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical" />
-
+            android:orientation="vertical"/>
 
         <Button
             android:id="@+id/btnTripAdd"
+            style="@style/PrimaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
             android:text="@string/str_trip_add"/>
 
     </LinearLayout>

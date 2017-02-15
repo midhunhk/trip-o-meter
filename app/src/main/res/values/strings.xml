@@ -40,6 +40,7 @@
     <string name="str_trip_members">Members</string>
     <string name="str_trip_add_member">Add Contact</string>
     <string name="str_trip_add">Create Trip</string>
+    <string name="str_trip_add_title">Add New Trip</string>
     <string name="str_trip_delete_confirm">Delete this trip?</string>
 
     <!-- Validation Error Messages -->

@@ -17,4 +17,8 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="PrimaryButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
 </resources>
