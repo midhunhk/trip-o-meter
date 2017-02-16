@@ -1,149 +1,184 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:padding="@dimen/activity_vertical_margin"
-             tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.ae.apps.tripmeter.fragments.PickProfileDialogFragment">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/addExpenseDialogHeader"
+        style="@style/DialogHeaderStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dialog_header_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
 
-        <!-- Expense Amount -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".35"
-                android:text="@string/str_expense_amount"
-                android:textSize="18sp"/>
-
-            <EditText
-                android:id="@+id/txtExpenseAmount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="right"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <!-- Contributor, select from master list -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".35"
-                android:text="@string/str_expense_contributor"
-                android:textSize="18sp"/>
-
-            <Spinner
-                android:id="@+id/txtExpenseContributor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></Spinner>
-
-        </LinearLayout>
-
-        <!-- Members included -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <TextView
-                android:id="@+id/lblMembers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:text="@string/str_expense_members"
-                android:textSize="18sp"/>
-
-            <LinearLayout
-                android:id="@+id/tripMembersContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lblMembers"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical" />
-
-        </RelativeLayout>
-
-        <!-- Expense Note -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".35"
-                android:text="@string/str_expense_note"
-                android:textSize="18sp"/>
-
-            <EditText
-                android:id="@+id/txtExpenseNote"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="right"
-                android:inputType="textCapSentences|textAutoCorrect"/>
-        </LinearLayout>
-
-        <!-- Expense Category -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".35"
-                android:text="@string/str_expense_category"
-                android:textSize="18sp"/>
-
-            <!-- Will be changed to a dropdown if required in future release -->
-            <!-- Possible Values : Transportation, Food and Beverages, Accomodation, Leisure, Medical -->
-          
-            <EditText
-                android:id="@+id/txtExpenseCategory"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="right"
-                android:inputType="textCapSentences|textAutoCorrect"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnExpenseAdd"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_expense_add"/>
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/empty_text"
+            android:src="@drawable/ic_wallet"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</FrameLayout>
+    <ScrollView
+        android:id="@+id/addExpenseContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addExpenseDialogHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_vertical_margin">
+
+
+            <!-- Expense Amount -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_amount"
+                    android:textSize="16sp"/>
+
+                <EditText
+                    android:id="@+id/txtExpenseAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+
+            <!-- Contributor, select from master list -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_contributor"
+                    android:textSize="16sp"/>
+
+                <Spinner
+                    android:id="@+id/txtExpenseContributor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></Spinner>
+
+            </LinearLayout>
+
+            <!-- Members included -->
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:id="@+id/lblMembers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/str_expense_members"
+                    android:textSize="16sp"/>
+
+                <LinearLayout
+                    android:id="@+id/tripMembersContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblMembers"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"/>
+
+            </RelativeLayout>
+
+
+            <!-- Expense Note -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_note"
+                    android:textSize="16sp"/>
+
+                <EditText
+                    android:id="@+id/txtExpenseNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:inputType="textCapSentences|textAutoCorrect"/>
+            </LinearLayout>
+
+            <!-- Expense Category -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
+                    android:text="@string/str_expense_category"
+                    android:textSize="16sp"/>
+
+                <!-- Will be changed to a dropdown if required in future release -->
+                <!-- Possible Values : Transportation, Food and Beverages, Accomodation, Leisure, Medical -->
+
+                <EditText
+                    android:id="@+id/txtExpenseCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:inputType="textCapSentences|textAutoCorrect"/>
+            </LinearLayout>
+
+            <include layout="@layout/separator_line"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnExpenseAdd"
+        style="?attr/buttonBarPositiveButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/addExpenseContainer"
+        android:text="@string/str_expense_add"/>
+</RelativeLayout>

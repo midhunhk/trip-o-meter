@@ -33,7 +33,7 @@
     <string name="str_expense_members">Members</string>
     <string name="str_expense_category">Category</string>
     <string name="str_expense_note">Notes</string>
-    <string name="str_expense_add">Add</string>
+    <string name="str_expense_add">Add Expense</string>
 
     <!-- Add Trip Dialog -->
     <string name="str_trip_name">Trip Name</string>

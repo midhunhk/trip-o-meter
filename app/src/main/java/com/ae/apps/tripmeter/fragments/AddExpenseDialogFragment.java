@@ -41,6 +41,14 @@ public class AddExpenseDialogFragment extends DialogFragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
     public static AddExpenseDialogFragment newInstance(Trip trip) {
         AddExpenseDialogFragment fragment = new AddExpenseDialogFragment();
 
@@ -62,14 +70,12 @@ public class AddExpenseDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_add_expense_dialog, container, false);
 
-        getDialog().setTitle(R.string.str_expense_add);
-
         mContext = getContext();
 
         initViews(view);
 
         Button btnAdd = (Button) view.findViewById(R.id.btnExpenseAdd);
-        btnAdd.setOnClickListener(new View.OnClickListener(){
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -82,8 +88,8 @@ public class AddExpenseDialogFragment extends DialogFragment {
                     sendResult(tripExpense);
 
                     dismiss();
-                } catch(ExpenseValidationException e){
-                    Toast.makeText(mContext, e.getMessage() , Toast.LENGTH_SHORT).show();
+                } catch (ExpenseValidationException e) {
+                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -102,9 +108,9 @@ public class AddExpenseDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    private TripExpense getTripExpense(ContactVo expenseContributor) throws ExpenseValidationException{
+    private TripExpense getTripExpense(ContactVo expenseContributor) throws ExpenseValidationException {
         TripExpense tripExpense = new TripExpense();
-        if(TextUtils.isEmpty(mTxtExpenseAmount.getText())){
+        if (TextUtils.isEmpty(mTxtExpenseAmount.getText())) {
             throw new ExpenseValidationException("enter amount");
         }
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
@@ -118,7 +124,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         CheckBox checkBox;
-        for(ContactVo contactVo : trip.getMembers()){
+        for (ContactVo contactVo : trip.getMembers()) {
             checkBox = new CheckBox(getActivity());
             checkBox.setLayoutParams(layoutParams);
             checkBox.setText(contactVo.getName());
@@ -128,8 +134,8 @@ public class AddExpenseDialogFragment extends DialogFragment {
         }
     }
 
-    private void sendResult(TripExpense tripExpense){
-        if(getTargetFragment() instanceof AddExpenseDialogListener){
+    private void sendResult(TripExpense tripExpense) {
+        if (getTargetFragment() instanceof AddExpenseDialogListener) {
             AddExpenseDialogListener expenseDialogListener = (AddExpenseDialogListener) getTargetFragment();
             expenseDialogListener.onExpenseAdded(tripExpense);
         } else {
@@ -140,16 +146,16 @@ public class AddExpenseDialogFragment extends DialogFragment {
     /**
      *
      */
-    public interface AddExpenseDialogListener{
+    public interface AddExpenseDialogListener {
         void onExpenseAdded(TripExpense tripExpense);
     }
 
     /**
      *
      */
-    private class ExpenseValidationException extends Exception{
+    private class ExpenseValidationException extends Exception {
 
-        ExpenseValidationException(String message){
+        ExpenseValidationException(String message) {
             super(message);
         }
     }
