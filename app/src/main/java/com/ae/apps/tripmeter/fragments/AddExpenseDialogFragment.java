@@ -111,11 +111,14 @@ public class AddExpenseDialogFragment extends DialogFragment {
     private TripExpense getTripExpense(ContactVo expenseContributor) throws ExpenseValidationException {
         TripExpense tripExpense = new TripExpense();
         if (TextUtils.isEmpty(mTxtExpenseAmount.getText())) {
-            throw new ExpenseValidationException("enter amount");
+            throw new ExpenseValidationException("Please Enter expense amount");
         }
+        // TODO Set selected memberIds and validate
+        tripExpense.setMemberIds(trip.getMemberIds());
+
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
         tripExpense.setPaidById(expenseContributor.getId());
-        tripExpense.setMemberIds(trip.getMemberIds());
+
         return tripExpense;
     }
 
