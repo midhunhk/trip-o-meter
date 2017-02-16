@@ -1,13 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:padding="@dimen/activity_vertical_margin"
              tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
+
+    <RelativeLayout
+        android:id="@+id/addTripDialogHeader"
+        style="@style/DialogHeaderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_header_height"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_text"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_car"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/addTripDialogHeader"
+        android:padding="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <TextView
@@ -77,11 +94,12 @@
 
         <Button
             android:id="@+id/btnTripAdd"
-            style="@style/PrimaryButtonStyle"
-            android:layout_width="match_parent"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:text="@string/str_trip_add"/>
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

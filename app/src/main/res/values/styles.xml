@@ -21,4 +21,8 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="DialogHeaderStyle">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
 </resources>
