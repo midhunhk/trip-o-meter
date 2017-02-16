@@ -9,6 +9,12 @@
 ## Motivation
 The idea for Trip O Meter was born out of past experiences with my trips. An ease to calculate fuel required for road trips and to manage expenses when going with friends. It is great to 
 
+## Features
+- Fuel Quantity and Price Calculation
+- Trip Expense Calculations - (Under Development)
+- Current Fuel prices in India - (Under Development)
+- Open Source
+
 ## Development Branch Name
 The codenames for development branches are names of Lost or Mythical cities from world history. They are named in alphabetical order and correspond to features of a public release. 
 
