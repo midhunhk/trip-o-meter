@@ -133,7 +133,6 @@ public class TripDetailsFragment extends Fragment
         FragmentManager fragmentManager = getFragmentManager();
         AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance(mTrip);
         dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
-        // dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme);
         dialogFragment.show(fragmentManager, "fragment_add_expense");
     }
 

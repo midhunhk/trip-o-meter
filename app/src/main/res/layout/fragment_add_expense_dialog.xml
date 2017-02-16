@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.ae.apps.tripmeter.fragments.PickProfileDialogFragment">
+    android:layout_margin="0dp"
+    android:padding="0dp"
+    tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
 
     <RelativeLayout
         android:id="@+id/addExpenseDialogHeader"
@@ -168,17 +170,17 @@
 
             <include layout="@layout/separator_line"/>
 
+            <Button
+                android:id="@+id/btnExpenseAdd"
+                style="?attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/str_expense_add"/>
 
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnExpenseAdd"
-        style="?attr/buttonBarPositiveButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/addExpenseContainer"
-        android:text="@string/str_expense_add"/>
+
 </RelativeLayout>
