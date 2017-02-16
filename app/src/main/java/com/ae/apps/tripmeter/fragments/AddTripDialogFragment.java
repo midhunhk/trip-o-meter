@@ -80,15 +80,13 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         mExpenseMembers = new HashSet<>();
 
-        // add defaultContact(current user) to list of members
-        ContactVo defaultProfile = mExpenseManager.getDefaultProfile();
-        mExpenseMembers.add(defaultProfile);
-
-        addMemberToContainer(defaultProfile);
-
         txtTripName = (EditText) view.findViewById(R.id.txtTripName);
 
         mMembersContainer = (LinearLayout) view.findViewById(R.id.selectedContactsContainer);
+
+        ContactVo defaultProfile = mExpenseManager.getDefaultProfile();
+        mExpenseMembers.add(defaultProfile);
+        addMemberToContainer(defaultProfile);
 
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
