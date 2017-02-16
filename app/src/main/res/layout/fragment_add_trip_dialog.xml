@@ -27,13 +27,6 @@
         android:padding="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_trip_add_title"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
-
         <!-- Trip Name -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,6 +84,8 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"/>
+
+        <include layout="@layout/separator_line"/>
 
         <Button
             android:id="@+id/btnTripAdd"

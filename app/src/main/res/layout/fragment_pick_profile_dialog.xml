@@ -31,17 +31,11 @@
         android:padding="@dimen/activity_vertical_margin">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_profile_select_title"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
-
-        <TextView
             android:paddingTop="@dimen/padding_small"
             android:paddingBottom="@dimen/padding_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="@string/str_profile_select_text"/>
 
         <Button
@@ -55,6 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/card_padding"/>
+
+        <include layout="@layout/separator_line" />
 
         <Button
             android:id="@+id/btnChooseAsProfile"

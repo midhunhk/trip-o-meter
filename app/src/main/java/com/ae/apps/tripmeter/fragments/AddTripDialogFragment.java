@@ -29,7 +29,7 @@ import java.util.HashSet;
 
 /**
  * The Dialog fragment that adds a Trip
- *
+ * <p>
  * The interface AddTripDialogListener should be implemented by invoking Activity / Fragment
  */
 public class AddTripDialogFragment extends AppCompatDialogFragment {
@@ -47,6 +47,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
     /**
      * Create a new instance of AddTripDialogFragment
+     *
      * @return fragment instance
      */
     public static AddTripDialogFragment newInstance() {
@@ -90,7 +91,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
-        btnAdd.setOnClickListener(new View.OnClickListener(){
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Trip trip = saveTrip();
@@ -103,7 +104,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         // Set action for add contact button
         Button btnTripMemberAdd = (Button) view.findViewById(R.id.btnTripMemberAdd);
-        btnTripMemberAdd.setOnClickListener(new View.OnClickListener(){
+        btnTripMemberAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickContact();
@@ -119,7 +120,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         trip.setStartDate(Calendar.getInstance().getTimeInMillis());
 
         StringBuilder builder = new StringBuilder();
-        for(ContactVo contactVo : mExpenseMembers){
+        for (ContactVo contactVo : mExpenseMembers) {
             builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
         }
         builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
@@ -130,24 +131,25 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
     /**
      * Send data back to parent fragment
+     *
      * @param trip the newly created trip
      */
     private void sendResult(Trip trip) {
-        if(getTargetFragment() instanceof AddTripDialogListener){
+        if (getTargetFragment() instanceof AddTripDialogListener) {
             ((AddTripDialogListener) getTargetFragment()).onTripAdded(trip);
-        } else{
+        } else {
             throw new RuntimeException(" must implement the interface AddTripDialogListener");
         }
     }
 
-    private void pickContact(){
+    private void pickContact() {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, CONTACT_PICKER_RESULT);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK && requestCode == CONTACT_PICKER_RESULT){
+        if (resultCode == Activity.RESULT_OK && requestCode == CONTACT_PICKER_RESULT) {
             // Handle Contact pick
             Uri result = data.getData();
             String contactId = result.getLastPathSegment();
@@ -155,18 +157,23 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
             ContactVo contactVo = mExpenseManager.getContactFromContactId(contactId);
 
             // Debug data
-            StringBuilder debugInfo = new StringBuilder("Added contact with id " + contactVo.getId());
-            if(null != contactVo.getName()){
-                debugInfo.append(" " + contactVo.getName());
+            if (null != contactVo.getId()) {
+
+                StringBuilder debugInfo = new StringBuilder("Added contact with id " + contactVo.getId());
+                if (null != contactVo.getName()) {
+                    debugInfo.append(" " + contactVo.getName());
+                }
+
+                Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, debugInfo.toString());
+
+                // Create and add the selected contact
+                addMemberToContainer(contactVo);
+
+                mExpenseMembers.add(contactVo);
+            } else {
+                Log.d(TAG, "contactvo.getId() is null");
             }
-
-            Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, debugInfo.toString());
-
-            // Create and add the selected contact
-            addMemberToContainer(contactVo);
-
-            mExpenseMembers.add(contactVo);
         }
     }
 
@@ -183,7 +190,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
      * Activity/Fragment that invokes this DialogFragment should implement this
      * interface to pass data back
      */
-    public interface AddTripDialogListener{
+    public interface AddTripDialogListener {
         void onTripAdded(Trip trip);
     }
 
