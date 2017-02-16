@@ -1,3 +1,22 @@
+/**
+ * MIT License
+ Copyright (c) 2016 Midhun Harikumar
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
@@ -26,10 +45,11 @@ import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 import java.util.List;
 
 /**
- * A fragment representing a list of Trips. A trip can also be added.
+ * A fragment representing a list of Trips with option to add trips
  * <p>
  * Activities containing this fragment MUST implement the {@link ExpensesInteractionListener}
  * interface.
+ * </p>
  */
 public class TripsListFragment extends Fragment
         implements AddTripDialogFragment.AddTripDialogListener,
@@ -62,6 +82,8 @@ public class TripsListFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
         View list = view.findViewById(R.id.list);
 
+        // Expenses needs default profile to be set inorder to function
+        // Check if one has been selected or ask for 1 to be selected
         checkForDefaultProfile();
 
         mTrips = mExpenseManager.getAllTrips();
@@ -87,12 +109,12 @@ public class TripsListFragment extends Fragment
     }
 
     private void checkForDefaultProfile() {
+        // Ask ExpenseManager for the default profile
         ContactVo contactVo = mExpenseManager.getDefaultProfile();
         if (null == contactVo) {
             showSelectProfileDialog();
         }
     }
-
 
     @Override
     public void onAttach(Context context) {
