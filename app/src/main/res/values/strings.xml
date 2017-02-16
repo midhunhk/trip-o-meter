@@ -47,7 +47,7 @@
     <string name="str_profile_select_title">Choose Default Profile</string>
     <string name="str_profile_select_text">To use Expenses, we need to know who you are. Please select from contacts list.</string>
     <string name="str_profile_select_pick">Select Profile</string>
-    <string name="str_profile_select_button">Choose as Default Profile</string>
+    <string name="str_profile_select_button">Choose as Profile</string>
 
     <!-- Validation Error Messages -->
     <string name="str_error_empty_inputs">Please enter all data</string>

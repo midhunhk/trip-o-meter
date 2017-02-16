@@ -72,10 +72,13 @@ public class ExpenseManager {
     }
 
     /**
-     * Returns the default contact (You) on this device
+     * Returns the default default device account.
+     * You can get the name of the user from this
      *
+     * Use the @link{getDefaultProfile()} method instead to get the Contact
      * @return contactVo
      */
+    @Deprecated
     public ContactVo getDefaultContact() {
         return mContactManager.getDefaultContact();
     }
