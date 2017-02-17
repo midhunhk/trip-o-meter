@@ -166,7 +166,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
                 args, null, null, null);
         List<TripExpense> expensesList = new ArrayList<>();
         if (null == cursor || cursor.getCount() == 0) {
-            // Return an empty list in
+            // Return an empty list instead of null
             return expensesList;
         }
         try {

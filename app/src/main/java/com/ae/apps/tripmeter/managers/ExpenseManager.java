@@ -113,6 +113,12 @@ public class ExpenseManager {
         return tripExpense;
     }
 
+    /**
+     * Gets a list of Expenses for a trip
+     *
+     * @param tripId
+     * @return
+     */
     public List<TripExpense> getExpensesForTrip(String tripId) {
         return mExpensesDatabase.getExpensesForTrip(tripId);
     }
