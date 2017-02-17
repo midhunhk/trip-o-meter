@@ -23,6 +23,9 @@
     <string name="str_calculate">Calculate</string>
     <string name="str_hero_image">Hero image</string>
 
+    <string name="str_expenses">Expenses</string>
+    <string name="str_share">Share</string>
+
     <string name="str_total_fuel_price">Total Fuel Price %s</string>
     <string name="str_total_fuel_needed">Fuel Needed %s</string>
     <string name="str_feature_placeholder">Feature Coming Soon</string>

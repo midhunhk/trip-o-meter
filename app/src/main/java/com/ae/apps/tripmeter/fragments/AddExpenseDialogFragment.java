@@ -137,6 +137,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
             throw new ExpenseValidationException("Please select at least 1 member for this expense");
         }
 
+        tripExpense.setTripId(trip.getId());
         tripExpense.setMemberIds(trip.getMemberIds());
 
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));

@@ -61,10 +61,11 @@ public class TripExpenseFragment extends Fragment {
             ExpenseManager expenseManager = ExpenseManager.newInstance(getContext());
             List<TripExpense> tripExpenses = expenseManager.getExpensesForTrip(tripId);
 
-            Context context = view.getContext();
+            Context context = getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(new TripExpenseRecyclerViewAdapter(tripExpenses));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
         }
         return view;
     }
