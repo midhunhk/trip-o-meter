@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.ae.apps.common.views.RoundedImageView;
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 
@@ -54,7 +53,7 @@ public class ContactSpinnerAdapter extends ArrayAdapter<ContactVo> {
         }
 
         TextView contactName = (TextView) convertView.findViewById(R.id.contactName);
-        RoundedImageView imageView = (RoundedImageView) convertView.findViewById(R.id.contactImage);
+        // RoundedImageView imageView = (RoundedImageView) convertView.findViewById(R.id.contactImage);
         //imageView.setVisibility(View.GONE);
 
         contactName.setText(mValues.get(position).getName());
