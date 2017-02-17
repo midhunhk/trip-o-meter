@@ -61,8 +61,8 @@
                 android:maxHeight="@dimen/image_size"
                 android:contentDescription="@string/empty_text"/>
 
-            <FrameLayout
-                android:id="@+id/profileContainer"
+            <TextView
+                android:id="@+id/profileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/card_padding"/>
