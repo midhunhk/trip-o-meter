@@ -3,8 +3,12 @@ package com.ae.apps.tripmeter.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
+import com.ae.apps.tripmeter.views.adapters.ExpensesPagerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,11 +35,14 @@ import java.util.Locale;
 public class TripDetailsFragment extends Fragment
         implements AddExpenseDialogFragment.AddExpenseDialogListener {
 
-    private long mTripId;
+    private String mTripId;
     private Trip mTrip;
     private ExpenseManager mExpenseManager;
     private LinearLayout mTripMembersContainer;
     private ExpensesInteractionListener mListener;
+
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
 
     public TripDetailsFragment() {
         // Required empty public constructor
@@ -63,11 +71,11 @@ public class TripDetailsFragment extends Fragment
         }
 
         if (null != getArguments()) {
-            mTripId = getArguments().getLong(AppConstants.KEY_TRIP_ID);
+            mTripId = getArguments().getString(AppConstants.KEY_TRIP_ID);
         }
 
         if (null != savedInstanceState) {
-            mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
+            mTripId = savedInstanceState.getString(AppConstants.KEY_TRIP_ID);
         }
 
         initViews(inflatedView);
@@ -100,12 +108,25 @@ public class TripDetailsFragment extends Fragment
                 showAddExpenseDialog();
             }
         });
+
+        mViewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
+        setUpViewPager();
+
+        mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void setUpViewPager(){
+        Bundle args = new Bundle();
+        args.putString(AppConstants.KEY_TRIP_ID, mTripId);
+
+        ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager(), getContext(), args);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(AppConstants.KEY_TRIP_ID, mTripId);
+        outState.putString(AppConstants.KEY_TRIP_ID, mTripId);
     }
 
     @Override

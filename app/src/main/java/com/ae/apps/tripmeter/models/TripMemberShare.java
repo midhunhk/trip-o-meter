@@ -5,41 +5,41 @@ package com.ae.apps.tripmeter.models;
  */
 
 public class TripMemberShare {
-    private long id;
-    private long tripId;
-    private long memberId;
-    private long expenseId;
+    private String id;
+    private String tripId;
+    private String memberId;
+    private String expenseId;
     private float share;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getTripId() {
+    public String getTripId() {
         return tripId;
     }
 
-    public void setTripId(long tripId) {
+    public void setTripId(String tripId) {
         this.tripId = tripId;
     }
 
-    public long getMemberId() {
+    public String getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(long memberId) {
+    public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
 
-    public long getExpenseId() {
+    public String getExpenseId() {
         return expenseId;
     }
 
-    public void setExpenseId(long expenseId) {
+    public void setExpenseId(String expenseId) {
         this.expenseId = expenseId;
     }
 

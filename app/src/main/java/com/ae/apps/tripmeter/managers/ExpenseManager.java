@@ -84,7 +84,7 @@ public class ExpenseManager {
      * Returns a trip with the tripId
      */
     public Trip getTripByTripId(String tripId) {
-        return mExpensesDatabase.getTrip(Long.valueOf(tripId));
+        return mExpensesDatabase.getTrip(tripId);
     }
 
     /**
@@ -105,12 +105,16 @@ public class ExpenseManager {
      */
     public TripExpense addExpense(TripExpense tripExpense) {
         long rowId = mExpensesDatabase.addExpense(tripExpense);
-        tripExpense.setId(rowId);
+        tripExpense.setId(String.valueOf(rowId));
 
         // Calculate share for each member
         calculateExpenseShares(tripExpense);
 
         return tripExpense;
+    }
+
+    public List<TripExpense> getExpensesForTrip(String tripId) {
+        return mExpensesDatabase.getExpensesForTrip(tripId);
     }
 
     /**
@@ -141,7 +145,7 @@ public class ExpenseManager {
                 tripMemberShare = new TripMemberShare();
                 tripMemberShare.setTripId(tripExpense.getTripId());
                 tripMemberShare.setExpenseId(tripExpense.getId());
-                tripMemberShare.setMemberId(Long.valueOf(memberId));
+                tripMemberShare.setMemberId(memberId);
                 tripMemberShare.setShare(shareAmount);
 
                 addExpenseShare(tripMemberShare);
@@ -158,7 +162,7 @@ public class ExpenseManager {
      */
     public TripMemberShare addExpenseShare(TripMemberShare tripExpenseShare) {
         long rowId = mExpensesDatabase.addMemberShare(tripExpenseShare);
-        tripExpenseShare.setId(rowId);
+        tripExpenseShare.setId(String.valueOf(rowId));
         return tripExpenseShare;
     }
 

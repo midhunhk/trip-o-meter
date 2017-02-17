@@ -5,27 +5,27 @@ package com.ae.apps.tripmeter.models;
  */
 
 public class TripExpense {
-    private long id;
-    private long tripId;
-    private float amount;
+    private String id;
+    private String tripId;
     private String memberIds;
     private String paidById;
     private String category;
     private String note;
+    private float amount;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getTripId() {
+    public String getTripId() {
         return tripId;
     }
 
-    public void setTripId(long tripId) {
+    public void setTripId(String tripId) {
         this.tripId = tripId;
     }
 

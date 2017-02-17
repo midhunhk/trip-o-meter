@@ -112,8 +112,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
      *
      * @param mTripId
      */
-    public Trip getTrip(long mTripId) {
-        String[] args = {String.valueOf(mTripId)};
+    public Trip getTrip(String mTripId) {
+        String[] args = {mTripId};
         Cursor cursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
                 DatabaseConstants.TRIPS_MASTER_COLUMNS,
                 DatabaseConstants.TRIPS_MASTER_ID + " = ? ",
@@ -151,6 +151,32 @@ public class TripExpensesDatabase extends DataBaseHelper {
             tripsCursor.close();
         }
         return tripsList;
+    }
+
+
+    /**
+     * @param tripId
+     * @return
+     */
+    public List<TripExpense> getExpensesForTrip(String tripId) {
+        String[] args = {tripId};
+        Cursor cursor = query(DatabaseConstants.TRIP_EXPENSE_TABLE,
+                DatabaseConstants.TRIP_EXPENSE_COLUMNS,
+                DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ? ",
+                args, null, null, null);
+        if (null == cursor || cursor.getCount() == 0) {
+            return null;
+        }
+        List<TripExpense> expensesList = new ArrayList<>();
+        try {
+            // Create Trip models from the cursor
+            while (cursor.moveToNext()) {
+                expensesList.add(mapTripExpenseModel(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return expensesList;
     }
 
     //-----------------------------------------------------------
@@ -231,4 +257,23 @@ public class TripExpensesDatabase extends DataBaseHelper {
         trip.setTotalExpenses(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_TOTAL_EXPENSES)));
         return trip;
     }
+
+    /**
+     * Creates a TripExpense model object from a database cursor
+     *
+     * @param cursor
+     * @return
+     */
+    private TripExpense mapTripExpenseModel(Cursor cursor) {
+        TripExpense tripExpense = new TripExpense();
+        tripExpense.setId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_ID)));
+        tripExpense.setTripId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_TRIP_ID)));
+        tripExpense.setNote(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_NOTE)));
+        tripExpense.setCategory(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_CATEGORY)));
+        tripExpense.setMemberIds(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_MEMBERS)));
+        tripExpense.setPaidById(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_PAID_BY)));
+        tripExpense.setAmount(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_AMOUNT)));
+        return tripExpense;
+    }
+
 }
