@@ -132,6 +132,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
             checkBox.setLayoutParams(layoutParams);
             checkBox.setText(contactVo.getName());
             checkBox.setTag(contactVo.getId());
+            checkBox.setChecked(true);
 
             mMembersContainer.addView(checkBox);
         }
