@@ -16,9 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
-import com.ae.apps.tripmeter.managers.ExpenseContactManager;
+import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
@@ -36,8 +35,7 @@ public class TripDetailsFragment extends Fragment
 
     private long mTripId;
     private Trip mTrip;
-    private TripExpensesDatabase mExpensesDatabase;
-    private ExpenseContactManager mContactManager;
+    private ExpenseManager mExpenseManager;
     private ExpensesInteractionListener mListener;
 
     public TripDetailsFragment() {
@@ -74,12 +72,11 @@ public class TripDetailsFragment extends Fragment
             mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
         }
 
-        mExpensesDatabase = new TripExpensesDatabase(getActivity());
-        mTrip = mExpensesDatabase.getTrip(mTripId);
+        mExpenseManager = new ExpenseManager(getActivity());
+        mTrip = mExpenseManager.getTripByTripId(mTripId);
 
         // Update the trip with the ContactVos from member ids
-        mContactManager = ExpenseContactManager.newInstance(getActivity().getContentResolver());
-        mTrip.getMembers().addAll(mContactManager.getContactsFromIds(mTrip.getMemberIds()));
+        mTrip.getMembers().addAll(mExpenseManager.getContactsFromIds(mTrip.getMemberIds()));
 
         TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
         TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
@@ -139,5 +136,6 @@ public class TripDetailsFragment extends Fragment
     @Override
     public void onExpenseAdded(TripExpense tripExpense) {
         // TODO Ask TripExpenseManager to add this expense and calculate the share
+        mExpenseManager
     }
 }
