@@ -26,7 +26,9 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     private static final int CONTACT_PICKER_RESULT = 2020;
 
     private String contactId;
-    private FrameLayout profileContainer;
+    private TextView mProfileName;
+    private ImageView mProfileImage;
+    private ExpenseManager mExpenseManager;
 
     public static PickProfileDialogFragment newInstance() {
         return new PickProfileDialogFragment();
@@ -48,7 +50,18 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pick_profile_dialog, container, false);
+        
+       initViews(view);
 
+        mExpenseManager = ExpenseManager.newInstance(getActivity());
+        
+        return view;
+    }
+    
+    private initViews(View view){
+        mProfileName = (TextView) view.findViewById(R.id.profileName);
+        mProfileImage = (ImageView) view.findViewById(R.id.contactImage);
+        
         Button btnPickContact = (Button) view.findViewById(R.id.btnSelectProfile);
         btnPickContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +79,6 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
                 dismiss();
             }
         });
-
-        profileContainer = (FrameLayout) view.findViewById(R.id.profileContainer);
-
-        return view;
     }
 
     private void pickContact() {
@@ -80,17 +89,14 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == CONTACT_PICKER_RESULT) {
-            // Handle Contact pick
+            
             Uri result = data.getData();
             contactId = result.getLastPathSegment();
-
-            // TODO Temporary code for feedback of picking a contact
-            TextView textView = new TextView(getActivity());
-            textView.setText("Contact Id " + contactId);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            textView.setLayoutParams(layoutParams);
-            profileContainer.addView(textView);
+            
+            ContactVo profile = mExpenseManager.getContactFromContactId(contactId);
+            mProfileName.setText("Contact Id " + contactId);
+            // TODO Read the profile image
+            // mProfileImage.setDrawable();
         }
     }
 
