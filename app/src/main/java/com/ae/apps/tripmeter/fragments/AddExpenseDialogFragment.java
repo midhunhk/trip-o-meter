@@ -29,7 +29,9 @@ public class AddExpenseDialogFragment extends DialogFragment {
 
     private Trip trip;
     private Context mContext;
-    private TextView mTxtExpenseAmount;
+    private EditText mTxtExpenseAmount;
+    private EditText mTxtExpenseNote;
+    private EditText mTxtExpenseCategory;
     private LinearLayout mMembersContainer;
     private Spinner mSpinnerExpenseContributor;
 
@@ -101,8 +103,9 @@ public class AddExpenseDialogFragment extends DialogFragment {
         mSpinnerExpenseContributor = (Spinner) view.findViewById(R.id.txtExpenseContributor);
         mSpinnerExpenseContributor.setAdapter(new ContactSpinnerAdapter(getActivity(), trip.getMembers()));
 
-        mTxtExpenseAmount = (TextView) view.findViewById(R.id.txtExpenseAmount);
-
+        mTxtExpenseAmount = (EditText) view.findViewById(R.id.txtExpenseAmount);
+        mTxtExpenseNote = (EditText) view.findViewById(R.id.txtExpenseNote);;
+        mTxtExpenseCategory = (EditText) view.findViewById(R.id.txtExpenseCategory);;
         mMembersContainer = (LinearLayout) view.findViewById(R.id.tripMembersContainer);
         addMembersToContainer();
     }
@@ -113,7 +116,27 @@ public class AddExpenseDialogFragment extends DialogFragment {
         if (TextUtils.isEmpty(mTxtExpenseAmount.getText())) {
             throw new ExpenseValidationException("Please Enter expense amount");
         }
-        // TODO Set selected memberIds and validate
+        
+        // Get selected expense members
+        CheckBox checkbox;
+        StringBuilder selectedMemberIds = new StringBuilder();
+        for(int i = 0; i < mMembersContainer.getChildCount(); i++){
+            if(mMembersContainer.getChildAt(i) instanceof CheckBox){
+                checkbox = (CheckBox) mMembersContainer.getChildAt(i);
+                if(checkbox.isChecked()){
+                    selectedMemberIds.append(checkbox.getTag()).append(",");
+                }
+            }
+        }
+        // Remove the trailing "," which is extra
+        if(selectedMemberIds.size() > 0){
+            selectedMemberIds.deleteCharAt(selectedMemberIds.lastIndexOf(","));
+        }
+        
+        if(TextUtils.isEmpty(selectedMemberIds)){
+            throw new ExpenseValidationException("Please select atleast 1 member for this expense");
+        }
+        
         tripExpense.setMemberIds(trip.getMemberIds());
 
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
@@ -133,6 +156,8 @@ public class AddExpenseDialogFragment extends DialogFragment {
             checkBox.setText(contactVo.getName());
             checkBox.setTag(contactVo.getId());
             checkBox.setChecked(true);
+            // Do we require an id to be supplied for each dynamically created view?
+            // checkBox.setid(generateViewId());
 
             mMembersContainer.addView(checkBox);
         }
