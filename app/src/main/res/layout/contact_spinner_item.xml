@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+  <!--
     <com.ae.apps.common.views.RoundedImageView
         android:id="@+id/contactImage"
         android:layout_width="wrap_content"
@@ -15,11 +16,13 @@
         android:maxWidth="@dimen/image_size"
         android:maxHeight="@dimen/image_size"
         android:contentDescription="@string/empty_text"/>
-
+-->
+  
     <TextView
         android:id="@+id/contactName"
         android:layout_marginTop="2dp"
         android:textSize="14sp"
+        android:padding="@dimens/padding_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
