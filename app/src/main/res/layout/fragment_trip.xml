@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/cardview_light_background"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="@dimen/cardview_content_padding">
+    app:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:id="@+id/tripCard"
@@ -17,12 +16,12 @@
         <ImageView
             android:id="@+id/tripImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:contentDescription="@string/empty_text"
             android:src="@drawable/profile_icon_1"
-            android:scaleType="fitStart"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tripName"
@@ -32,6 +31,7 @@
             android:layout_toRightOf="@+id/tripImage"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="@dimen/text_size_large"
+            android:paddingLeft="@dimen/padding_medium"
             tools:ignore="RelativeOverlap"/>
 
         <TextView
@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tripImage"
             android:layout_below="@+id/tripName"
+            android:paddingLeft="@dimen/padding_medium"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tripImage"
             android:layout_below="@+id/tripDate"
+            android:paddingLeft="@dimen/padding_medium"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
@@ -59,6 +61,7 @@
             android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
             android:src="@android:drawable/ic_delete"
             android:contentDescription="@string/empty_text"/>
     </RelativeLayout>
