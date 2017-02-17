@@ -1,18 +1,14 @@
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ae.apps.tripmeter.R;
@@ -24,6 +20,7 @@ import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Activities that contain this fragment must implement the
@@ -31,11 +28,12 @@ import java.util.Calendar;
  * to handle interaction events.
  */
 public class TripDetailsFragment extends Fragment
-        implements AddExpenseDialogFragment.AddExpenseDialogListener{
+        implements AddExpenseDialogFragment.AddExpenseDialogListener {
 
     private long mTripId;
     private Trip mTrip;
     private ExpenseManager mExpenseManager;
+    private LinearLayout mTripMembersContainer;
     private ExpensesInteractionListener mListener;
 
     public TripDetailsFragment() {
@@ -64,28 +62,35 @@ public class TripDetailsFragment extends Fragment
             throw new IllegalArgumentException("TripId is required");
         }
 
-        if(null != getArguments()){
+        if (null != getArguments()) {
             mTripId = getArguments().getLong(AppConstants.KEY_TRIP_ID);
         }
 
-        if(null != savedInstanceState){
+        if (null != savedInstanceState) {
             mTripId = savedInstanceState.getLong(AppConstants.KEY_TRIP_ID);
         }
 
-        mExpenseManager = new ExpenseManager(getActivity());
-        mTrip = mExpenseManager.getTripByTripId(mTripId);
+        initViews(inflatedView);
+
+        return inflatedView;
+    }
+
+    private void initViews(View inflatedView) {
+        mExpenseManager = ExpenseManager.newInstance(getContext());
+        mTrip = mExpenseManager.getTripByTripId(String.valueOf(mTripId));
 
         // Update the trip with the ContactVos from member ids
         mTrip.getMembers().addAll(mExpenseManager.getContactsFromIds(mTrip.getMemberIds()));
 
         TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
         TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
+        mTripMembersContainer = (LinearLayout) inflatedView.findViewById(R.id.tripMembersContainer);
 
         tripName.setText(mTrip.getName());
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mTrip.getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT, Locale.getDefault());
         tripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
@@ -95,8 +100,6 @@ public class TripDetailsFragment extends Fragment
                 showAddExpenseDialog();
             }
         });
-
-        return inflatedView;
     }
 
     @Override
@@ -123,10 +126,9 @@ public class TripDetailsFragment extends Fragment
     }
 
     /**
-     *
      * See https://guides.codepath.com/android/Using-DialogFragment#passing-data-to-parent-fragment
      */
-    private void showAddExpenseDialog(){
+    private void showAddExpenseDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         AddExpenseDialogFragment dialogFragment = AddExpenseDialogFragment.newInstance(mTrip);
         dialogFragment.setTargetFragment(TripDetailsFragment.this, 300);
@@ -135,7 +137,6 @@ public class TripDetailsFragment extends Fragment
 
     @Override
     public void onExpenseAdded(TripExpense tripExpense) {
-        // TODO Ask TripExpenseManager to add this expense and calculate the share
-        mExpenseManager
+        mExpenseManager.addExpense(tripExpense);
     }
 }

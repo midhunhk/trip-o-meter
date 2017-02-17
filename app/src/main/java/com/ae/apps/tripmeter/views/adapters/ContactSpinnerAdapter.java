@@ -55,7 +55,7 @@ public class ContactSpinnerAdapter extends ArrayAdapter<ContactVo> {
 
         TextView contactName = (TextView) convertView.findViewById(R.id.contactName);
         RoundedImageView imageView = (RoundedImageView) convertView.findViewById(R.id.contactImage);
-        imageView.setVisibility(View.GONE);
+        //imageView.setVisibility(View.GONE);
 
         contactName.setText(mValues.get(position).getName());
         // imageView.setImageResource(R.drawable.ic_face_profile);

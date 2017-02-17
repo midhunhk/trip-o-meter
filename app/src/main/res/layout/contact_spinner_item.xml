@@ -22,7 +22,7 @@
         android:id="@+id/contactName"
         android:layout_marginTop="2dp"
         android:textSize="14sp"
-        android:padding="@dimens/padding_small"
+        android:padding="@dimen/padding_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

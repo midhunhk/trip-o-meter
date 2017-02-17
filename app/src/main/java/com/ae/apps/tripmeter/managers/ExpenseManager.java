@@ -2,6 +2,7 @@ package com.ae.apps.tripmeter.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.util.Log;
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.models.TripExpense;
+import com.ae.apps.tripmeter.models.TripMemberShare;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
 import java.util.Calendar;
@@ -52,7 +55,7 @@ public class ExpenseManager {
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
     }
-    
+
     //--------------------------------------------------------------------
     // Trip Management
     //--------------------------------------------------------------------
@@ -65,7 +68,6 @@ public class ExpenseManager {
      */
     public Trip addTrip(final Trip trip) {
         long rowId = mExpensesDatabase.createTrip(trip);
-        ContactVo defaultContact = mContactManager.getDefaultContact();
         trip.setId(rowId);
         Log.d(TAG, "Added trip with id " + rowId + " and name " + trip.getName());
         return trip;
@@ -73,16 +75,16 @@ public class ExpenseManager {
 
     /**
      * Delete a trip from the database
-     */ 
+     */
     public void deleteTrip(final Trip trip) {
         mExpensesDatabase.removeTrip(String.valueOf(trip.getId()));
     }
-    
+
     /**
      * Returns a trip with the tripId
      */
-    public Trip getTripByTripId(String tripId){
-        return mExpensesDatabase.getTrip(tripId);
+    public Trip getTripByTripId(String tripId) {
+        return mExpensesDatabase.getTrip(Long.valueOf(tripId));
     }
 
     /**
@@ -93,79 +95,79 @@ public class ExpenseManager {
         updateTripsWithContactVos(trips);
         return trips;
     }
-    
+
     //--------------------------------------------------------------------
     // TripExpense Management
     //--------------------------------------------------------------------
-    
+
     /**
      * Add an expense
      */
-    public TripExpense addExpense(TripExpense tripExpense){
+    public TripExpense addExpense(TripExpense tripExpense) {
         long rowId = mExpensesDatabase.addExpense(tripExpense);
         tripExpense.setId(rowId);
-        
+
         // Calculate share for each member
         calculateExpenseShares(tripExpense);
-        
+
         return tripExpense;
     }
-    
+
     /**
-     * Caculate the share for each member for this expense and update the database
+     * Calculate the share for each member for this expense and update the database
      */
-    private void calculateExpenseShares(TripExpense tripExpense){
+    private void calculateExpenseShares(TripExpense tripExpense) {
         TripMemberShare tripMemberShare;
-        
+
         float totalExpense = tripExpense.getAmount();
-        String [] memberIds = tripExpense.getMemberIds().split(",");
+        String[] memberIds = tripExpense.getMemberIds().split(",");
         String contributorId = tripExpense.getPaidById();
         int memberCount = memberIds.length;
-        
-        float shareAmount = 0;
-        if(memberCount > 0 && totalExpense > 0){
+
+        float shareAmount;
+        if (memberCount > 0 && totalExpense > 0) {
             float memberShare = totalExpense / memberCount;
-        
-            for(String memberId : memberIds){
+
+            for (String memberId : memberIds) {
                 // Contributor's share is expense minus his share
                 // -ve to indicate it is to be received
-                if(memberId.equals(contributorId)){
+                if (memberId.equals(contributorId)) {
                     shareAmount = -(totalExpense - memberShare);
                 } else {
                     shareAmount = memberShare;
                 }
-                
+
                 // Create the MemberShare model and save in database
                 tripMemberShare = new TripMemberShare();
                 tripMemberShare.setTripId(tripExpense.getTripId());
                 tripMemberShare.setExpenseId(tripExpense.getId());
-                tripMemberShare.setMemberId(memberId);
+                tripMemberShare.setMemberId(Long.valueOf(memberId));
                 tripMemberShare.setShare(shareAmount);
-                    
-                mExpensesDatabase.addMemberShare(tripMemberShare);
+
+                addExpenseShare(tripMemberShare);
             }
         }
     }
-    
+
     //--------------------------------------------------------------------
     // TripExpenseShare Management
     //--------------------------------------------------------------------
-    
+
     /**
      * Add an expense share
      */
-    public TripExpense addExpenseShare(TripExpenseShare tripExpenseShare){
-        long rowId = mExpensesDatabase.addExpenseShare(tripExpenseShare);
+    public TripMemberShare addExpenseShare(TripMemberShare tripExpenseShare) {
+        long rowId = mExpensesDatabase.addMemberShare(tripExpenseShare);
         tripExpenseShare.setId(rowId);
         return tripExpenseShare;
     }
-    
+
     //--------------------------------------------------------------------
     // Profile Management
     //--------------------------------------------------------------------
-    
+
     /**
-     * @param contactId
+     * @param contactId the contactId
      */
     public void saveDefaultProfile(String contactId) {
         SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -173,7 +175,7 @@ public class ExpenseManager {
     }
 
     /**
-     * @return
+     * @return ContactVo
      */
     public ContactVo getDefaultProfile() {
         SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -183,19 +185,20 @@ public class ExpenseManager {
         }
         return getContactFromContactId(profileId);
     }
-    
+
     /**
      * Returns the default default device account.
      * You can get the name of the user from this
-     *
+     * <p>
      * Use the @link{getDefaultProfile()} method instead to get the Contact
+     *
      * @return contactVo
      */
     @Deprecated
     public ContactVo getDefaultContact() {
         return mContactManager.getDefaultContact();
     }
-    
+
     //--------------------------------------------------------------------
     // Private methods
     //--------------------------------------------------------------------
@@ -231,11 +234,22 @@ public class ExpenseManager {
     public ContactVo getContactFromContactId(String contactId) {
         return mContactManager.getContactInfo(contactId);
     }
-    
+
     /**
      * Wraps call to ContactManager and returns list of ContactVo  from contact ids
      */
     public List<ContactVo> getContactsFromIds(String contactIds) {
         return mContactManager.getContactsFromIds(contactIds);
+    }
+
+    /**
+     * Wraps call to ContactManager to read the contact's image
+     *
+     * @param contactId    the contactId
+     * @param defaultImage a default contact image
+     * @return
+     */
+    public Bitmap getContactPhoto(final String contactId, final Bitmap defaultImage) {
+        return mContactManager.getContactPhoto(contactId, defaultImage);
     }
 }
