@@ -115,9 +115,36 @@ public class ExpenseManager {
      * Caculate the share for each member for this expense and update the database
      */
     private void calculateExpenseShares(TripExpense tripExpense){
-        List<TripMemberShare> tripMemberShares = new ArrayList<>();
         TripMemberShare tripMemberShare;
-        mExpensesDatabase.addMemberShare(tripMemberShare);
+        
+        float totalExpense = tripExpense.getAmount();
+        String [] memberIds = tripExpense.getMemberIds().split(",");
+        String contributorId = tripExpense.getPaidById();
+        int memberCount = memberIds.length;
+        
+        float shareAmount = 0;
+        if(memberCount > 0 && totalExpense > 0){
+            float memberShare = totalExpense / memberCount;
+        
+            for(String memberId : memberIds){
+                // Contributor's share is expense minus his share
+                // -ve to indicate it is to be received
+                if(memberId.equals(contributorId)){
+                    shareAmount = -(totalExpense - memberShare);
+                } else {
+                    shareAmount = memberShare;
+                }
+                
+                // Create the MemberShare model and save in database
+                tripMemberShare = new TripMemberShare();
+                tripMemberShare.setTripId(tripExpense.getTripId());
+                tripMemberShare.setExpenseId(tripExpense.getId());
+                tripMemberShare.setMemberId(memberId);
+                tripMemberShare.setShare(shareAmount);
+                    
+                mExpensesDatabase.addMemberShare(tripMemberShare);
+            }
+        }
     }
     
     //--------------------------------------------------------------------
