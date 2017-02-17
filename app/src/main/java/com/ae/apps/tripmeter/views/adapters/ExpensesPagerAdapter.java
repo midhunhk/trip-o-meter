@@ -36,6 +36,6 @@ public class ExpensesPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return mFragments.size();
+        return 2; //mFragments.size();
     }
 }
