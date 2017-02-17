@@ -48,9 +48,8 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
         holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
-        // List of members for a trip includes the current user, hence the +1 below
         if(null != trip.getMemberIds()){
-            int membersCount = trip.getMemberIds().split(",").length + 1;
+            int membersCount = trip.getMemberIds().split(",").length;
             holder.mTripMemberCount.setText( membersCount + " Members");
         }
 

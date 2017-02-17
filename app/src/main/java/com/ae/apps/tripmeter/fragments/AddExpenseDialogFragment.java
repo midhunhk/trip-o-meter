@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
@@ -104,8 +104,8 @@ public class AddExpenseDialogFragment extends DialogFragment {
         mSpinnerExpenseContributor.setAdapter(new ContactSpinnerAdapter(getActivity(), trip.getMembers()));
 
         mTxtExpenseAmount = (EditText) view.findViewById(R.id.txtExpenseAmount);
-        mTxtExpenseNote = (EditText) view.findViewById(R.id.txtExpenseNote);;
-        mTxtExpenseCategory = (EditText) view.findViewById(R.id.txtExpenseCategory);;
+        mTxtExpenseNote = (EditText) view.findViewById(R.id.txtExpenseNote);
+        mTxtExpenseCategory = (EditText) view.findViewById(R.id.txtExpenseCategory);
         mMembersContainer = (LinearLayout) view.findViewById(R.id.tripMembersContainer);
         addMembersToContainer();
     }
@@ -116,31 +116,33 @@ public class AddExpenseDialogFragment extends DialogFragment {
         if (TextUtils.isEmpty(mTxtExpenseAmount.getText())) {
             throw new ExpenseValidationException("Please Enter expense amount");
         }
-        
+
         // Get selected expense members
         CheckBox checkbox;
         StringBuilder selectedMemberIds = new StringBuilder();
-        for(int i = 0; i < mMembersContainer.getChildCount(); i++){
-            if(mMembersContainer.getChildAt(i) instanceof CheckBox){
+        for (int i = 0; i < mMembersContainer.getChildCount(); i++) {
+            if (mMembersContainer.getChildAt(i) instanceof CheckBox) {
                 checkbox = (CheckBox) mMembersContainer.getChildAt(i);
-                if(checkbox.isChecked()){
+                if (checkbox.isChecked()) {
                     selectedMemberIds.append(checkbox.getTag()).append(",");
                 }
             }
         }
         // Remove the trailing "," which is extra
-        if(selectedMemberIds.size() > 0){
+        if (selectedMemberIds.length() > 0) {
             selectedMemberIds.deleteCharAt(selectedMemberIds.lastIndexOf(","));
         }
-        
-        if(TextUtils.isEmpty(selectedMemberIds)){
-            throw new ExpenseValidationException("Please select atleast 1 member for this expense");
+
+        if (TextUtils.isEmpty(selectedMemberIds)) {
+            throw new ExpenseValidationException("Please select at least 1 member for this expense");
         }
-        
+
         tripExpense.setMemberIds(trip.getMemberIds());
 
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
         tripExpense.setPaidById(expenseContributor.getId());
+        tripExpense.setCategory(mTxtExpenseCategory.getText().toString());
+        tripExpense.setNote(mTxtExpenseNote.getText().toString());
 
         return tripExpense;
     }
