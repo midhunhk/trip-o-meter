@@ -52,6 +52,10 @@ public class ExpenseManager {
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
     }
+    
+    //--------------------------------------------------------------------
+    // Trip Management
+    //--------------------------------------------------------------------
 
     /**
      * Adds a trip to the database
@@ -67,20 +71,11 @@ public class ExpenseManager {
         return trip;
     }
 
+    /**
+     * Delete a trip from the database
+     */ 
     public void deleteTrip(final Trip trip) {
         mExpensesDatabase.removeTrip(String.valueOf(trip.getId()));
-    }
-
-    /**
-     * Returns the default default device account.
-     * You can get the name of the user from this
-     *
-     * Use the @link{getDefaultProfile()} method instead to get the Contact
-     * @return contactVo
-     */
-    @Deprecated
-    public ContactVo getDefaultContact() {
-        return mContactManager.getDefaultContact();
     }
     
     /**
@@ -98,6 +93,85 @@ public class ExpenseManager {
         updateTripsWithContactVos(trips);
         return trips;
     }
+    
+    //--------------------------------------------------------------------
+    // TripExpense Management
+    //--------------------------------------------------------------------
+    
+    /**
+     * Add an expense
+     */
+    public TripExpense addExpense(TripExpense tripExpense){
+        long rowId = mExpensesDatabase.addExpense(tripExpense);
+        tripExpense.setId(rowId);
+        
+        // Calculate share for each member
+        calculateExpenseShares(tripExpense);
+        
+        return tripExpense;
+    }
+    
+    /**
+     * Caculate the share for each member for this expense and update the database
+     */
+    private void calculateExpenseShares(TripExpense tripExpense){
+        List<TripMemberShare> tripMemberShares = new ArrayList<>();
+        TripMemberShare tripMemberShare;
+        mExpensesDatabase.addMemberShare(tripMemberShare);
+    }
+    
+    //--------------------------------------------------------------------
+    // TripExpenseShare Management
+    //--------------------------------------------------------------------
+    
+    /**
+     * Add an expense share
+     */
+    public TripExpense addExpenseShare(TripExpenseShare tripExpenseShare){
+        long rowId = mExpensesDatabase.addExpenseShare(tripExpenseShare);
+        tripExpenseShare.setId(rowId);
+        return tripExpenseShare;
+    }
+    
+    //--------------------------------------------------------------------
+    // Profile Management
+    //--------------------------------------------------------------------
+    
+    /**
+     * @param contactId
+     */
+    public void saveDefaultProfile(String contactId) {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
+        preferenceManager.edit().putString(AppConstants.PREF_KEY_CURRENT_PROFILE, contactId).commit();
+    }
+
+    /**
+     * @return
+     */
+    public ContactVo getDefaultProfile() {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
+        if (TextUtils.isEmpty(profileId)) {
+            return null;
+        }
+        return getContactFromContactId(profileId);
+    }
+    
+    /**
+     * Returns the default default device account.
+     * You can get the name of the user from this
+     *
+     * Use the @link{getDefaultProfile()} method instead to get the Contact
+     * @return contactVo
+     */
+    @Deprecated
+    public ContactVo getDefaultContact() {
+        return mContactManager.getDefaultContact();
+    }
+    
+    //--------------------------------------------------------------------
+    // Private methods
+    //--------------------------------------------------------------------
 
     /**
      * Convert memberIds to List of ContactVos
@@ -136,25 +210,5 @@ public class ExpenseManager {
      */
     public List<ContactVo> getContactsFromIds(String contactIds) {
         return mContactManager.getContactsFromIds(contactIds);
-    }
-
-    /**
-     * @param contactId
-     */
-    public void saveDefaultProfile(String contactId) {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
-        preferenceManager.edit().putString(AppConstants.PREF_KEY_CURRENT_PROFILE, contactId).commit();
-    }
-
-    /**
-     * @return
-     */
-    public ContactVo getDefaultProfile() {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
-        if (TextUtils.isEmpty(profileId)) {
-            return null;
-        }
-        return getContactFromContactId(profileId);
     }
 }
