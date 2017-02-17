@@ -130,6 +130,13 @@ public class ExpenseManager {
     public ContactVo getContactFromContactId(String contactId) {
         return mContactManager.getContactInfo(contactId);
     }
+    
+    /**
+     * Wraps call to ContactManager and returns list of ContactVo  from contact ids
+     */
+    public List<ContactVo> getContactsFromIds(String contactIds) {
+        return mContactManager.getContactsFromIds(contactIds);
+    }
 
     /**
      * @param contactId
