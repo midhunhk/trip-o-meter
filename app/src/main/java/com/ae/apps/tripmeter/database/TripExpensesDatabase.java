@@ -164,10 +164,11 @@ public class TripExpensesDatabase extends DataBaseHelper {
                 DatabaseConstants.TRIP_EXPENSE_COLUMNS,
                 DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ? ",
                 args, null, null, null);
-        if (null == cursor || cursor.getCount() == 0) {
-            return null;
-        }
         List<TripExpense> expensesList = new ArrayList<>();
+        if (null == cursor || cursor.getCount() == 0) {
+            // Return an empty list in
+            return expensesList;
+        }
         try {
             // Create Trip models from the cursor
             while (cursor.moveToNext()) {

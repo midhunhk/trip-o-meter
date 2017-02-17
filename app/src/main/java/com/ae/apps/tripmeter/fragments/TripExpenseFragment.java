@@ -31,6 +31,12 @@ public class TripExpenseFragment extends Fragment {
     public TripExpenseFragment() {
     }
 
+    public static TripExpenseFragment newInstance(Bundle args) {
+        TripExpenseFragment tripExpenseFragment = new TripExpenseFragment();
+        tripExpenseFragment.setArguments(args);
+        return tripExpenseFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

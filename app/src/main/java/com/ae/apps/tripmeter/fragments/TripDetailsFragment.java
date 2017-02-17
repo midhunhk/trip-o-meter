@@ -120,7 +120,10 @@ public class TripDetailsFragment extends Fragment
         Bundle args = new Bundle();
         args.putString(AppConstants.KEY_TRIP_ID, mTripId);
 
-        ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager(), getContext(), args);
+        ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager());
+        pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.action_about));
+        pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.action_settings));
+        mViewPager.setAdapter(pagerAdapter);
     }
 
     @Override
