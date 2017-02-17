@@ -82,11 +82,20 @@ public class ExpenseManager {
     public ContactVo getDefaultContact() {
         return mContactManager.getDefaultContact();
     }
+    
+    /**
+     * Returns a trip with the tripId
+     */
+    public Trip getTripByTripId(String tripId){
+        return mExpensesDatabase.getTrip(tripId);
+    }
 
+    /**
+     * Returns all trips
+     */
     public List<Trip> getAllTrips() {
         List<Trip> trips = mExpensesDatabase.getAllTrips();
         updateTripsWithContactVos(trips);
-
         return trips;
     }
 
