@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a Trip
  */
 public class Trip {
-    private long id;
+    private String id;
     private String name;
     private String memberIds;
     private long startDate;
@@ -18,11 +18,11 @@ public class Trip {
 
     private List<ContactVo> members;
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

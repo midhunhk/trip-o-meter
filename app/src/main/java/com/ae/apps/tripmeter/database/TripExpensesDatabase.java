@@ -250,7 +250,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      */
     private Trip mapTripModel(Cursor cursor) {
         Trip trip = new Trip();
-        trip.setId(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
+        trip.setId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
         trip.setName(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_NAME)));
         trip.setStartDate(cursor.getLong(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_TRIP_START_DATE)));
         trip.setMemberIds(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_MEMBER_IDS)));

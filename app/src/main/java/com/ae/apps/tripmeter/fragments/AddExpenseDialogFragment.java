@@ -55,7 +55,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
         AddExpenseDialogFragment fragment = new AddExpenseDialogFragment();
 
         Bundle argBundle = new Bundle();
-        argBundle.putLong(AppConstants.KEY_TRIP_ID, trip.getId());
+        argBundle.putString(AppConstants.KEY_TRIP_ID, trip.getId());
 
         fragment.setArguments(argBundle);
         fragment.setTrip(trip);

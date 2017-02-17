@@ -68,7 +68,7 @@ public class ExpenseManager {
      */
     public Trip addTrip(final Trip trip) {
         long rowId = mExpensesDatabase.createTrip(trip);
-        trip.setId(rowId);
+        trip.setId(String.valueOf(rowId));
         Log.d(TAG, "Added trip with id " + rowId + " and name " + trip.getName());
         return trip;
     }

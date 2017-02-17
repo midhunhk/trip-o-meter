@@ -184,7 +184,7 @@ public class MainActivity extends ToolBarBaseActivity
     public void showTripDetails(Trip trip) {
         // Pass in the trip id as a parameter when creating and switching to the details
         Bundle bundle = new Bundle();
-        bundle.putLong(AppConstants.KEY_TRIP_ID, trip.getId());
+        bundle.putString(AppConstants.KEY_TRIP_ID, trip.getId());
 
         updateDisplayedFragment(FRAGMENT_TRIP_DETAILS, bundle);
     }
