@@ -25,6 +25,7 @@
 
     <string name="str_expenses">Expenses</string>
     <string name="str_share">Share</string>
+    <string name="str_cancel">CANCEL</string>
 
     <string name="str_total_fuel_price">Total Fuel Price %s</string>
     <string name="str_total_fuel_needed">Fuel Needed %s</string>

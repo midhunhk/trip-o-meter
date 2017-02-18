@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="-20dp"
     tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
 
     <RelativeLayout
@@ -35,7 +34,6 @@
             android:orientation="vertical"
             android:padding="@dimen/activity_vertical_margin">
 
-            <!-- Expense Note -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,24 +41,30 @@
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".35"
-                    android:text="@string/str_expense_note"
-                    android:textSize="16sp"/>
-
+                <!-- Expense Note -->
                 <EditText
                     android:id="@+id/txtExpenseNote"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
+                    android:ems="6"
                     android:gravity="end"
+                    android:hint="@string/str_expense_note"
                     android:inputType="textCapSentences|textAutoCorrect"/>
+
+                <!-- Expense Amount -->
+                <EditText
+                    android:id="@+id/txtExpenseAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="6"
+                    android:gravity="end"
+                    android:hint="@string/str_expense_amount"
+                    android:inputType="numberDecimal"/>
             </LinearLayout>
 
-            <!-- Expense Amount -->
+            <!-- Contributor, select from master list -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,34 +73,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".35"
-                    android:text="@string/str_expense_amount"
-                    android:textSize="16sp"/>
-
-                <EditText
-                    android:id="@+id/txtExpenseAmount"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="end"
-                    android:inputType="numberDecimal"/>
-            </LinearLayout>
-
-            <!-- Contributor, select from master list -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight=".35"
+                    android:gravity="center_vertical"
                     android:text="@string/str_expense_contributor"
                     android:textSize="16sp"/>
 
@@ -108,7 +88,6 @@
             </LinearLayout>
 
             <!-- Members included -->
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -167,14 +146,28 @@
 
             <include layout="@layout/separator_line"/>
 
-            <Button
-                android:id="@+id/btnExpenseAdd"
-                style="?attr/buttonBarPositiveButtonStyle"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/str_expense_add"/>
+                android:gravity="end"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btnCancel"
+                    style="?attr/buttonBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/str_cancel"/>
+
+                <Button
+                    android:id="@+id/btnExpenseAdd"
+                    style="?attr/buttonBarPositiveButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/str_expense_add"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
