@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/card_padding"
+                    android:layout_marginLeft="@dimen/margin_medium"
                     android:text="@string/hello_blank_fragment"
                     android:textSize="@dimen/text_size_large"/>
 
@@ -39,6 +40,7 @@
                     android:id="@+id/txtTripDate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_medium"
                     android:padding="@dimen/card_padding"
                     android:text="@string/hello_blank_fragment"/>
 
