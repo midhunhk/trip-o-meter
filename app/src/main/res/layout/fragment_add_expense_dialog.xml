@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="-20dp"
     tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
 
     <RelativeLayout
@@ -60,7 +61,7 @@
                     android:inputType="numberDecimal"/>
             </LinearLayout>
 
-            <!-- Contributor, select from master list -->
+            <!-- Expense Note -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,13 +73,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".35"
+                    android:text="@string/str_expense_note"
+                    android:textSize="16sp"/>
+
+                <EditText
+                    android:id="@+id/txtExpenseNote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:inputType="textCapSentences|textAutoCorrect"/>
+            </LinearLayout>
+
+            <!-- Contributor, select from master list -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".35"
                     android:text="@string/str_expense_contributor"
                     android:textSize="16sp"/>
 
                 <Spinner
                     android:id="@+id/txtExpenseContributor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></Spinner>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -111,32 +137,6 @@
                     android:orientation="vertical"/>
 
             </RelativeLayout>
-
-
-            <!-- Expense Note -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".35"
-                    android:text="@string/str_expense_note"
-                    android:textSize="16sp"/>
-
-                <EditText
-                    android:id="@+id/txtExpenseNote"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="end"
-                    android:inputType="textCapSentences|textAutoCorrect"/>
-            </LinearLayout>
 
             <!-- Expense Category -->
             <LinearLayout
