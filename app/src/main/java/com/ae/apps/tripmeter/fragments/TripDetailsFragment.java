@@ -6,9 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +39,6 @@ public class TripDetailsFragment extends Fragment
     private LinearLayout mTripMembersContainer;
     private ExpensesInteractionListener mListener;
 
-    private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
     public TripDetailsFragment() {
@@ -113,15 +109,14 @@ public class TripDetailsFragment extends Fragment
         mViewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
         setUpViewPager();
 
-        mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
+        TabLayout mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        Bundle args = new Bundle();
-        args.putString(AppConstants.KEY_TRIP_ID, mTripId);
-        Fragment fragment = TripExpenseFragment.newInstance(args);
-
-        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        //transaction.replace(R.id.frag, fragment).commit();
+        // Bundle args = new Bundle();
+        // args.putString(AppConstants.KEY_TRIP_ID, mTripId);
+        // Fragment fragment = TripExpenseFragment.newInstance(args);
+        // FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        // transaction.replace(R.id.frag, fragment).commit();
     }
 
     private void setUpViewPager() {
@@ -170,5 +165,6 @@ public class TripDetailsFragment extends Fragment
     @Override
     public void onExpenseAdded(TripExpense tripExpense) {
         mExpenseManager.addExpense(tripExpense);
+        // TODO Refresh the expense list
     }
 }

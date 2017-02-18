@@ -28,9 +28,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/tripImage"
             android:layout_toRightOf="@+id/tripImage"
             android:paddingBottom="@dimen/padding_small"
             android:paddingLeft="@dimen/padding_medium"
+            android:paddingStart="@dimen/padding_medium"
             android:paddingTop="@dimen/padding_small"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="@dimen/text_size_large"
@@ -41,8 +43,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tripName"
+            android:layout_toEndOf="@+id/tripImage"
             android:layout_toRightOf="@+id/tripImage"
             android:paddingLeft="@dimen/padding_medium"
+            android:paddingStart="@dimen/padding_medium"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
@@ -51,10 +55,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tripDate"
-            android:paddingTop="@dimen/padding_small"
-            android:paddingBottom="@dimen/padding_small"
+            android:layout_toEndOf="@+id/tripImage"
             android:layout_toRightOf="@+id/tripImage"
+            android:paddingBottom="@dimen/padding_small"
             android:paddingLeft="@dimen/padding_medium"
+            android:paddingStart="@dimen/padding_medium"
+            android:paddingTop="@dimen/padding_small"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
