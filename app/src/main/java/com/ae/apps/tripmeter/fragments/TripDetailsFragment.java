@@ -110,21 +110,21 @@ public class TripDetailsFragment extends Fragment
             }
         });
 
-        //mViewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
-        //setUpViewPager();
+        mViewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
+        setUpViewPager();
 
-        //mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
-        //mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         Bundle args = new Bundle();
         args.putString(AppConstants.KEY_TRIP_ID, mTripId);
         Fragment fragment = TripExpenseFragment.newInstance(args);
 
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.frag, fragment).commit();
+        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        //transaction.replace(R.id.frag, fragment).commit();
     }
 
-    private void setUpViewPager(){
+    private void setUpViewPager() {
         Bundle args = new Bundle();
         args.putString(AppConstants.KEY_TRIP_ID, mTripId);
 

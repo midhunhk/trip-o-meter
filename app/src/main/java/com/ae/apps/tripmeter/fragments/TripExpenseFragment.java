@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class TripExpenseFragment extends Fragment {
 
+    private String tripId = "";
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -47,7 +49,6 @@ public class TripExpenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tripexpense_list, container, false);
 
-        String tripId = "";
         if (null != getArguments()) {
             tripId = getArguments().getString(AppConstants.KEY_TRIP_ID);
         }
@@ -68,6 +69,12 @@ public class TripExpenseFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
         }
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(AppConstants.KEY_TRIP_ID, tripId);
     }
 
 }
