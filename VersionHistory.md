@@ -2,6 +2,12 @@
 
 Version 2.0 (Balanjar)
 ----------------------
+**Trip O Meter 2.0.16 [Feb 2017]**
+* [ADDED] Calculate Trip Expense Share
+* [ADDED] Display Trip Expense Share
+* [ADDED] Display Trip Expense details
+* [ADDED] Show total trip expense amount
+
 **Trip O Meter 2.0.12 [Feb 2017]**
 * [ADDED] Default Profile Picker
 * [ADDED] Material style DialogFragments

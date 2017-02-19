@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">2.0.12 (Balanjar)</string>
+    <string name="app_version_name">2.0.16 (Balanjar)</string>
     <string name="app_version_code">Atlantis is a fictional island mentioned within Plato\'s works Timaeus and Critias, where it represents the antagonist naval power that besieges Ancient Athens.</string>
     <string name="app_release_date">Feb 2017</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
@@ -37,7 +37,7 @@
     <string name="str_expense_contributor">Contributor</string>
     <string name="str_expense_members">Members</string>
     <string name="str_expense_category">Category</string>
-    <string name="str_expense_note">Notes</string>
+    <string name="str_expense_note">Note</string>
     <string name="str_expense_add">Add Expense</string>
 
     <!-- Add Trip Dialog -->
