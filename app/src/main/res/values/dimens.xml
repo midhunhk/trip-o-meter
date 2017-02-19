@@ -11,7 +11,7 @@
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_medium">16sp</dimen>
 
-    <dimen name="image_size">30dp</dimen>
+    <dimen name="image_size">35dp</dimen>
 
     <dimen name="dialog_header_height">100dp</dimen>
     <dimen name="dialog_header_height_small">70dp</dimen>

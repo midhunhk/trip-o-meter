@@ -72,7 +72,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="280dp"
                 android:background="@color/white"
                 android:padding="@dimen/padding_medium"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -86,7 +86,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add"
         app:elevation="8dp"
-        app:layout_anchor="@+id/headerCardContainer"
-        app:layout_anchorGravity="bottom|end|right"/>
+        app:layout_anchor="@+id/txtTripName"
+        app:layout_anchorGravity="top|end|right"/>
 
 </android.support.design.widget.CoordinatorLayout>
