@@ -93,10 +93,8 @@ public class TripDetailsFragment extends Fragment
 
         tripName.setText(mTrip.getName());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(mTrip.getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT, Locale.getDefault());
-        tripDate.setText(simpleDateFormat.format(calendar.getTime()));
+        // Display total trip expenses below trip name
+        tripDate.setText(getString(R.string.str_total_expenses) + mExpenseManager.getTotalTripexpenses(mTripId));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

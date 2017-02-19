@@ -147,6 +147,10 @@ public class ExpenseManager {
         return memberShares;
     }
 
+    public float getTotalTripexpenses(String tripId){
+        return mExpensesDatabase.getTotalTripExpenses(tripId);
+    }
+
     /**
      * Calculate the share for each member for this expense and update the database
      */

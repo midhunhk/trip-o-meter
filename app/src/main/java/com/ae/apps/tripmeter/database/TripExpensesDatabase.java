@@ -181,7 +181,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
-     * @param trip
+     * @param tripId
      * @return
      */
     public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
@@ -200,6 +200,27 @@ public class TripExpensesDatabase extends DataBaseHelper {
             cursor.close();
         }
         return memberShares;
+    }
+
+    /**
+     *
+     * @param tripId
+     * @return
+     */
+    public float getTotalTripExpenses(String tripId) {
+        float totalExpenses = 0f;
+        String[] selectionArgs = {tripId};
+        Cursor cursor = rawQuery("SELECT SUM (" + DatabaseConstants.TRIP_EXPENSE_AMOUNT + ")" +
+                " FROM " + DatabaseConstants.TRIP_EXPENSE_TABLE +
+                " WHERE " + DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ? ", selectionArgs);
+        try {
+            if (cursor.moveToFirst()) {
+                totalExpenses = cursor.getFloat(0);
+            }
+        } finally {
+            cursor.close();
+        }
+        return totalExpenses;
     }
 
     //-----------------------------------------------------------
