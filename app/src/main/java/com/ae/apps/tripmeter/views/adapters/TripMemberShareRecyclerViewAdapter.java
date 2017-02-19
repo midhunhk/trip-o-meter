@@ -34,7 +34,7 @@ public class TripMemberShareRecyclerViewAdapter extends
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getContactVo().getName());
-        //  (new ImageView()).setImageDrawable();
+        holder.mContactImage.setImageDrawable(mValues.get(position).getContactPhoto());
         // TODO Color code for -ve or +ve amount of share
         holder.mContentView.setText(String.valueOf(mValues.get(position).getShare()));
     }
@@ -48,6 +48,7 @@ public class TripMemberShareRecyclerViewAdapter extends
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final ImageView mContactImage;
         public TripMemberShare mItem;
 
         public ViewHolder(View view) {
@@ -55,6 +56,7 @@ public class TripMemberShareRecyclerViewAdapter extends
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.txtContactName);
             mContentView = (TextView) view.findViewById(R.id.txtExpenseAmount);
+            mContactImage = (ImageView) view.findViewById(R.id.contactImage);
         }
 
         @Override
