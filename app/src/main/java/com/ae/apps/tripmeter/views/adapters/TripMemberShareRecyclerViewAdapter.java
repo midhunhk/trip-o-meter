@@ -1,5 +1,6 @@
 package com.ae.apps.tripmeter.views.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,11 @@ public class TripMemberShareRecyclerViewAdapter extends
         holder.mIdView.setText(mValues.get(position).getContactVo().getName());
         holder.mContactImage.setImageDrawable(mValues.get(position).getContactPhoto());
         // TODO Color code for -ve or +ve amount of share
+        if (mValues.get(position).getShare() < 0) {
+            holder.mContentView.setTextColor(Color.GREEN);
+        } else if (mValues.get(position).getShare() > 0) {
+            holder.mContentView.setTextColor(Color.RED);
+        }
         holder.mContentView.setText(String.valueOf(mValues.get(position).getShare()));
     }
 
