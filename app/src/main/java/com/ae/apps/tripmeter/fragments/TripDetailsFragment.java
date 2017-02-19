@@ -94,7 +94,7 @@ public class TripDetailsFragment extends Fragment
         tripName.setText(mTrip.getName());
 
         // Display total trip expenses below trip name
-        tripDate.setText(getString(R.string.str_total_expenses) + mExpenseManager.getTotalTripexpenses(mTripId));
+        tripDate.setText(getString(R.string.str_total_expenses) + " " + mExpenseManager.getTotalTripexpenses(mTripId));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
