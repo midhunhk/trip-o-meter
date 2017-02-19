@@ -30,8 +30,8 @@
                     android:id="@+id/txtTripName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/card_padding"
                     android:layout_marginLeft="@dimen/margin_medium"
+                    android:padding="@dimen/card_padding"
                     android:text="@string/hello_blank_fragment"
                     android:textSize="@dimen/text_size_large"/>
 
@@ -49,6 +49,7 @@
                     android:id="@+id/tripMembersContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium"
                     android:orientation="horizontal"/>
 
                 <!--
@@ -69,10 +70,15 @@
                 <!-- Tabs with expenses and current shares -->
             </LinearLayout>
 
+            <View
+                android:id="@+id/separatorView"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"/>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="240dp"
                 android:background="@color/white"
                 android:padding="@dimen/padding_medium"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -86,7 +92,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add"
         app:elevation="8dp"
-        app:layout_anchor="@+id/txtTripName"
+        app:layout_anchor="@+id/separatorView"
         app:layout_anchorGravity="top|end|right"/>
 
 </android.support.design.widget.CoordinatorLayout>

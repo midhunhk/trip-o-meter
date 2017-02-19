@@ -1,6 +1,8 @@
 package com.ae.apps.tripmeter.fragments;
 
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ae.apps.common.views.RoundedImageView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
@@ -20,10 +23,6 @@ import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.ExpensesPagerAdapter;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Activities that contain this fragment must implement the
@@ -37,7 +36,6 @@ public class TripDetailsFragment extends Fragment
     private Trip mTrip;
     private ExpenseManager mExpenseManager;
     private LinearLayout mTripMembersContainer;
-    private ExpensesInteractionListener mListener;
 
     private ViewPager mViewPager;
 
@@ -91,6 +89,8 @@ public class TripDetailsFragment extends Fragment
         TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
         mTripMembersContainer = (LinearLayout) inflatedView.findViewById(R.id.tripMembersContainer);
 
+        addTripMembersToContainer();
+
         tripName.setText(mTrip.getName());
 
         // Display total trip expenses below trip name
@@ -117,6 +117,23 @@ public class TripDetailsFragment extends Fragment
         // transaction.replace(R.id.frag, fragment).commit();
     }
 
+    private void addTripMembersToContainer() {
+        Bitmap defaultProfilePic = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
+        String[] memberIds = mTrip.getMemberIds().split(",");
+        RoundedImageView roundedImageView;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(5, 5, 5, 5);
+        for (String memberId : memberIds) {
+            roundedImageView = new RoundedImageView(getContext());
+            roundedImageView.setImageDrawable(
+                    new BitmapDrawable(getResources(), mExpenseManager.getContactPhoto(memberId, defaultProfilePic))
+            );
+            mTripMembersContainer.addView(roundedImageView, layoutParams);
+        }
+    }
+
     private void setUpViewPager() {
         Bundle args = new Bundle();
         args.putString(AppConstants.KEY_TRIP_ID, mTripId);
@@ -131,23 +148,6 @@ public class TripDetailsFragment extends Fragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(AppConstants.KEY_TRIP_ID, mTripId);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ExpensesInteractionListener) {
-            mListener = (ExpensesInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ExpensesInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     /**

@@ -50,7 +50,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * Creates a trip and returns the created row id
      *
      * @param trip Trip data to be added
-     * @return
+     * @return trip created status
      */
     public long createTrip(Trip trip) {
         ContentValues contentValues = new ContentValues();
@@ -66,7 +66,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * Adds a trip expense row
      *
      * @param tripExpense expnese
-     * @return
+     * @return expense creation status
      */
     public long addExpense(TripExpense tripExpense) {
         ContentValues contentValues = new ContentValues();
@@ -83,7 +83,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * Adds a members share
      *
      * @param memberShare member's share
-     * @return
+     * @return member share creation status
      */
     public long addMemberShare(TripMemberShare memberShare) {
         ContentValues contentValues = new ContentValues();
@@ -94,15 +94,6 @@ public class TripExpensesDatabase extends DataBaseHelper {
         return insert(DatabaseConstants.EXPENSE_SHARE_TABLE, contentValues);
     }
 
-    /**
-     * Get the total expenses for a trip
-     */
-    public float getTotalTripExpenses(long tripId) {
-        // rawQuery("SELECT SUM(" + DatabaseConstants.TRIP_EXPENSE_AMOUNT  + ") FROM " + 
-        //      DatabaseConstants.TRIP_EXPENSE_TABLE + " WHERE " + DatabaseConstants.TRIP_EXPENSE_TRIP_ID + " = ?");
-        return 0.0f;
-    }
-
     //-----------------------------------------------------------
     // Read data from the database
     //-----------------------------------------------------------
@@ -110,7 +101,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Returns a trip model by tripId
      *
-     * @param mTripId
+     * @param mTripId trip id
      */
     public Trip getTrip(String mTripId) {
         String[] args = {mTripId};
@@ -135,7 +126,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Get all the trips
      *
-     * @return
+     * @return list of trips
      */
     public List<Trip> getAllTrips() {
         Cursor tripsCursor = query(DatabaseConstants.TRIPS_MASTER_TABLE,
@@ -155,8 +146,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
 
 
     /**
-     * @param tripId
-     * @return
+     * @param tripId tripId
+     * @return trip expenses list
      */
     public List<TripExpense> getExpensesForTrip(String tripId) {
         String[] args = {tripId};
@@ -181,8 +172,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
-     * @param tripId
-     * @return
+     * @param tripId tripId
+     * @return list of tripmembershares
      */
     public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
         List<TripMemberShare> memberShares = new ArrayList<>();
@@ -203,9 +194,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
-     *
-     * @param tripId
-     * @return
+     * @param tripId tripId
+     * @return total trip amount
      */
     public float getTotalTripExpenses(String tripId) {
         float totalExpenses = 0f;
@@ -249,7 +239,6 @@ public class TripExpensesDatabase extends DataBaseHelper {
         return delete(DatabaseConstants.TRIP_EXPENSE_TABLE, DatabaseConstants.TRIP_EXPENSE_ID + "=?", new String[]{tripId});
     }
 
-
     /**
      * Remove Trip Expense Shares by TripId
      *
@@ -289,8 +278,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Creates a Trip model object from a database cursor
      *
-     * @param cursor
-     * @return
+     * @param cursor cursor
+     * @return model
      */
     private Trip mapTripModel(Cursor cursor) {
         Trip trip = new Trip();
@@ -305,8 +294,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Creates a TripExpense model object from a database cursor
      *
-     * @param cursor
-     * @return
+     * @param cursor cursor
+     * @return model
      */
     private TripExpense mapTripExpenseModel(Cursor cursor) {
         TripExpense tripExpense = new TripExpense();
@@ -323,8 +312,8 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Creates a TripMemeberShare model object from a database cursor
      *
-     * @param cursor
-     * @return
+     * @param cursor cursor
+     * @return model
      */
     private TripMemberShare mapExpenseShareModel(Cursor cursor) {
         TripMemberShare memberShare = new TripMemberShare();
