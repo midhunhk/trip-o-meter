@@ -125,7 +125,7 @@ public class TripDetailsFragment extends Fragment
 
         ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager());
         pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.str_expenses));
-        pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.str_share));
+        pagerAdapter.addFragment(TripMemberShareFragment.newInstance(args), getResources().getString(R.string.str_share));
         mViewPager.setAdapter(pagerAdapter);
     }
 

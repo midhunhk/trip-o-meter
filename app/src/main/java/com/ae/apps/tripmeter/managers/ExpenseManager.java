@@ -3,11 +3,14 @@ package com.ae.apps.tripmeter.managers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
@@ -121,6 +124,27 @@ public class ExpenseManager {
      */
     public List<TripExpense> getExpensesForTrip(String tripId) {
         return mExpensesDatabase.getExpensesForTrip(tripId);
+    }
+
+    /**
+     * Get a list of Member Shares for a trip
+     *
+     * @param tripId
+     * @return
+     */
+    public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
+        List<TripMemberShare> memberShares = mExpensesDatabase.getExpenseShareForTrip(tripId);
+        ContactVo contactVo;
+        BitmapDrawable bitmapDrawable;
+        Bitmap defaultProfile = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
+        for (TripMemberShare memberShare : memberShares) {
+            contactVo = mContactManager.getContactInfo(memberShare.getMemberId());
+            memberShare.setContactVo(contactVo);
+            bitmapDrawable = new BitmapDrawable(mContext.getResources(),
+                    mContactManager.getContactPhoto(memberShare.getMemberId(), defaultProfile));
+            memberShare.setContactPhoto(bitmapDrawable);
+        }
+        return memberShares;
     }
 
     /**

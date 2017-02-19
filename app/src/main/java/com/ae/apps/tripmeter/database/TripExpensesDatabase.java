@@ -180,6 +180,28 @@ public class TripExpensesDatabase extends DataBaseHelper {
         return expensesList;
     }
 
+    /**
+     * @param trip
+     * @return
+     */
+    public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
+        List<TripMemberShare> memberShares = new ArrayList<>();
+        String[] selectionArgs = {tripId};
+        Cursor cursor = rawQuery("SELECT SUM (" + DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE + ")," +
+                " " + DatabaseConstants.EXPENSE_SHARE_MEMBER_ID +
+                " FROM " + DatabaseConstants.EXPENSE_SHARE_TABLE +
+                " WHERE " + DatabaseConstants.EXPENSE_SHARE_TRIP_ID + " = ? " +
+                " GROUP BY " + DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, selectionArgs);
+        try {
+            while (cursor.moveToNext()) {
+                memberShares.add(mapExpenseShareModel(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return memberShares;
+    }
+
     //-----------------------------------------------------------
     // Data Removal
     //-----------------------------------------------------------
@@ -275,6 +297,19 @@ public class TripExpensesDatabase extends DataBaseHelper {
         tripExpense.setPaidById(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_PAID_BY)));
         tripExpense.setAmount(cursor.getFloat(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_AMOUNT)));
         return tripExpense;
+    }
+
+    /**
+     * Creates a TripMemeberShare model object from a database cursor
+     *
+     * @param cursor
+     * @return
+     */
+    private TripMemberShare mapExpenseShareModel(Cursor cursor) {
+        TripMemberShare memberShare = new TripMemberShare();
+        memberShare.setShare(cursor.getFloat(0));
+        memberShare.setMemberId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.EXPENSE_SHARE_MEMBER_ID)));
+        return memberShare;
     }
 
 }
