@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.models.TripMemberShare;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -44,7 +45,10 @@ public class TripMemberShareRecyclerViewAdapter extends
         } else if (mValues.get(position).getShare() > 0) {
             holder.mContentView.setTextColor(Color.RED);
         }
-        holder.mContentView.setText(String.valueOf(mValues.get(position).getShare()));
+        
+        BigDecimal roundedAmount = new BigDecimal(Float.toString(mValues.get(position).getShare()));
+        roundedAmount = roundedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        holder.mContentView.setText(roundedAmount.toString());
     }
 
     @Override
