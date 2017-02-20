@@ -111,6 +111,7 @@ public class MainActivity extends ToolBarBaseActivity
     private void updateDisplayedFragment(int itemId, Bundle bundle) {
         Fragment fragment = null;
         int feature = itemId;
+        boolean clearTripExpenseBackStack = true;
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
@@ -132,15 +133,19 @@ public class MainActivity extends ToolBarBaseActivity
                 fragment = TripDetailsFragment.newInstance();
                 fragmentTransaction.addToBackStack("TripExpense");
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
+                clearTripExpenseBackStack = false;
                 break;
         }
         // Pass in the argument bundle if it exists
-        if (null != bundle) {
+        if (null != bundle && null != fragment) {
             fragment.setArguments(bundle);
+        }
+        if(clearTripExpenseBackStack){
+            FragmentManager.popBackStack("TripExpense", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
-                .commit();
+                .apply();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
     }
 

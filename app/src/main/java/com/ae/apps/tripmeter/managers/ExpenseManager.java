@@ -27,9 +27,11 @@ public class ExpenseManager {
 
     private final String TAG = "ExpenseManager";
 
+    private static ExpenseManager sInstance;
+
     private Context mContext;
 
-    private static ExpenseManager sInstance;
+    private Bitmap mDefaultProfilePic;
 
     private TripExpensesDatabase mExpensesDatabase;
 
@@ -57,6 +59,8 @@ public class ExpenseManager {
         mContext = context;
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
+
+        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
     }
 
     //--------------------------------------------------------------------
@@ -289,5 +293,15 @@ public class ExpenseManager {
      */
     public Bitmap getContactPhoto(final String contactId, final Bitmap defaultImage) {
         return mContactManager.getContactPhoto(contactId, defaultImage);
+    }
+
+    /**
+     *  Gets the contact photo, gives a default if none exists
+     *
+     * @param contactId
+     * @return
+     */
+    public Bitmap getContactPhoto(final String contactId){
+        return mContactManager.getContactPhoto(contactId, mDefaultProfilePic);
     }
 }

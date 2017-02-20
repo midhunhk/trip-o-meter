@@ -1,7 +1,5 @@
 package com.ae.apps.tripmeter.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -94,7 +92,7 @@ public class TripDetailsFragment extends Fragment
         tripName.setText(mTrip.getName());
 
         // Display total trip expenses below trip name
-        tripDate.setText(getString(R.string.str_total_expenses) + " " + mExpenseManager.getTotalTripexpenses(mTripId));
+        tripDate.setText(getString(R.string.str_total_expenses) + " : " + mExpenseManager.getTotalTripexpenses(mTripId));
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +116,7 @@ public class TripDetailsFragment extends Fragment
     }
 
     private void addTripMembersToContainer() {
-        Bitmap defaultProfilePic = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
-        String[] memberIds = mTrip.getMemberIds().split(",");
+        String[] memberIds = mTrip.getMemberIds().split(AppConstants.CONTACT_ID_SEPARATOR);
         RoundedImageView roundedImageView;
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
@@ -128,7 +125,7 @@ public class TripDetailsFragment extends Fragment
         for (String memberId : memberIds) {
             roundedImageView = new RoundedImageView(getContext());
             roundedImageView.setImageDrawable(
-                    new BitmapDrawable(getResources(), mExpenseManager.getContactPhoto(memberId, defaultProfilePic))
+                    new BitmapDrawable(getResources(), mExpenseManager.getContactPhoto(memberId))
             );
             mTripMembersContainer.addView(roundedImageView, layoutParams);
         }
@@ -141,6 +138,7 @@ public class TripDetailsFragment extends Fragment
         ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager());
         pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.str_expenses));
         pagerAdapter.addFragment(TripMemberShareFragment.newInstance(args), getResources().getString(R.string.str_share));
+        // TODO Add fragment showing total Spending per member
         mViewPager.setAdapter(pagerAdapter);
     }
 

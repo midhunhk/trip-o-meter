@@ -3,14 +3,11 @@ package com.ae.apps.tripmeter.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +30,6 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     private String contactId;
     private TextView mProfileName;
     private ImageView mProfileImage;
-    private Bitmap mDefaultProfilePic;
     private ExpenseManager mExpenseManager;
 
     public static PickProfileDialogFragment newInstance() {
@@ -56,8 +52,6 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pick_profile_dialog, container, false);
-
-        mDefaultProfilePic = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_image);
 
         initViews(view);
 
@@ -105,7 +99,7 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
             mProfileName.setText(profile.getName());
 
             Drawable profileImage = new BitmapDrawable(getResources(),
-                    mExpenseManager.getContactPhoto(contactId, mDefaultProfilePic));
+                    mExpenseManager.getContactPhoto(contactId));
             mProfileImage.setImageDrawable(profileImage);
         }
     }

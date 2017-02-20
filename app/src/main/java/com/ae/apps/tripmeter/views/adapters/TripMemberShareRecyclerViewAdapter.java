@@ -14,6 +14,7 @@ import com.ae.apps.tripmeter.models.TripMemberShare;
 import java.util.List;
 
 /**
+ * Adapter for
  */
 public class TripMemberShareRecyclerViewAdapter extends
         RecyclerView.Adapter<TripMemberShareRecyclerViewAdapter.ViewHolder> {
@@ -36,7 +37,8 @@ public class TripMemberShareRecyclerViewAdapter extends
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getContactVo().getName());
         holder.mContactImage.setImageDrawable(mValues.get(position).getContactPhoto());
-        // TODO Color code for -ve or +ve amount of share
+
+        // Color code for -ve or +ve amount of share indicates amount to give or receive
         if (mValues.get(position).getShare() < 0) {
             holder.mContentView.setTextColor(Color.GREEN);
         } else if (mValues.get(position).getShare() > 0) {
@@ -50,14 +52,14 @@ public class TripMemberShareRecyclerViewAdapter extends
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public final ImageView mContactImage;
-        public TripMemberShare mItem;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView mIdView;
+        final TextView mContentView;
+        final ImageView mContactImage;
+        TripMemberShare mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.txtContactName);
