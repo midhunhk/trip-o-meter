@@ -136,7 +136,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
                 }
             }
         }
-        // Remove the trailing "," which is extra
+        // Remove the extra "," at the end
         if (selectedMemberIds.length() > 0) {
             selectedMemberIds.deleteCharAt(selectedMemberIds.lastIndexOf(","));
         }
@@ -146,7 +146,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
         }
 
         tripExpense.setTripId(trip.getId());
-        tripExpense.setMemberIds(trip.getMemberIds());
+        tripExpense.setMemberIds(selectedMemberIds);
 
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
         tripExpense.setPaidById(expenseContributor.getId());
