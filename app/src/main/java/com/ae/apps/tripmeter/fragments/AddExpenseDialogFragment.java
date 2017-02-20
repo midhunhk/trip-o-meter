@@ -146,7 +146,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
         }
 
         tripExpense.setTripId(trip.getId());
-        tripExpense.setMemberIds(selectedMemberIds);
+        tripExpense.setMemberIds(selectedMemberIds.toString());
 
         tripExpense.setAmount(Float.parseFloat(mTxtExpenseAmount.getText().toString()));
         tripExpense.setPaidById(expenseContributor.getId());

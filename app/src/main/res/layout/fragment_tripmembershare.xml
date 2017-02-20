@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
-        android:layout_margin="@dimen/card_margin"
+        android:layout_margin="@dimen/card_padding"
         android:contentDescription="@string/empty_text"
         android:maxHeight="@dimen/image_size"
         android:maxWidth="@dimen/image_size"
@@ -22,8 +22,8 @@
         android:id="@+id/txtContactName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/text_margin"
-        android:layout_marginBottom="@dimen/text_margin"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         android:layout_toEndOf="@+id/contactImage"
         android:layout_toRightOf="@+id/contactImage"
         android:textAppearance="?attr/textAppearanceListItem"/>
@@ -34,6 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/text_margin"
+        android:layout_margin="@dimen/margin_small"
         android:textAppearance="?attr/textAppearanceListItem"/>
 </RelativeLayout>
