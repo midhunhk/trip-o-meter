@@ -45,7 +45,7 @@ public class TripMemberShareRecyclerViewAdapter extends
         } else if (mValues.get(position).getShare() > 0) {
             holder.mContentView.setTextColor(Color.RED);
         }
-        
+
         BigDecimal roundedAmount = new BigDecimal(Float.toString(mValues.get(position).getShare()));
         roundedAmount = roundedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         holder.mContentView.setText(roundedAmount.toString());

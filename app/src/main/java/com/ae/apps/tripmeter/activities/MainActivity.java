@@ -141,7 +141,7 @@ public class MainActivity extends ToolBarBaseActivity
             fragment.setArguments(bundle);
         }
         if(clearTripExpenseBackStack){
-            getFragmentManager().popBackStack("TripExpense", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
