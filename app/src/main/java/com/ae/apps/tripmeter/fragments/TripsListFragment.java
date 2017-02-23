@@ -84,7 +84,8 @@ public class TripsListFragment extends Fragment
 
         // Expenses needs default profile to be set inorder to function
         // Check if one has been selected or ask for 1 to be selected
-        checkForDefaultProfile();
+        // Removing default profile feature
+        // checkForDefaultProfile();
 
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);

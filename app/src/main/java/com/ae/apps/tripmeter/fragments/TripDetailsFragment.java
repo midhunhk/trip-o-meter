@@ -104,15 +104,17 @@ public class TripDetailsFragment extends Fragment
             }
         });
 
-        Button btnShowHideExpenseMembers = (Button) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
+        final Button btnShowHideExpenseMembers = (Button) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
         btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isMembersContainerDisplayed){
                     mTripMembersContainer.setVisibility(View.GONE);
+                    btnShowHideExpenseMembers.setText("v");
                     isMembersContainerDisplayed = false;
                 } else{
                     mTripMembersContainer.setVisibility(View.VISIBLE);
+                    btnShowHideExpenseMembers.setText("^");
                     isMembersContainerDisplayed = true;
                 }
             }

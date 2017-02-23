@@ -85,9 +85,12 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         mMembersContainer = (LinearLayout) view.findViewById(R.id.selectedContactsContainer);
 
+        // Removing default profile feature
+        /*
         ContactVo defaultProfile = mExpenseManager.getDefaultProfile();
         mExpenseMembers.add(defaultProfile);
         addMemberToContainer(defaultProfile);
+        */
 
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
