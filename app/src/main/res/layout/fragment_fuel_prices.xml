@@ -27,6 +27,7 @@
                 android:drawableTop="@drawable/icon_gray"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
+                android:textSize="@dimen/text_size_medium"
                 android:text="@string/str_feature_placeholder"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
