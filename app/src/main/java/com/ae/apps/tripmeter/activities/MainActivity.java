@@ -143,7 +143,7 @@ public class MainActivity extends ToolBarBaseActivity
         if (null != bundle && null != fragment) {
             fragment.setArguments(bundle);
         }
-        if(clearTripExpenseBackStack){
+        if (clearTripExpenseBackStack) {
             getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
@@ -199,26 +199,24 @@ public class MainActivity extends ToolBarBaseActivity
 
     @Override
     public void deleteTrip(final Trip trip) {
-        ExpenseManager.newInstance(getBaseContext()).deleteTrip(trip);
-        Toast.makeText(getBaseContext(), "Trip Deleted", Toast.LENGTH_SHORT).show();
         // TODO Update the trips list
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ExpenseManager.newInstance(getBaseContext()).deleteTrip(trip);
-                    dialog.dismiss();
-                }
-            })
-            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            })
-            .setTitle(R.string.str_trip_delete_confirm);
-        // FIXME java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
-        // builder.create().show();
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ExpenseManager.newInstance(getBaseContext()).deleteTrip(trip);
+                Toast.makeText(getBaseContext(), "Trip Deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle(R.string.str_trip_delete_confirm);
+        builder.create().show();
     }
 }
