@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,11 +98,15 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Trip trip = saveTrip();
+                try {
+                    Trip trip = saveTrip();
 
-                sendResult(trip);
+                    sendResult(trip);
 
-                dismiss();
+                    dismiss();
+                } catch(TripValidationException e){
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -117,20 +122,24 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         return view;
     }
 
-    private Trip saveTrip() {
-        Trip trip = new Trip();
-        trip.setName(txtTripName.getText().toString());
-        trip.setStartDate(Calendar.getInstance().getTimeInMillis());
+    private Trip saveTrip() throws TripValidationException{
+        if(TextUtils.isEmpty(txtTripName.getText().toString())){
+            throw new TripValidationException("Please enter trip name");
+        }
 
         StringBuilder builder = new StringBuilder();
         for (ContactVo contactVo : mExpenseMembers) {
             builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
         }
-        // TODO Validate input data
-        if(builder.length() > 0) {
-            builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
-        }
 
+        if (builder.length() == 0) {
+            throw new TripValidationException("Please select members for trip");
+        }
+        builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
+
+        Trip trip = new Trip();
+        trip.setName(txtTripName.getText().toString());
+        trip.setStartDate(Calendar.getInstance().getTimeInMillis());
         trip.setMemberIds(builder.toString());
         return trip;
     }
@@ -170,7 +179,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
                     debugInfo.append(" " + contactVo.getName());
                 }
 
-                Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, debugInfo.toString());
 
                 // Create and add the selected contact
@@ -198,6 +207,16 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
      */
     public interface AddTripDialogListener {
         void onTripAdded(Trip trip);
+    }
+
+    /**
+     * Exception that is thrown when validating data while creating a trip
+     */
+    private class TripValidationException extends Exception {
+
+        public TripValidationException(String message) {
+            super(message);
+        }
     }
 
 }

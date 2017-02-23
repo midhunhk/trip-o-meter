@@ -9,7 +9,7 @@
         android:id="@+id/addExpenseDialogHeader"
         style="@style/DialogHeaderStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialog_header_height_small"
+        android:layout_height="@dimen/dialog_header_height"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
