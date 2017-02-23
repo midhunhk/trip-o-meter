@@ -50,7 +50,7 @@
                     android:ems="6"
                     android:gravity="end"
                     android:hint="@string/str_expense_note"
-                    android:inputType="textCapSentences|textAutoCorrect"/>
+                    android:inputType="textCapSentences|textAutoCorrect|textCapWords"/>
 
                 <!-- Expense Amount -->
                 <EditText
@@ -116,11 +116,12 @@
 
             </RelativeLayout>
 
-            <!-- Expense Category -->
+            <!-- Expense Category, will be added later -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
+                android:visibility="gone"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal">
 

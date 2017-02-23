@@ -126,7 +126,10 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         for (ContactVo contactVo : mExpenseMembers) {
             builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
         }
-        builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
+        // TODO Validate input data
+        if(builder.length() > 0) {
+            builder.deleteCharAt(builder.lastIndexOf(AppConstants.CONTACT_ID_SEPARATOR));
+        }
 
         trip.setMemberIds(builder.toString());
         return trip;

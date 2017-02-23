@@ -49,7 +49,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="right"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 tools:ignore="RtlHardcoded"/>
         </LinearLayout>
 
