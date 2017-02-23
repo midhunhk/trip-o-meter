@@ -45,7 +45,7 @@
                         android:layout_marginLeft="0dp"
                         android:layout_marginStart="0dp"
                         android:contentDescription="@string/empty_text"
-                        android:padding="8dip"
+                        android:padding="4dip"
                         android:src="@drawable/icon_app"/>
 
                     <TextView

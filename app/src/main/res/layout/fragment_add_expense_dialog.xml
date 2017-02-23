@@ -144,8 +144,6 @@
                     android:inputType="textCapSentences|textAutoCorrect"/>
             </LinearLayout>
 
-            <include layout="@layout/separator_line"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -85,8 +85,6 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"/>
 
-        <include layout="@layout/separator_line"/>
-
         <Button
             android:id="@+id/btnTripAdd"
             style="?attr/buttonBarPositiveButtonStyle"
