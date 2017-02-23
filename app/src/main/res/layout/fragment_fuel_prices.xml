@@ -23,15 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="@string/menu_fuel_price"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:drawablePadding="@dimen/fab_margin"
-                android:drawableTop="@android:drawable/ic_secure"
+                android:drawableTop="@drawable/icon_gray"
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:text="@string/str_feature_placeholder"/>
