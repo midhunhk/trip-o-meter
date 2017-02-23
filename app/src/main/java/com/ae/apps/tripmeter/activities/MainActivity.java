@@ -56,6 +56,7 @@ public class MainActivity extends ToolBarBaseActivity
 
     public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
     private FragmentManager mFragmentManager;
+    private boolean isChildFragmentDisplayed;
 
     private static final int FRAGMENT_TRIP_DETAILS = 1001;
 
@@ -109,9 +110,9 @@ public class MainActivity extends ToolBarBaseActivity
      * @param itemId id of the menu
      */
     private void updateDisplayedFragment(int itemId, Bundle bundle) {
-        Fragment fragment = null;
+        Fragment fragment;
         int feature = itemId;
-        boolean clearTripExpenseBackStack = true;
+        isChildFragmentDisplayed = false;
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
@@ -133,7 +134,7 @@ public class MainActivity extends ToolBarBaseActivity
                 fragment = TripDetailsFragment.newInstance();
                 fragmentTransaction.addToBackStack("TripExpense");
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
-                clearTripExpenseBackStack = false;
+                isChildFragmentDisplayed = true;
                 break;
             default:
                 fragment = FuelCalcFragment.newInstance();
@@ -142,9 +143,6 @@ public class MainActivity extends ToolBarBaseActivity
         // Pass in the argument bundle if it exists
         if (null != bundle && null != fragment) {
             fragment.setArguments(bundle);
-        }
-        if (clearTripExpenseBackStack) {
-            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
@@ -161,7 +159,7 @@ public class MainActivity extends ToolBarBaseActivity
 
     @Override
     public void onBackPressed() {
-        if (mFragmentManager.getBackStackEntryCount() > 0) {
+        if (isChildFragmentDisplayed && mFragmentManager.getBackStackEntryCount() > 0) {
             mFragmentManager.popBackStack();
         } else {
             super.onBackPressed();
