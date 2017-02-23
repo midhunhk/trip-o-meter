@@ -1,45 +1,41 @@
 /**
  * MIT License
- Copyright (c) 2016 Midhun Harikumar
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
+ * Copyright (c) 2016 Midhun Harikumar
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 package com.ae.apps.tripmeter.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
-import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.List;
@@ -54,6 +50,8 @@ import java.util.List;
 public class TripsListFragment extends Fragment
         implements AddTripDialogFragment.AddTripDialogListener,
         PickProfileDialogFragment.SelectProfileListener {
+
+    private static final String TAG = "TripsListFragment";
 
     private ExpensesInteractionListener mListener;
 
@@ -109,6 +107,7 @@ public class TripsListFragment extends Fragment
         return view;
     }
 
+    @SuppressWarnings("unused")
     private void checkForDefaultProfile() {
         // Ask ExpenseManager for the default profile
         ContactVo contactVo = mExpenseManager.getDefaultProfile();
@@ -154,7 +153,8 @@ public class TripsListFragment extends Fragment
         // add trip to database, update with the tripId
         mExpenseManager.addTrip(trip);
 
-        Toast.makeText(getActivity(), "added new row with id " + trip.getId(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getActivity(), "added new row with id " + trip.getId(), Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "added new row with id " + trip.getId());
 
         // add trip to list view
         mTrips.add(trip);
