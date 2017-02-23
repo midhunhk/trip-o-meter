@@ -26,16 +26,35 @@
                 android:orientation="vertical"
                 android:padding="@dimen/card_margin">
 
-                <TextView
-                    android:id="@+id/txtTripName"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    android:padding="@dimen/card_padding"
-                    android:text="@string/hello_blank_fragment"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_large"/>
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/txtTripName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:padding="@dimen/card_padding"
+                        android:text="@string/hello_blank_fragment"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <Button
+                        android:id="@+id/btnShowHideExpenseMembers"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="^"
+                        android:textColor="@color/white"/>
+
+                </RelativeLayout>
                 <!-- TODO Show total amount spent instead of date here-->
                 <TextView
                     android:id="@+id/txtTripDate"
@@ -52,7 +71,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_medium"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal"
+                    android:visibility="gone"/>
 
                 <!--
                 <FrameLayout

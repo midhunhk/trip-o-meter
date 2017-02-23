@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class TripDetailsFragment extends Fragment
     private Trip mTrip;
     private ExpenseManager mExpenseManager;
     private LinearLayout mTripMembersContainer;
+    private boolean isMembersContainerDisplayed;
 
     private ViewPager mViewPager;
 
@@ -99,6 +101,20 @@ public class TripDetailsFragment extends Fragment
             @Override
             public void onClick(View v) {
                 showAddExpenseDialog();
+            }
+        });
+
+        Button btnShowHideExpenseMembers = (Button) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
+        btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isMembersContainerDisplayed){
+                    mTripMembersContainer.setVisibility(View.GONE);
+                    isMembersContainerDisplayed = false;
+                } else{
+                    mTripMembersContainer.setVisibility(View.VISIBLE);
+                    isMembersContainerDisplayed = true;
+                }
             }
         });
 
