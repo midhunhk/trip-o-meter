@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
     <string name="app_version_name">2.0.16 (Balanjar)</string>
-    <string name="app_version_code">Atlantis is a fictional island mentioned within Plato\'s works Timaeus and Critias, where it represents the antagonist naval power that besieges Ancient Athens.</string>
+    <string name="app_version_code">Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.</string>
     <string name="app_release_date">Feb 2017</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
