@@ -135,6 +135,9 @@ public class MainActivity extends ToolBarBaseActivity
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 clearTripExpenseBackStack = false;
                 break;
+            default:
+                fragment = FuelCalcFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.app_name));
         }
         // Pass in the argument bundle if it exists
         if (null != bundle && null != fragment) {
