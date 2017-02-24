@@ -1,5 +1,6 @@
 package com.ae.apps.tripmeter.fragments;
 
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ public class TripDetailsFragment extends Fragment
     private ExpenseManager mExpenseManager;
     private LinearLayout mTripMembersContainer;
     private boolean isMembersContainerDisplayed;
+    private int mRotationAngle = 0;
 
     private ViewPager mViewPager;
 
@@ -104,19 +107,24 @@ public class TripDetailsFragment extends Fragment
             }
         });
 
-        final Button btnShowHideExpenseMembers = (Button) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
+        final ImageButton btnShowHideExpenseMembers = (ImageButton) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
         btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Animate the imagebutton
+                ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
+                        "rotation", mRotationAngle, mRotationAngle + 180);
+                btnAnimation.setDuration(500).start();
+
                 if(isMembersContainerDisplayed){
                     mTripMembersContainer.setVisibility(View.GONE);
-                    btnShowHideExpenseMembers.setText("v");
                     isMembersContainerDisplayed = false;
                 } else{
                     mTripMembersContainer.setVisibility(View.VISIBLE);
-                    btnShowHideExpenseMembers.setText("^");
                     isMembersContainerDisplayed = true;
                 }
+                mRotationAngle += 180;
+                mRotationAngle %= 360;
             }
         });
 
