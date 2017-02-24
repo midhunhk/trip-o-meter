@@ -111,10 +111,10 @@ public class TripDetailsFragment extends Fragment
         btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Animate the imagebutton
+                // Animate the image button
                 ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
                         "rotation", mRotationAngle, mRotationAngle + 180);
-                btnAnimation.setDuration(500).start();
+                btnAnimation.setDuration(200).start();
 
                 if(isMembersContainerDisplayed){
                     mTripMembersContainer.setVisibility(View.GONE);
