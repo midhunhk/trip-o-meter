@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.TripMemberShare;
 import com.ae.apps.tripmeter.utils.AppConstants;
@@ -20,9 +22,13 @@ import java.util.List;
 /**
  * A fragment representing a list of Items.
  */
-public class TripMemberShareFragment extends Fragment {
+public class TripMemberShareFragment extends Fragment implements ExpenseChangeListener {
 
-    private String mTripId;
+    private String mTripId = "";
+    private ExpenseManager mExpenseManager;
+    private ExpenseChangeObserver mObserver;
+    private List<TripMemberShare> mMemberShares;
+    private RecyclerView mRecyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,19 +40,24 @@ public class TripMemberShareFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(null != mObserver) {
+            mObserver.addListener(this);
+        }
     }
 
     /**
      * Get a new instance of TripMemberShareFragment
      *
-     * @param args
-     * @return
+     * @param args initialising arguments
+     * @return instance of TripMemberShareFragment
      */
-    public static TripMemberShareFragment newInstance(Bundle args){
+    public static TripMemberShareFragment newInstance(Bundle args, ExpenseChangeObserver observer) {
         TripMemberShareFragment tripMemberShareFragment = new TripMemberShareFragment();
         tripMemberShareFragment.setArguments(args);
+        tripMemberShareFragment.mObserver = observer;
         return tripMemberShareFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,15 +72,17 @@ public class TripMemberShareFragment extends Fragment {
             mTripId = savedInstanceState.getString(AppConstants.KEY_TRIP_ID);
         }
 
+        mExpenseManager = ExpenseManager.newInstance(getContext());
+
         // Set the adapter
         if (view instanceof RecyclerView) {
-            ExpenseManager expenseManager = ExpenseManager.newInstance(getContext());
-            List<TripMemberShare> memberShares = expenseManager.getExpenseShareForTrip(mTripId);
+            mMemberShares = mExpenseManager.getExpenseShareForTrip(mTripId);
 
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new TripMemberShareRecyclerViewAdapter(memberShares));
+            mRecyclerView = (RecyclerView) view;
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setAdapter(new TripMemberShareRecyclerViewAdapter(mMemberShares));
         }
         return view;
     }
@@ -80,4 +93,9 @@ public class TripMemberShareFragment extends Fragment {
         outState.putString(AppConstants.KEY_TRIP_ID, mTripId);
     }
 
+    @Override
+    public void onExpenseChanged() {
+        mMemberShares = mExpenseManager.getExpenseShareForTrip(mTripId);
+        mRecyclerView.setAdapter(new TripMemberShareRecyclerViewAdapter(mMemberShares));
+    }
 }

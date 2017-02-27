@@ -8,6 +8,7 @@ Version 2.0 (Balanjar)
 * [ADDED] Display Trip Expense details
 * [ADDED] Show total trip expense amount
 * [REMOVED] Default profile feature
+* [ADDED] Update lists on adding an expense
 
 **Trip O Meter 2.0.12 [Feb 2017]**
 * [ADDED] Default Profile Picker

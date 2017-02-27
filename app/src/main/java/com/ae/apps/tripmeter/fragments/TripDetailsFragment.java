@@ -11,13 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ae.apps.common.views.RoundedImageView;
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
@@ -25,22 +26,25 @@ import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.ExpensesPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Activities that contain this fragment must implement the
  * {@link ExpensesInteractionListener} interface
  * to handle interaction events.
  */
 public class TripDetailsFragment extends Fragment
-        implements AddExpenseDialogFragment.AddExpenseDialogListener {
+        implements AddExpenseDialogFragment.AddExpenseDialogListener, ExpenseChangeObserver {
 
     private String mTripId;
     private Trip mTrip;
     private ExpenseManager mExpenseManager;
     private LinearLayout mTripMembersContainer;
     private boolean isMembersContainerDisplayed;
-    private int mRotationAngle = 0;
-
+    private List<ExpenseChangeListener> mListeners = new ArrayList<>();
     private ViewPager mViewPager;
+    private TextView mTripTotalExpenses;
 
     public TripDetailsFragment() {
         // Required empty public constructor
@@ -89,15 +93,14 @@ public class TripDetailsFragment extends Fragment
         mTrip.getMembers().addAll(mExpenseManager.getContactsFromIds(mTrip.getMemberIds()));
 
         TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
-        TextView tripDate = (TextView) inflatedView.findViewById(R.id.txtTripDate);
+        mTripTotalExpenses = (TextView) inflatedView.findViewById(R.id.txtTripTotalAmount);
         mTripMembersContainer = (LinearLayout) inflatedView.findViewById(R.id.tripMembersContainer);
 
         addTripMembersToContainer();
 
         tripName.setText(mTrip.getName());
 
-        // Display total trip expenses below trip name
-        tripDate.setText(getString(R.string.str_total_expenses) + " : " + mExpenseManager.getTotalTripexpenses(mTripId));
+        updateTripTotalExpenses();
 
         FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -111,20 +114,19 @@ public class TripDetailsFragment extends Fragment
         btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Animate the image button
-                ObjectAnimator btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
-                        "rotation", mRotationAngle, mRotationAngle + 180);
-                btnAnimation.setDuration(200).start();
-
-                if(isMembersContainerDisplayed){
+                ObjectAnimator btnAnimation;
+                if (isMembersContainerDisplayed) {
                     mTripMembersContainer.setVisibility(View.GONE);
                     isMembersContainerDisplayed = false;
-                } else{
+                    btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
+                            "rotation", 0, 180);
+                } else {
                     mTripMembersContainer.setVisibility(View.VISIBLE);
                     isMembersContainerDisplayed = true;
+                    btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
+                            "rotation", 180, 0);
                 }
-                mRotationAngle += 180;
-                mRotationAngle %= 360;
+                btnAnimation.setDuration(200).start();
             }
         });
 
@@ -139,6 +141,11 @@ public class TripDetailsFragment extends Fragment
         // Fragment fragment = TripExpenseFragment.newInstance(args);
         // FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         // transaction.replace(R.id.frag, fragment).commit();
+    }
+
+    private void updateTripTotalExpenses() {
+        // Display total trip expenses below trip name
+        mTripTotalExpenses.setText(getString(R.string.str_total_expenses) + " : " + mExpenseManager.getTotalTripexpenses(mTripId));
     }
 
     private void addTripMembersToContainer() {
@@ -162,9 +169,9 @@ public class TripDetailsFragment extends Fragment
         args.putString(AppConstants.KEY_TRIP_ID, mTripId);
 
         ExpensesPagerAdapter pagerAdapter = new ExpensesPagerAdapter(getChildFragmentManager());
-        pagerAdapter.addFragment(TripExpenseFragment.newInstance(args), getResources().getString(R.string.str_expenses));
-        pagerAdapter.addFragment(TripMemberShareFragment.newInstance(args), getResources().getString(R.string.str_share));
-        // TODO Add fragment showing total Spending per member
+        pagerAdapter.addFragment(TripExpenseFragment.newInstance(args, this), getResources().getString(R.string.str_expenses));
+        pagerAdapter.addFragment(TripMemberShareFragment.newInstance(args, this), getResources().getString(R.string.str_share));
+        // TODO Add fragment showing total Spending per member - Future Release
         mViewPager.setAdapter(pagerAdapter);
     }
 
@@ -187,6 +194,26 @@ public class TripDetailsFragment extends Fragment
     @Override
     public void onExpenseAdded(TripExpense tripExpense) {
         mExpenseManager.addExpense(tripExpense);
-        // TODO Refresh the expense list
+
+        updateTripTotalExpenses();
+
+        // Refresh the expense listS
+        notifyListeners();
+    }
+
+    private void notifyListeners() {
+        for (ExpenseChangeListener changeListener : mListeners) {
+            changeListener.onExpenseChanged();
+        }
+    }
+
+    @Override
+    public void addListener(ExpenseChangeListener listener) {
+        mListeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(ExpenseChangeListener listener) {
+        mListeners.remove(listener);
     }
 }

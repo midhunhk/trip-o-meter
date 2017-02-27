@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
+import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
@@ -22,9 +24,14 @@ import java.util.List;
  * <p/>
  * interface.
  */
-public class TripExpenseFragment extends Fragment {
+public class TripExpenseFragment extends Fragment implements ExpenseChangeListener {
 
     private String tripId = "";
+
+    private ExpenseChangeObserver mObserver;
+    private ExpenseManager mExpenseManager;
+    private RecyclerView mRecyclerView;
+    private List<TripExpense> mTripExpenses;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -33,8 +40,9 @@ public class TripExpenseFragment extends Fragment {
     public TripExpenseFragment() {
     }
 
-    public static TripExpenseFragment newInstance(Bundle args) {
+    public static TripExpenseFragment newInstance(Bundle args, ExpenseChangeObserver observer) {
         TripExpenseFragment tripExpenseFragment = new TripExpenseFragment();
+        tripExpenseFragment.mObserver = observer;
         tripExpenseFragment.setArguments(args);
         return tripExpenseFragment;
     }
@@ -42,6 +50,9 @@ public class TripExpenseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(null != mObserver) {
+            mObserver.addListener(this);
+        }
     }
 
     @Override
@@ -59,14 +70,13 @@ public class TripExpenseFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            ExpenseManager expenseManager = ExpenseManager.newInstance(getContext());
-            List<TripExpense> tripExpenses = expenseManager.getExpensesForTrip(tripId);
+            mExpenseManager = ExpenseManager.newInstance(getContext());
+            mTripExpenses = mExpenseManager.getExpensesForTrip(tripId);
 
             Context context = getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(new TripExpenseRecyclerViewAdapter(tripExpenses));
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            mRecyclerView = (RecyclerView) view;
+            mRecyclerView.setAdapter(new TripExpenseRecyclerViewAdapter(mTripExpenses));
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         }
         return view;
     }
@@ -77,4 +87,9 @@ public class TripExpenseFragment extends Fragment {
         outState.putString(AppConstants.KEY_TRIP_ID, tripId);
     }
 
+    @Override
+    public void onExpenseChanged() {
+        mTripExpenses = mExpenseManager.getExpensesForTrip(tripId);
+        mRecyclerView.setAdapter(new TripExpenseRecyclerViewAdapter(mTripExpenses));
+    }
 }

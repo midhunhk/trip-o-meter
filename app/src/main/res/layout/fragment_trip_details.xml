@@ -57,9 +57,8 @@
                         android:contentDescription=""/>
 
                 </RelativeLayout>
-                <!-- TODO Show total amount spent instead of date here-->
                 <TextView
-                    android:id="@+id/txtTripDate"
+                    android:id="@+id/txtTripTotalAmount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_medium"
