@@ -60,7 +60,7 @@ public class ExpenseManager {
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
 
-        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
+        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_face_profile);
     }
 
     //--------------------------------------------------------------------
@@ -140,18 +140,18 @@ public class ExpenseManager {
         List<TripMemberShare> memberShares = mExpensesDatabase.getExpenseShareForTrip(tripId);
         ContactVo contactVo;
         BitmapDrawable bitmapDrawable;
-        Bitmap defaultProfile = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
+        //Bitmap defaultProfile = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
         for (TripMemberShare memberShare : memberShares) {
             contactVo = mContactManager.getContactInfo(memberShare.getMemberId());
             memberShare.setContactVo(contactVo);
             bitmapDrawable = new BitmapDrawable(mContext.getResources(),
-                    mContactManager.getContactPhoto(memberShare.getMemberId(), defaultProfile));
+                    mContactManager.getContactPhoto(memberShare.getMemberId(), mDefaultProfilePic));
             memberShare.setContactPhoto(bitmapDrawable);
         }
         return memberShares;
     }
 
-    public float getTotalTripexpenses(String tripId){
+    public float getTotalTripExpenses(String tripId){
         return mExpensesDatabase.getTotalTripExpenses(tripId);
     }
 

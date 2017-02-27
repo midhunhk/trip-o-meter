@@ -145,7 +145,7 @@ public class TripDetailsFragment extends Fragment
 
     private void updateTripTotalExpenses() {
         // Display total trip expenses below trip name
-        mTripTotalExpenses.setText(getString(R.string.str_total_expenses) + " : " + mExpenseManager.getTotalTripexpenses(mTripId));
+        mTripTotalExpenses.setText(getString(R.string.str_total_expenses) + " : " + mExpenseManager.getTotalTripExpenses(mTripId));
     }
 
     private void addTripMembersToContainer() {
