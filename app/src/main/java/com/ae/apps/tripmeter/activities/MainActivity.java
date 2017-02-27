@@ -62,8 +62,11 @@ public class MainActivity extends ToolBarBaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // Set to default app theme
+        setTheme(R.style.AppTheme_NoActionBar);
 
+        super.onCreate(savedInstanceState);
+        
         mFragmentManager = getSupportFragmentManager();
 
         // Implementing BottomNavigationView

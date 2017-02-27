@@ -12,6 +12,7 @@
     <dimen name="text_size_medium">16sp</dimen>
 
     <dimen name="image_size">35dp</dimen>
+    <dimen name="splash_image_size">144dp</dimen>
 
     <dimen name="dialog_header_height">100dp</dimen>
     <dimen name="dialog_header_height_small">70dp</dimen>
