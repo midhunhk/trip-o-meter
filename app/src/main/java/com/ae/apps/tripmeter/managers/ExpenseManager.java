@@ -60,7 +60,7 @@ public class ExpenseManager {
         mExpensesDatabase = new TripExpensesDatabase(mContext);
         mContactManager = new ExpenseContactManager(mContext.getContentResolver());
 
-        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_face_profile);
+        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
     }
 
     //--------------------------------------------------------------------
