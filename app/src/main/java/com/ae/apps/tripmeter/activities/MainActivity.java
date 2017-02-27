@@ -66,7 +66,7 @@ public class MainActivity extends ToolBarBaseActivity
         setTheme(R.style.AppTheme_NoActionBar);
 
         super.onCreate(savedInstanceState);
-        
+
         mFragmentManager = getSupportFragmentManager();
 
         // Implementing BottomNavigationView
