@@ -4,12 +4,12 @@
 
 ## Screenshots
 <img alt="Trip O Meter" src="/resources/promotional/sc_02_w800.png" width="200"/>
-<img alt="Trip O Meter" src="/resources/promotional/sc_01_w800.png" width="200"/>
 <img alt="Trip O Meter" src="/resources/promotional/expense_add.jpg" width="200"/>
 <img alt="Trip O Meter" src="/resources/promotional/expense_share.jpg" width="200"/>
+<img alt="Trip O Meter" src="/resources/promotional/expense_items.jpg" width="200"/>
 
 ## Motivation
-The idea for Trip O Meter was born out of past experiences with my trips. An ease to calculate fuel required for road trips and to manage expenses when going with friends. It is great to 
+The idea for Trip O Meter was born out of my past experiences with trips. An ease to calculate fuel required for road trips and to manage expenses when going with friends.
 
 ## Features
 - Fuel Quantity and Price Calculation
