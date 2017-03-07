@@ -29,7 +29,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +37,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
@@ -72,6 +72,10 @@ public class TripsListFragment extends Fragment
 
     private List<Trip> mTrips;
 
+    private LayoutInflater mInflater;
+
+    private ViewGroup mContainer;
+
     public TripsListFragment() {
     }
 
@@ -87,54 +91,29 @@ public class TripsListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_trips_list, container, false);
-        View list = view.findViewById(R.id.list);
+        mInflater = inflater;
+        mContainer = container;
 
+        View placeholder =inflater.inflate(R.layout.fragment_trip_empty,container,false);
+        checkPermissions();
+        return placeholder;
         // Expenses needs default profile to be set inorder to function
         // Check if one has been selected or ask for 1 to be selected
         // Removing default profile feature
         // checkForDefaultProfile();
+    }
 
-        view=createViewHandlingPermissions(view,list);
-
+    private View createNoAccessView(){
+        View view =mInflater.inflate(R.layout.fragment_trip_empty,mContainer,false);
+        TextView noContactsAccess = (TextView) view.findViewById(R.id.contacts_access);
+        noContactsAccess.setVisibility(View.VISIBLE);
         return view;
     }
 
-    private View createViewHandlingPermissions(View view,View list){
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.READ_CONTACTS)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                                PERMISSIONS_REQUEST_READ_CONTACTS);
-                        dialog.dismiss();
-                    }
-                })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setMessage(R.string.str_perm_reason)
-                        .setTitle(R.string.str_perm_title);
-                builder.create().show();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                        PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
-        }else{
-            view=creatingView(view,list);
-        }
-        return view;
-    }
+    private View createExpenseView(){
+        View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
+        View list = view.findViewById(R.id.list);
 
-    private View creatingView(View view,View list){
         mExpenseManager = ExpenseManager.newInstance(getActivity());
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
@@ -157,6 +136,39 @@ public class TripsListFragment extends Fragment
         return view;
     }
 
+    private void checkPermissions(){
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                                PERMISSIONS_REQUEST_READ_CONTACTS);
+                        dialog.dismiss();
+                    }
+                })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setMessage(R.string.str_permission_contacts_reason)
+                        .setTitle(R.string.str_permission_title);
+                builder.create().show();
+            } else {
+                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                        PERMISSIONS_REQUEST_READ_CONTACTS);
+            }
+        }else{
+            View view=createExpenseView();
+            inflateView(view);
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -164,10 +176,12 @@ public class TripsListFragment extends Fragment
             case PERMISSIONS_REQUEST_READ_CONTACTS: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //TODO: Reload this Fragment.Otherwise the FAB won't work
+                    View view=createExpenseView();
+                    inflateView(view);
                 } else {
-                    Toast.makeText(getActivity(), "This feature needs access to contacts.", Toast.LENGTH_LONG).show();
-                    //TODO: Direct user to price fragment as this fragment cannot be used
+                    Toast.makeText(getActivity(), R.string.str_permission_contacts_reason, Toast.LENGTH_LONG).show();
+                    View view=createNoAccessView();
+                    inflateView(view);
                 }
                 return;
             }
@@ -176,6 +190,11 @@ public class TripsListFragment extends Fragment
                 return;
             }
         }
+    }
+
+    private void inflateView(View view){
+        mContainer.removeAllViews();
+        mContainer.addView(view);
     }
 
     @SuppressWarnings("unused")
