@@ -11,7 +11,7 @@
  * copies or substantial portions of the Software.
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -57,12 +57,11 @@ import java.util.List;
  * </p>
  */
 public class TripsListFragment extends Fragment
-        implements AddTripDialogFragment.AddTripDialogListener,
-        PickProfileDialogFragment.SelectProfileListener {
+        implements AddTripDialogFragment.AddTripDialogListener, PickProfileDialogFragment.SelectProfileListener {
 
     private static final String TAG = "TripsListFragment";
 
-    private static final int PERMISSIONS_REQUEST_READ_CONTACTS=1;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 5005;
 
     private ExpensesInteractionListener mListener;
 
@@ -75,6 +74,10 @@ public class TripsListFragment extends Fragment
     private LayoutInflater mInflater;
 
     private ViewGroup mContainer;
+
+    private View mContentView;
+
+    private boolean createViewCompleted;
 
     public TripsListFragment() {
     }
@@ -89,28 +92,89 @@ public class TripsListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflater = inflater;
         mContainer = container;
 
-        View placeholder =inflater.inflate(R.layout.fragment_trip_empty,container,false);
+        // Inflate a place holder view while we check for permissions required
+        createNoAccessView(inflater);
+
+        // Check if we have been granted the READ_CONTACTS Permission
         checkPermissions();
-        return placeholder;
-        // Expenses needs default profile to be set inorder to function
-        // Check if one has been selected or ask for 1 to be selected
-        // Removing default profile feature
-        // checkForDefaultProfile();
+
+        createViewCompleted = true;
+
+        // If waiting for permission, mContentView will have dummy layout, else TripsListFragment Layout
+        return mContentView;
     }
 
+    private void createNoAccessView(LayoutInflater inflater) {
+        mContentView = inflater.inflate(R.layout.fragment_trip_empty, mContainer, false);
+        TextView noContactsAccess = (TextView) mContentView.findViewById(R.id.txtPlaceHolder);
+        noContactsAccess.setText(R.string.str_permission_contacts_reason);
+    }
+
+    private void checkPermissions(){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // API 23 (Marshmallow) and above require certain permissions to be granted explicitly by the user
+            // Since we need this permission to continue, lets request the same
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_CONTACTS)) {
+                // Prompt the user to grant permission
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setMessage(R.string.str_permission_contacts_reason)
+                .setTitle(R.string.str_permission_title);
+                builder.create().show();
+            } else {
+                // Request permission without prompting with a Rationale
+                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            }
+        } else {
+            // Permission is granted, so load the Expenses View
+            createExpenseView();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_READ_CONTACTS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    createExpenseView();
+                } else {
+                    Toast.makeText(getActivity(), R.string.str_permission_contacts_reason, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+            default:{
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
+    }
+
+    @SuppressWarnings("unused")
     private View createNoAccessView(){
-        View view =mInflater.inflate(R.layout.fragment_trip_empty,mContainer,false);
-        TextView noContactsAccess = (TextView) view.findViewById(R.id.contacts_access);
+        View view = mInflater.inflate(R.layout.fragment_trip_empty, mContainer, false);
+        TextView noContactsAccess = (TextView) view.findViewById(R.id.txtPlaceHolder);
+        noContactsAccess.setText(R.string.str_permission_contacts_reason);
         noContactsAccess.setVisibility(View.VISIBLE);
         return view;
     }
 
-    private View createExpenseView(){
+    private void createExpenseView(){
         View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
         View list = view.findViewById(R.id.list);
 
@@ -133,69 +197,19 @@ public class TripsListFragment extends Fragment
                 showAddTripDialog();
             }
         });
-        return view;
-    }
 
-    private void checkPermissions(){
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.READ_CONTACTS)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                                PERMISSIONS_REQUEST_READ_CONTACTS);
-                        dialog.dismiss();
-                    }
-                })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setMessage(R.string.str_permission_contacts_reason)
-                        .setTitle(R.string.str_permission_title);
-                builder.create().show();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                        PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
-        }else{
-            View view=createExpenseView();
-            inflateView(view);
+        // Update the main content view with the trips list layout
+        mContentView = view;
+
+        // createViewCompleted = true indicates that onCreateView method executed and this method was
+        // called after onRequestPermissionsResult was completed which is an ASYNC operation
+        // Hence we manually add this view as child of the container replacing any prior views
+        if(createViewCompleted) {
+            mContainer.removeAllViews();
+            mContainer.addView(view);
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSIONS_REQUEST_READ_CONTACTS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    View view=createExpenseView();
-                    inflateView(view);
-                } else {
-                    Toast.makeText(getActivity(), R.string.str_permission_contacts_reason, Toast.LENGTH_LONG).show();
-                    View view=createNoAccessView();
-                    inflateView(view);
-                }
-                return;
-            }
-            default:{
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                return;
-            }
-        }
-    }
-
-    private void inflateView(View view){
-        mContainer.removeAllViews();
-        mContainer.addView(view);
-    }
 
     @SuppressWarnings("unused")
     private void checkForDefaultProfile() {
