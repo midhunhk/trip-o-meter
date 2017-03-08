@@ -4,7 +4,7 @@
             android:layout_height="match_parent"
             android:opacity="opaque">
 
-    <item android:drawable="@android:color/white"
+    <item android:drawable="@color/colorPrimaryLight"
           android:layout_width="match_parent"
           android:layout_height="match_parent"></item>
 
