@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">2.0.16 (Balanjar)</string>
+    <string name="app_version_name">2.0.18 (Balanjar)</string>
     <string name="app_version_code">Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.</string>
-    <string name="app_release_date">Feb 2017</string>
+    <string name="app_release_date">Mar 2017</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
     <string name="app_developer_info">Designed &amp; Developed at ae labs</string>

@@ -11,8 +11,8 @@ android {
         applicationId "com.ae.apps.tripmeter"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 8
-        versionName "2.0.16"
+        versionCode 9
+        versionName "2.0.18"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

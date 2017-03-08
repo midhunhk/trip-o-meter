@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
@@ -57,7 +58,8 @@ import java.util.List;
  * </p>
  */
 public class TripsListFragment extends Fragment
-        implements AddTripDialogFragment.AddTripDialogListener, PickProfileDialogFragment.SelectProfileListener {
+        implements AddTripDialogFragment.AddTripDialogListener, PickProfileDialogFragment.SelectProfileListener,
+        ExpenseListUpdateListener {
 
     private static final String TAG = "TripsListFragment";
 
@@ -114,7 +116,7 @@ public class TripsListFragment extends Fragment
         noContactsAccess.setText(R.string.str_permission_contacts_reason);
     }
 
-    private void checkPermissions(){
+    private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
             // API 23 (Marshmallow) and above require certain permissions to be granted explicitly by the user
@@ -129,14 +131,14 @@ public class TripsListFragment extends Fragment
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setMessage(R.string.str_permission_contacts_reason)
-                .setTitle(R.string.str_permission_title);
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setMessage(R.string.str_permission_contacts_reason)
+                        .setTitle(R.string.str_permission_title);
                 builder.create().show();
             } else {
                 // Request permission without prompting with a Rationale
@@ -159,14 +161,14 @@ public class TripsListFragment extends Fragment
                 }
                 break;
             }
-            default:{
+            default: {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
     }
 
     @SuppressWarnings("unused")
-    private View createNoAccessView(){
+    private View createNoAccessView() {
         View view = mInflater.inflate(R.layout.fragment_trip_empty, mContainer, false);
         TextView noContactsAccess = (TextView) view.findViewById(R.id.txtPlaceHolder);
         noContactsAccess.setText(R.string.str_permission_contacts_reason);
@@ -174,13 +176,13 @@ public class TripsListFragment extends Fragment
         return view;
     }
 
-    private void createExpenseView(){
+    private void createExpenseView() {
         View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
         View list = view.findViewById(R.id.list);
 
         mExpenseManager = ExpenseManager.newInstance(getActivity());
         mTrips = mExpenseManager.getAllTrips();
-        mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener);
+        mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener, this);
 
         if (list instanceof RecyclerView) {
             Context context = view.getContext();
@@ -204,7 +206,7 @@ public class TripsListFragment extends Fragment
         // createViewCompleted = true indicates that onCreateView method executed and this method was
         // called after onRequestPermissionsResult was completed which is an ASYNC operation
         // Hence we manually add this view as child of the container replacing any prior views
-        if(createViewCompleted) {
+        if (createViewCompleted) {
             mContainer.removeAllViews();
             mContainer.addView(view);
         }
@@ -257,7 +259,6 @@ public class TripsListFragment extends Fragment
         // add trip to database, update with the tripId
         mExpenseManager.addTrip(trip);
 
-        // Toast.makeText(getActivity(), "added new row with id " + trip.getId(), Toast.LENGTH_SHORT).show();
         Log.d(TAG, "added new row with id " + trip.getId());
 
         // add trip to list view
@@ -272,4 +273,38 @@ public class TripsListFragment extends Fragment
         // Save this id in shared preferences
         mExpenseManager.saveDefaultProfile(contactId);
     }
+
+    @Override
+    public void deleteTrip(final Trip trip) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Delete the trip from the database
+                mExpenseManager.deleteTrip(trip);
+
+                // Remove the trip from the list and refresh the list
+                mTrips.remove(trip);
+                if (null != mViewAdapter) {
+                    mViewAdapter.notifyDataSetChanged();
+                }
+
+                Toast.makeText(getContext(), "Trip Deleted", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setTitle(R.string.str_trip_delete_confirm);
+        builder.create().show();
+    }
+
+    @Override
+    public void updateTrip(Trip trip) {
+
+    }
+
+
 }

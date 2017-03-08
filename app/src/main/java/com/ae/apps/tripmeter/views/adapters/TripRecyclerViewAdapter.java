@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
@@ -22,11 +23,14 @@ import java.util.List;
 public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerViewAdapter.ViewHolder> {
 
     private final List<Trip> mValues;
-    private final ExpensesInteractionListener mListener;
+    private final ExpensesInteractionListener mExpensesInteractionListener;
+    private final ExpenseListUpdateListener mListUpdateListener;
 
-    public TripRecyclerViewAdapter(List<Trip> items, ExpensesInteractionListener listener) {
+    public TripRecyclerViewAdapter(List<Trip> items, ExpensesInteractionListener expensesInteractionListener,
+                                   ExpenseListUpdateListener listUpdateListener) {
         mValues = items;
-        mListener = listener;
+        mExpensesInteractionListener = expensesInteractionListener;
+        mListUpdateListener = listUpdateListener;
     }
 
     @Override
@@ -48,27 +52,27 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
         holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
-        if(null != trip.getMemberIds() && trip.getMemberIds().trim().length() > 0){
+        if (null != trip.getMemberIds() && trip.getMemberIds().trim().length() > 0) {
             int membersCount = trip.getMemberIds().split(",").length;
-            holder.mTripMemberCount.setText( membersCount + " Members");
+            holder.mTripMemberCount.setText(membersCount + " Members");
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != mExpensesInteractionListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.showTripDetails(mValues.get(position));
+                    mExpensesInteractionListener.showTripDetails(mValues.get(position));
                 }
             }
         });
 
-        holder.mDeleteTrip.setOnClickListener(new View.OnClickListener(){
+        holder.mDeleteTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    mListener.deleteTrip(mValues.get(position));
+                if (null != mExpensesInteractionListener) {
+                    mListUpdateListener.deleteTrip(mValues.get(position));
                 }
             }
         });
@@ -79,15 +83,15 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mTripName;
-        public final TextView mTripDate;
-        public final TextView mTripMemberCount;
-        public final ImageView mDeleteTrip;
-        public Trip mItem;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        final View mView;
+        final TextView mTripName;
+        final TextView mTripDate;
+        final TextView mTripMemberCount;
+        final ImageView mDeleteTrip;
+        Trip mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             view.setClickable(true);
             mView = view;

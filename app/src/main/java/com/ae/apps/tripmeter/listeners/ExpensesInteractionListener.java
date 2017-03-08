@@ -18,10 +18,4 @@ public interface ExpensesInteractionListener {
      */
     void showTripDetails(Trip trip);
 
-    /**
-     * Indicates the user wants to delete a trip
-     *
-     * @param trip
-     */
-    void deleteTrip(Trip trip);
 }

@@ -23,7 +23,6 @@
  */
 package com.ae.apps.tripmeter.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -32,10 +31,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
@@ -44,7 +41,6 @@ import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
 import com.ae.apps.tripmeter.fragments.TripDetailsFragment;
 import com.ae.apps.tripmeter.fragments.TripsListFragment;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
-import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
@@ -144,7 +140,7 @@ public class MainActivity extends ToolBarBaseActivity
                 setToolbarTitle(getResources().getString(R.string.app_name));
         }
         // Pass in the argument bundle if it exists
-        if (null != bundle && null != fragment) {
+        if (null != bundle ) {
             fragment.setArguments(bundle);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
@@ -198,26 +194,4 @@ public class MainActivity extends ToolBarBaseActivity
         updateDisplayedFragment(FRAGMENT_TRIP_DETAILS, bundle);
     }
 
-    @Override
-    public void deleteTrip(final Trip trip) {
-        // TODO Update the trips list
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ExpenseManager.newInstance(getBaseContext()).deleteTrip(trip);
-                Toast.makeText(getBaseContext(), "Trip Deleted", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setTitle(R.string.str_trip_delete_confirm);
-        builder.create().show();
-    }
 }
