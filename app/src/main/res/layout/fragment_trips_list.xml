@@ -18,6 +18,21 @@
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/fragment_trip"/>
 
+    <!--
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/str_empty_list_trips"/>
+    </RelativeLayout>
+    -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -25,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end|right"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_input_add"
         app:elevation="8dp"/>
