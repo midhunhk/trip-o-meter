@@ -1,4 +1,4 @@
-<img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v1.png" width="850"/>
+<img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
 
 "Trip 'O Meter" is an Android app to help you with planning and expenses on a trip.
 
