@@ -2,6 +2,9 @@
 
 Version 2.0 (Balanjar)
 ----------------------
+**Trip O Meter 2.0.18 [Mar 2017]**
+* [ADDED] Permissions for accessing contacts, Marshmallow and up
+
 **Trip O Meter 2.0.16 [Feb 2017]**
 * [ADDED] Calculate Trip Expense Share
 * [ADDED] Display Trip Expense Share
