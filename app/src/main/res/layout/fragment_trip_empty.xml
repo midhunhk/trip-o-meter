@@ -1,9 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.ae.apps.tripmeter.fragments.FuelPricesFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context="com.ae.apps.tripmeter.fragments.TripsListFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -20,21 +23,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="@string/menu_trip_expenses"/>
-
-            <TextView
+                android:id="@+id/txtPlaceHolder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:drawablePadding="@dimen/fab_margin"
-                android:drawableTop="@android:drawable/ic_secure"
+                android:drawableTop="@drawable/icon_gray"
                 android:gravity="center_vertical"
+                android:text="@string/empty_text"
                 android:textAlignment="center"
-                android:text="@string/str_feature_placeholder"/>
+                android:textSize="@dimen/text_size_medium"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-</FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -11,8 +11,8 @@ android {
         applicationId "com.ae.apps.tripmeter"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.0.0"
+        versionCode 10
+        versionName "2.0.18"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -26,9 +26,10 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            output.outputFile = new File(
-                    output.outputFile.parent,
-                    output.outputFile.name.replace(".apk", "-${variant.versionName}-${variant.versionCode}.apk"))
+            def fileName = android.defaultConfig.applicationId + "-" + variant.buildType.name
+            fileName = fileName + "-v${variant.versionName}"
+            fileName = fileName + "-build-${variant.versionCode}.apk"
+            output.outputFile = new File(output.outputFile.parent, fileName)
         }
     }
 }
@@ -38,10 +39,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
-    compile 'com.android.support:cardview-v7:25.0.0'
-    compile 'com.android.support:support-v4:25.0.0'
-    compile 'com.android.support:support-vector-drawable:25.0.0'
+
+    // The lib project is defined in settings.gradle
+    compile project(':AeAppsLibrary')
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:cardview-v7:25.2.0'
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:support-vector-drawable:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
     testCompile 'junit:junit:4.12'
 }

@@ -1,0 +1,128 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ae.apps.tripmeter.fragments.TripDetailsFragment">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/headerCardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtTripName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:padding="@dimen/card_padding"
+                        android:text="@string/hello_blank_fragment"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_large"/>
+
+                    <ImageButton
+                        android:id="@+id/btnShowHideExpenseMembers"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="@dimen/margin_extra_large"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:padding="0dp"
+                        android:src="@drawable/icon_arrow"
+                        android:contentDescription=""/>
+
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtTripTotalAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:padding="@dimen/card_padding"
+                    android:text="@string/hello_blank_fragment"
+                    android:textColor="@color/white"/>
+
+                <!-- Display included members in the trip -->
+                <LinearLayout
+                    android:id="@+id/tripMembersContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:orientation="horizontal"
+                    android:visibility="gone"/>
+
+                <!--
+                <FrameLayout
+                    android:id="@+id/frag"
+                    android:background="@color/colorPrimaryLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp" />
+                -->
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/grey"/>
+
+                <!-- Tabs with expenses and current shares -->
+            </LinearLayout>
+
+            <View
+                android:id="@+id/separatorView"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dip">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:padding="@dimen/padding_medium"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add"
+        app:elevation="8dp"
+        app:layout_anchor="@+id/separatorView"
+        app:layout_anchorGravity="top|end|right"/>
+
+</android.support.design.widget.CoordinatorLayout>

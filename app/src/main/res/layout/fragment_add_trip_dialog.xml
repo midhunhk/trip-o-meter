@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.ae.apps.tripmeter.fragments.AddExpenseDialogFragment">
+
+    <RelativeLayout
+        android:id="@+id/addTripDialogHeader"
+        style="@style/DialogHeaderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_header_height"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_text"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_car"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addTripDialogHeader"
+        android:padding="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <!-- Trip Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".35"
+                android:text="@string/str_trip_name"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/txtTripName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="right"
+                android:inputType="text|textCapWords"
+                tools:ignore="RtlHardcoded"/>
+        </LinearLayout>
+
+        <!-- Members included -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_trip_members"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="18sp"/>
+
+            <Button
+                android:id="@+id/btnTripMemberAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/str_trip_add_member"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/selectedContactsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"/>
+
+        <Button
+            android:id="@+id/btnTripAdd"
+            style="?attr/buttonBarPositiveButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:text="@string/str_trip_add"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

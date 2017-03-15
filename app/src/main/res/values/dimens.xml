@@ -4,4 +4,16 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="cardview_content_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="padding_small">4dp</dimen>
+
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+
+    <dimen name="image_size">35dp</dimen>
+    <dimen name="splash_image_size">144dp</dimen>
+
+    <dimen name="dialog_header_height">100dp</dimen>
+    <dimen name="dialog_header_height_small">70dp</dimen>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="citynames">
+        <item>Atlantis</item>
+        <item>Balanjar</item>
+    </string-array>
+    <string-array name="descriptions">
+        <item>Atlantis is a fictional island mentioned within Plato\'s works Timaeus and Critias, where it represents the antagonist naval power that besieges Ancient Athens.</item>
+        <item>Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.</item>
+    </string-array>
+</resources>

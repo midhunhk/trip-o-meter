@@ -6,4 +6,9 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="PrimaryButtonStyle">
+        <item name="android:backgroundTint">@color/colorAccent</item>
+    </style>
+
 </resources>

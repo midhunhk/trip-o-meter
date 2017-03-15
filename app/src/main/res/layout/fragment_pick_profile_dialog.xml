@@ -1,0 +1,81 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.ae.apps.tripmeter.fragments.PickProfileDialogFragment">
+
+    <RelativeLayout
+        android:id="@+id/pickProfileDialogHeader"
+        style="@style/DialogHeaderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_header_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_text"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_face_profile"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pickProfileDialogHeader"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/str_profile_select_text"/>
+
+        <Button
+            android:id="@+id/btnSelectProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_profile_select_pick"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
+            android:orientation="horizontal">
+        
+            <com.ae.apps.common.views.RoundedImageView
+                android:id="@+id/contactImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/card_margin"
+                android:minWidth="@dimen/image_size"
+                android:minHeight="@dimen/image_size"
+                android:maxWidth="@dimen/image_size"
+                android:maxHeight="@dimen/image_size"
+                android:contentDescription="@string/empty_text"/>
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/card_padding"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnChooseAsProfile"
+            style="?attr/buttonBarPositiveButtonStyle"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_profile_select_button"/>
+
+    </LinearLayout>
+</RelativeLayout>

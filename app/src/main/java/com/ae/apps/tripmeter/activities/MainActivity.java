@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  * <p>
  * Copyright (c) 2016 Midhun Harikumar
@@ -24,47 +24,62 @@
 package com.ae.apps.tripmeter.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.FuelPricesFragment;
-import com.ae.apps.tripmeter.fragments.TripExpensesFragment;
+import com.ae.apps.tripmeter.fragments.TripDetailsFragment;
+import com.ae.apps.tripmeter.fragments.TripsListFragment;
+import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 
 /**
  * The Main Activity
  */
-public class MainActivity extends AppCompatActivity implements FuelPricesFragment.OnFragmentInteractionListener {
+public class MainActivity extends ToolBarBaseActivity
+        implements ExpensesInteractionListener {
+
+    public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
+    private FragmentManager mFragmentManager;
+    private boolean isChildFragmentDisplayed;
+
+    private static final int FRAGMENT_TRIP_DETAILS = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // Set to default app theme
+        setTheme(R.style.AppTheme_NoActionBar);
 
-        // Setup the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        super.onCreate(savedInstanceState);
+
+        mFragmentManager = getSupportFragmentManager();
 
         // Implementing BottomNavigationView
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                updateDisplayedFragment(item.getItemId());
+                updateDisplayedFragment(item.getItemId(), null);
                 return false;
             }
         });
 
-        updateDisplayedFragment(R.id.action_trip_calc);
+        // Check for the last feature that was used by the user, else default
+        int featureFragment = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+                .getInt(AppConstants.PREF_KEY_LAST_FEATURE, DEFAULT_FEATURE);
+
+        updateDisplayedFragment(featureFragment, null);
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -78,26 +93,59 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
          */
     }
 
+    @Override
+    protected int getToolbarResourceId() {
+        return R.id.toolbar;
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
+    }
+
     /**
      * Update the fragment
-     * @param itemId
+     *
+     * @param itemId id of the menu
      */
-    private void updateDisplayedFragment(int itemId) {
-        Fragment fragment = null;
+    private void updateDisplayedFragment(int itemId, Bundle bundle) {
+        Fragment fragment;
+        int feature = itemId;
+        isChildFragmentDisplayed = false;
+        final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
                 fragment = FuelCalcFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.app_name));
                 break;
-            // Both items below point to coming soon fragments
             case R.id.action_fuel_price:
-                fragment = FuelPricesFragment.newInstance("", "");
+                fragment = FuelPricesFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
                 break;
             case R.id.action_trip_expenses:
-                fragment = TripExpensesFragment.newInstance();
+                fragment = TripsListFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
+            // Inner fragment of Trip Expenses
+            case FRAGMENT_TRIP_DETAILS:
+                // Store parent feature id
+                feature = R.id.action_trip_expenses;
+                fragment = TripDetailsFragment.newInstance();
+                fragmentTransaction.addToBackStack("TripExpense");
+                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
+                isChildFragmentDisplayed = true;
+                break;
+            default:
+                fragment = FuelCalcFragment.newInstance();
+                setToolbarTitle(getResources().getString(R.string.app_name));
         }
-
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        // Pass in the argument bundle if it exists
+        if (null != bundle ) {
+            fragment.setArguments(bundle);
+        }
+        PreferenceManager.getDefaultSharedPreferences(getBaseContext())
+                .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
+                .apply();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
     }
 
@@ -106,6 +154,15 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isChildFragmentDisplayed && mFragmentManager.getBackStackEntryCount() > 0) {
+            mFragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -129,7 +186,12 @@ public class MainActivity extends AppCompatActivity implements FuelPricesFragmen
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void showTripDetails(Trip trip) {
+        // Pass in the trip id as a parameter when creating and switching to the details
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.KEY_TRIP_ID, trip.getId());
 
+        updateDisplayedFragment(FRAGMENT_TRIP_DETAILS, bundle);
     }
+
 }

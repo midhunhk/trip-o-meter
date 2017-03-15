@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <!--
+    <com.ae.apps.common.views.RoundedImageView
+        android:id="@+id/contactImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/card_margin"
+        android:minWidth="@dimen/image_size"
+        android:minHeight="@dimen/image_size"
+        android:maxWidth="@dimen/image_size"
+        android:maxHeight="@dimen/image_size"
+        android:contentDescription="@string/empty_text"/>
+-->
+  
+    <TextView
+        android:id="@+id/contactName"
+        android:layout_marginTop="2dp"
+        android:textSize="14sp"
+        android:padding="@dimen/padding_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

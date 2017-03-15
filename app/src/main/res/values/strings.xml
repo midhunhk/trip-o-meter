@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">1.0.0 (Atlantis)</string>
-    <string name="app_version_code">Atlantis is a fictional island mentioned within Plato\'s works Timaeus and Critias, where it represents the antagonist naval power that besieges Ancient Athens.</string>
-    <string name="app_release_date">Jan 2017</string>
+    <string name="app_version_name">2.0.18 (Balanjar)</string>
+    <string name="app_version_code">Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.</string>
+    <string name="app_release_date">Mar 2017</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
     <string name="app_developer_info">Designed &amp; Developed at ae labs</string>
@@ -23,9 +23,35 @@
     <string name="str_calculate">Calculate</string>
     <string name="str_hero_image">Hero image</string>
 
+    <string name="str_expenses">Expenses</string>
+    <string name="str_share">Share</string>
+    <string name="str_total_expenses">Total Expenses </string>
+
     <string name="str_total_fuel_price">Total Fuel Price %s</string>
     <string name="str_total_fuel_needed">Fuel Needed %s</string>
     <string name="str_feature_placeholder">Feature Coming Soon</string>
+
+    <!-- Add Expenses Dialog -->
+    <string name="str_expense_amount">Amount</string>
+    <string name="str_expense_contributor">Contributor</string>
+    <string name="str_expense_members">Members</string>
+    <string name="str_expense_category">Category</string>
+    <string name="str_expense_note">Note</string>
+    <string name="str_expense_add">Add Expense</string>
+
+    <!-- Add Trip Dialog -->
+    <string name="str_trip_name">Trip Name</string>
+    <string name="str_trip_members">Members :</string>
+    <string name="str_trip_add_member">Add Contact</string>
+    <string name="str_trip_add">Create Trip</string>
+    <string name="str_trip_add_title">Add New Trip</string>
+    <string name="str_trip_delete_confirm">Delete this trip?</string>
+
+    <!-- Add Profile Dialog -->
+    <string name="str_profile_select_title">Choose Default Profile</string>
+    <string name="str_profile_select_text">To use Expenses, we need to know who you are. Please select from contacts list.</string>
+    <string name="str_profile_select_pick">Select Profile</string>
+    <string name="str_profile_select_button">Choose as Profile</string>
 
     <!-- Validation Error Messages -->
     <string name="str_error_empty_inputs">Please enter all data</string>
@@ -107,7 +133,11 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <string name="str_permission_title">Permission Needed</string>
+    <string name="str_permission_contacts_reason">Contacts access is needed for this feature</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_empty_list_trips">Start by adding a trip.</string>
 
 </resources>
