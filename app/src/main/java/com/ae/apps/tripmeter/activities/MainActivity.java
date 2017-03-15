@@ -1,4 +1,4 @@
-/**
+/*
  * MIT License
  * <p>
  * Copyright (c) 2016 Midhun Harikumar
