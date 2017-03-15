@@ -106,6 +106,12 @@ public class TripsListFragment extends Fragment
 
         createViewCompleted = true;
 
+        // When rebuilding this view, we are getting the below IllegalStateException
+        // The specified child already has a parent. You must call removeView() on the child's parent first
+        if(null != mContentView.getParent()){
+            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
+        }
+
         // If waiting for permission, mContentView will have dummy layout, else TripsListFragment Layout
         return mContentView;
     }
@@ -165,15 +171,6 @@ public class TripsListFragment extends Fragment
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
-    }
-
-    @SuppressWarnings("unused")
-    private View createNoAccessView() {
-        View view = mInflater.inflate(R.layout.fragment_trip_empty, mContainer, false);
-        TextView noContactsAccess = (TextView) view.findViewById(R.id.txtPlaceHolder);
-        noContactsAccess.setText(R.string.str_permission_contacts_reason);
-        noContactsAccess.setVisibility(View.VISIBLE);
-        return view;
     }
 
     private void createExpenseView() {
