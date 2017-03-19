@@ -4,17 +4,20 @@
 }
 #custom-bootstrap-menu.navbar-default {
     font-size: 16px;
-    background-color: rgba(255, 193, 7, 1);
+/*    background-color: rgba(255, 193, 7, 1);*/
+    background-color: rgba(123, 31, 162, 1);
     border-width: 0px;
     border-radius: 0px;
 }
 #custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
-    color: rgba(117, 117, 117, 1);
-    background-color: rgba(255, 193, 7, 1);
+    /*color: rgba(117, 117, 117, 1);
+    background-color: rgba(255, 193, 7, 1);*/
+    color: rgba(155, 155, 155, 1);
+    background-color: rgba(123, 31, 162, 1);
 }
 #custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
 #custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
-    color: rgba(33, 33, 33, 1);
+    color: rgba(255, 255, 255, 1);
     background-color: rgba(248, 248, 248, 0);
 }
 #custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
@@ -38,3 +41,13 @@
     background-color: #ffc107;
 }
 .navbar-brand{ font-size: 22px; font-weight: bolder; color: aliceblue;}
+.navbar-brand{ font-size: 22px; font-weight: bolder; color: aliceblue;}
+.navbar-default .navbar-text{ color: white !important; font-weight: bold;}
+
+.violet{
+    /*background-color: #d086dd*/
+    background-color: rgba(123, 31, 162, 1);
+    
+    color: white;
+}
+.violet h1{color: white;}
