@@ -77,7 +77,7 @@ public class ExpenseManager {
     private ExpenseManager(final Context context) {
         mContext = context;
         mExpensesDatabase = new TripExpensesDatabase(mContext);
-        mContactManager = new ExpenseContactManager(mContext.getContentResolver());
+        mContactManager = ExpenseContactManager.newInstance(mContext.getContentResolver());
 
         mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
     }

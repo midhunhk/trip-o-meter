@@ -40,18 +40,21 @@ public class ExpenseContactManager extends ContactManager {
     /**
      * Return a reference to the ExpenseContactManager implementation
      *
-     * @param contentResolver
-     * @return
+     * @param contentResolver content resolver
+     * @return instance of {@link ExpenseContactManager}
      */
-    public static ExpenseContactManager newInstance(ContentResolver contentResolver){
-        if(null == instance){
-            instance = new ExpenseContactManager(contentResolver);
+    public static ExpenseContactManager newInstance(ContentResolver contentResolver) {
+        if (null == instance) {
+            ContactManager.Config config = new ContactManager.Config();
+            config.contentResolver = contentResolver;
+            config.addContactsWithPhoneNumbers = false;
+            instance = new ExpenseContactManager(config);
         }
         return instance;
     }
 
-    public ExpenseContactManager(ContentResolver contentResolver) {
-        super(contentResolver);
+    private ExpenseContactManager(ContactManager.Config config) {
+        super(config);
     }
 
     @Override
@@ -61,15 +64,16 @@ public class ExpenseContactManager extends ContactManager {
 
     /**
      * Returns a list of ContactVos from contactIds
+     *
      * @param memberIds comma separated member ids
-     * @return
+     * @return contactsList
      */
     public List<ContactVo> getContactsFromIds(String memberIds) {
         List<ContactVo> contacts = new ArrayList<>();
-        if(null != memberIds && !TextUtils.isEmpty(memberIds)){
+        if (null != memberIds && !TextUtils.isEmpty(memberIds)) {
             ContactVo contactVo;
-            String [] contactIds = memberIds.split(",");
-            for(String contactId : contactIds){
+            String[] contactIds = memberIds.split(",");
+            for (String contactId : contactIds) {
                 contactVo = getContactInfo(contactId);
                 contacts.add(contactVo);
             }
@@ -80,24 +84,24 @@ public class ExpenseContactManager extends ContactManager {
 
     /**
      * Finds and returns the default Profile (current user)
-     *
+     * <p>
      * Owner details are stored in ContactsContract.Profile for ICS and up
      *
-     * @return
+     * @return ContactVO
      */
-    public ContactVo getDefaultContact(){
+    public ContactVo getDefaultContact() {
         ContactVo contactVo = new ContactVo();
 
         boolean userFound = false;
-        Cursor cursor = contentResolver.query( ContactsContract.Profile.CONTENT_URI, null, null, null, null);
-        if(cursor.moveToFirst()){
-            contactVo.setName(cursor.getString(cursor.getColumnIndex( ContactsContract.Profile.DISPLAY_NAME)));
-            contactVo.setId(cursor.getString(cursor.getColumnIndex( ContactsContract.Profile._ID)));
+        Cursor cursor = contentResolver.query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
+        if (null != cursor && cursor.moveToFirst()) {
+            contactVo.setName(cursor.getString(cursor.getColumnIndex(ContactsContract.Profile.DISPLAY_NAME)));
+            contactVo.setId(cursor.getString(cursor.getColumnIndex(ContactsContract.Profile._ID)));
             userFound = true;
+            cursor.close();
         }
-        cursor.close();
 
-        if(!userFound){
+        if (!userFound) {
             contactVo.setName("You");
             contactVo.setId("0");
         }
