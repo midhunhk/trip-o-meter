@@ -61,6 +61,7 @@
             android:paddingLeft="@dimen/padding_medium"
             android:paddingStart="@dimen/padding_medium"
             android:paddingTop="@dimen/padding_small"
+            android:layout_marginRight="@dimen/margin_small"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
@@ -73,7 +74,7 @@
             android:layout_alignParentTop="true"
             android:contentDescription="@string/empty_text"
             android:padding="@dimen/padding_small"
-            android:src="@android:drawable/ic_delete"/>
+            android:src="@mipmap/ic_delete_black_48dp"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
