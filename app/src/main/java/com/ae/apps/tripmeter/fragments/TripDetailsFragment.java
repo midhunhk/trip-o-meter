@@ -138,12 +138,12 @@ public class TripDetailsFragment extends Fragment
                     mTripMembersContainer.setVisibility(View.GONE);
                     isMembersContainerDisplayed = false;
                     btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
-                            "rotation", 0, 180);
+                            "rotation", 180, 0);
                 } else {
                     mTripMembersContainer.setVisibility(View.VISIBLE);
                     isMembersContainerDisplayed = true;
                     btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
-                            "rotation", 180, 0);
+                            "rotation", 0, 180);
                 }
                 btnAnimation.setDuration(200).start();
             }

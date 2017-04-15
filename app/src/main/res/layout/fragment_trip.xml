@@ -74,7 +74,7 @@
             android:layout_alignParentTop="true"
             android:contentDescription="@string/empty_text"
             android:padding="@dimen/padding_small"
-            android:src="@mipmap/ic_delete_black_48dp"/>
+            android:src="@drawable/ic_delete"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
