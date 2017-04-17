@@ -1,0 +1,40 @@
+/**
+ *
+ */
+
+
+
+/*
+ * Keyframes
+ */
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translate3d(0, 100%, 0); }
+  100% {opacity: 1; transform: none; }
+}
+
+@keyframes fadeInRight {
+  0% { opacity: 0; transform: translate3d(100%, 0, 0); }
+  100% { opacity: 1; transform: none;}
+}
+
+@keyframes fadeInLeft {
+  0% { opacity: 0; transform: translate3d(-100%, 0, 0); }
+  100% { opacity: 1; transform: none;}
+}
+
+/*
+ * CSS Transitions
+ */
+.animation-slidein{
+    animation-duration: 1.0s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
+}
+.animation-slidein-left{ animation-name: fadeInLeft; }
+.animation-slidein-right{ animation-name: fadeInRight; }

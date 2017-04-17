@@ -11,6 +11,7 @@
 		
 		<!-- Custom styles -->
 		<link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="animations.css">
 		
 		<!-- Custom font -->
         <link href="https://fonts.googleapis.com/css?family=Merriweather|Raleway" rel="stylesheet">
@@ -44,31 +45,31 @@
                 </div>
             </div>
             
-            <div id="hero" class="bg-image-home" style="height: 500px;">
-		<div class="outer-container">
-			<div class="container" style="padding-top: 0px;">
-                    		<br/>
-                    		<br/>
-                    		<br/>
-                    		<h1 class="scr-builder-text first-color">
-                        		<center><span class="feature-main-heading">Trip 'O Meter</span></center>
-                    		</h1>
-                    		<h2>
-                        		<center><span class="feature-sub-heading">A Modern Android App for your trip.</span></center>
-                    		</h2>
-                    		<center>
-                        		<a class="btn btn-large" href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter" title="Android app on Google Play">
-				        <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
+            <div id="hero" class="bg-image-home" style="height: 520px;">
+		      <div class="outer-container">
+			     <div class="container" style="padding-top: 0px;">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h1 class="scr-builder-text first-color">
+                        <center><span class="feature-main-heading">Trip 'O Meter</span></center>
+                    </h1>
+                    <h2>
+                        <center><span class="feature-sub-heading">A Modern Android App for your trip.</span></center>
+                    </h2>
+                    <center>
+                        <a class="btn btn-large" id="playstore-button" href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter" title="Android app on Google Play">
+				            <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
 				        </a>
-                    		</center>
-                	</div>
-		    </div>
+                    </center>
+                  </div>
+		      </div>
             </div>
             
         </div>
+        <!-- End Navbar Div -->
 
 		<!-- Main Content -->
-        
         <section class="container container-fluid">
             <div class="page-header">
                 <h1>Get ready for your next trip!</h1>
@@ -88,8 +89,8 @@
             <br />
         </section>
                 
-        <div style="background-color:#FFC107">
-            <section class="container container-fluid" >
+        <div class="yellow section-screenshots">
+            <section class="container container-fluid screenshots" >
                 <div class="page-header">
                     <h1>Screenshots</h1>
                 </div>
@@ -127,9 +128,9 @@
         </section>
 
         
-        <div class="violet">
+        <div class="violet section-features-and-contribute">
             <section class="container container-fluid">
-                <div class="col-md-6">
+                <div class="col-md-6 animation-slidein section-features">
                     <div class="page-header">
                         <h1>Features</h1>
                     </div>
@@ -144,7 +145,7 @@
                     Fuel Prices API is being developed by <a href="https://github.com/RaghuChandrasekaran">RaghuChandrasekaran</a> 
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6 animation-slidein section-contribute">
 
                     <div class="page-header">
                         <h1>Contribute</h1>
@@ -214,6 +215,11 @@
             </div>
         </div>
 		<!-- End Footer -->
+        
+        <!-- JavaScript libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/jquery.inview.js"></script>
         
 	</body>
 </html>
