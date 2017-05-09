@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=master)](https://travis-ci.org/midhunhk/trip-o-meter)
+
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
 
 "Trip 'O Meter" is an Android app to help you with planning and expenses on a trip.
