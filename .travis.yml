@@ -22,7 +22,7 @@ before_script:
     - export PATH=$GRADLE_HOME/bin:$PATH
   
 # Install Dependencies
-before_install
+before_install:
     - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git midhunhk/AeAppsLib
   
 # Licenses to be accepted
