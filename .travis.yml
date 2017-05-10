@@ -17,3 +17,7 @@ before_script:
     - unzip gradle-3.3-all.zip
     - export GRADLE_HOME=$PWD/gradle-3.3
     - export PATH=$GRADLE_HOME/bin:$PATH
+licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
