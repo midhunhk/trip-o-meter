@@ -5,6 +5,7 @@ android {
         config {
         }
     }
+    
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
@@ -16,14 +17,21 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    
+    lintOptions {
+        abortOnError false
+    }
+    
     compileOptions {
     }
+    
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def fileName = android.defaultConfig.applicationId + "-" + variant.buildType.name
