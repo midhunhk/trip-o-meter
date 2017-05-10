@@ -6,7 +6,7 @@ jdk:
 # Install Dependencies
 before_install:
     - cd ..
-    - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git AeAppsLib
+    - git clone --depth=50 --branch=elderberry https://github.com/midhunhk/ae-apps-library.git AeAppsLib
     - cd trip-o-meter
 
 # Android settings
