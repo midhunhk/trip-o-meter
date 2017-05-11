@@ -1,5 +1,6 @@
-Trip-O-Meter [![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=master)](https://travis-ci.org/midhunhk/trip-o-meter)
+Trip-O-Meter
 =================================
+[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=master)](https://travis-ci.org/midhunhk/trip-o-meter) 
 
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
 
