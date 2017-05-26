@@ -42,10 +42,9 @@ Open the project in Android Studio
 ### Play Store
 Get the latest release version of the app from the Google Play Store.
 
-  <a class="btn btn-large" href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter" title="Android app on Google Play">
-	  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png">
-	</a>
-
+<a href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter">
+ <img alt="Get it on Google Play" width="200px" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">
+</a>
 [](https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter)
 
 ## Contribute
