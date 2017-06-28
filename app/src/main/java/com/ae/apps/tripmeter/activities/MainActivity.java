@@ -36,7 +36,7 @@ import android.view.MenuItem;
 
 import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.fragments.FuelCalcFragment;
+import com.ae.apps.tripmeter.fragments.fuelcalc.FuelCalcFragment;
 import com.ae.apps.tripmeter.fragments.prices.FuelPricesFragment;
 import com.ae.apps.tripmeter.fragments.expenses.TripDetailsFragment;
 import com.ae.apps.tripmeter.fragments.expenses.TripsListFragment;
