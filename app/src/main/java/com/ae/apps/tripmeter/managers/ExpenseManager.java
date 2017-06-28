@@ -46,6 +46,8 @@ import java.util.List;
  */
 public class ExpenseManager {
 
+    private static final String MEMBER_ID_SEPARATOR = ",";
+
     final String TAG = getClass().getSimpleName();
 
     private static ExpenseManager sInstance;
@@ -77,12 +79,16 @@ public class ExpenseManager {
      * @param context new instance
      */
     private ExpenseManager(final Context context) {
-        mExpensesDatabase = new TripExpensesDatabase(context);
         mResources = context.getResources();
+        mExpensesDatabase = new TripExpensesDatabase(context);
+
+        Log.d(TAG, "Creating ExpenseContactManager instance");
         mContactManager = ExpenseContactManager.newInstance(context.getContentResolver(), mResources);
 
-        Log.d(TAG, "Creating ExpenseContactManager");
-
+        // Doing an async read for Contacts as we do not immediately need the contacts data
+        // This should speedup the execution of other initializations
+        // We may need to call fetchContacts() if permission to read contacts is not provided
+        // when this class is created in Android L and above
         mContactManager.fetchAllContactsAsync(new ContactDataConsumer() {
             @Override
             public void onContactsRead() {
@@ -194,7 +200,7 @@ public class ExpenseManager {
         TripMemberShare tripMemberShare;
 
         float totalExpense = tripExpense.getAmount();
-        String[] memberIds = tripExpense.getMemberIds().split(",");
+        String[] memberIds = tripExpense.getMemberIds().split(MEMBER_ID_SEPARATOR);
         String contributorId = tripExpense.getPaidById();
         int memberCount = memberIds.length;
 
