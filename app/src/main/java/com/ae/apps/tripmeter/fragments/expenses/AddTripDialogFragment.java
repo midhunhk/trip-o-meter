@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.ae.apps.tripmeter.fragments;
+package com.ae.apps.tripmeter.fragments.expenses;
 
 import android.app.Activity;
 import android.content.Intent;

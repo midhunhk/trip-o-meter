@@ -29,7 +29,6 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ae.apps.common.managers.contact.ContactDataConsumer;
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
@@ -82,19 +81,10 @@ public class ExpenseManager {
         mResources = context.getResources();
         mExpensesDatabase = new TripExpensesDatabase(context);
 
-        Log.d(TAG, "Creating ExpenseContactManager instance");
         mContactManager = ExpenseContactManager.newInstance(context.getContentResolver(), mResources);
-
-        // Doing an async read for Contacts as we do not immediately need the contacts data
-        // This should speedup the execution of other initializations
-        // We may need to call fetchContacts() if permission to read contacts is not provided
-        // when this class is created in Android L and above
-        mContactManager.fetchAllContactsAsync(new ContactDataConsumer() {
-            @Override
-            public void onContactsRead() {
-                Log.d(TAG, "onContactsRead");
-            }
-        });
+        // Fetch all contacts
+        // Note that permission is required in Android L and up
+        mContactManager.fetchAllContacts();
 
         mDefaultProfilePic = BitmapFactory.decodeResource(mResources, R.drawable.default_profile_image);
 

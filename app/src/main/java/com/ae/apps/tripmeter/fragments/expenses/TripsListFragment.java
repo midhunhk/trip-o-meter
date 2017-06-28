@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.ae.apps.tripmeter.fragments;
+package com.ae.apps.tripmeter.fragments.expenses;
 
 import android.Manifest;
 import android.content.Context;
@@ -40,8 +40,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.fragments.PickProfileDialogFragment;
 import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
@@ -209,16 +209,6 @@ public class TripsListFragment extends Fragment
         }
     }
 
-
-    @SuppressWarnings("unused")
-    private void checkForDefaultProfile() {
-        // Ask ExpenseManager for the default profile
-        ContactVo contactVo = mExpenseManager.getDefaultProfile(getContext());
-        if (null == contactVo) {
-            showSelectProfileDialog();
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -241,14 +231,6 @@ public class TripsListFragment extends Fragment
         AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();
         dialogFragment.setTargetFragment(TripsListFragment.this, 300);
         dialogFragment.show(fragmentManager, "fragment_add_trip");
-    }
-
-    private void showSelectProfileDialog() {
-        FragmentManager fragmentManager = getFragmentManager();
-        PickProfileDialogFragment dialogFragment = PickProfileDialogFragment.newInstance();
-        dialogFragment.setTargetFragment(TripsListFragment.this, 300);
-        dialogFragment.setCancelable(false);
-        dialogFragment.show(fragmentManager, "fragment_select_profile");
     }
 
     @Override
