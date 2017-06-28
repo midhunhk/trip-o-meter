@@ -108,7 +108,7 @@ public class TripsListFragment extends Fragment
 
         // When rebuilding this view, we are getting the below IllegalStateException
         // The specified child already has a parent. You must call removeView() on the child's parent first
-        if(null != mContentView.getParent()){
+        if (null != mContentView.getParent()) {
             ((ViewGroup) mContentView.getParent()).removeView(mContentView);
         }
 
@@ -213,7 +213,7 @@ public class TripsListFragment extends Fragment
     @SuppressWarnings("unused")
     private void checkForDefaultProfile() {
         // Ask ExpenseManager for the default profile
-        ContactVo contactVo = mExpenseManager.getDefaultProfile();
+        ContactVo contactVo = mExpenseManager.getDefaultProfile(getContext());
         if (null == contactVo) {
             showSelectProfileDialog();
         }
@@ -268,7 +268,7 @@ public class TripsListFragment extends Fragment
     @Override
     public void onProfileSelected(String contactId) {
         // Save this id in shared preferences
-        mExpenseManager.saveDefaultProfile(contactId);
+        mExpenseManager.saveDefaultProfile(contactId, getContext());
     }
 
     @Override
