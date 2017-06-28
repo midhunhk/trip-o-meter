@@ -20,6 +20,7 @@
 package com.ae.apps.tripmeter.managers;
 
 import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * Wrapper over ContactManager
  */
-public class ExpenseContactManager extends ContactManager {
+class ExpenseContactManager extends ContactManager {
 
     private static ExpenseContactManager instance;
 
@@ -43,18 +44,17 @@ public class ExpenseContactManager extends ContactManager {
      * @param contentResolver content resolver
      * @return instance of {@link ExpenseContactManager}
      */
-    public static ExpenseContactManager newInstance(ContentResolver contentResolver) {
+    public static ExpenseContactManager newInstance(ContentResolver contentResolver, Resources resources) {
         if (null == instance) {
-            ContactManager.Config config = new ContactManager.Config();
-            config.contentResolver = contentResolver;
-            config.addContactsWithPhoneNumbers = false;
-            instance = new ExpenseContactManager(config);
+            ContactManager.Builder builder = new ContactManager.Builder(contentResolver, resources);
+            builder.addContactsWithPhoneNumbers(false);
+            instance = new ExpenseContactManager(builder);
         }
         return instance;
     }
 
-    private ExpenseContactManager(ContactManager.Config config) {
-        super(config);
+    private ExpenseContactManager(ContactManager.Builder builder) {
+        super(builder);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ExpenseContactManager extends ContactManager {
      * @param memberIds comma separated member ids
      * @return contactsList
      */
-    public List<ContactVo> getContactsFromIds(String memberIds) {
+    List<ContactVo> getContactsFromIds(String memberIds) {
         List<ContactVo> contacts = new ArrayList<>();
         if (null != memberIds && !TextUtils.isEmpty(memberIds)) {
             ContactVo contactVo;
@@ -89,7 +89,7 @@ public class ExpenseContactManager extends ContactManager {
      *
      * @return ContactVO
      */
-    public ContactVo getDefaultContact() {
+    ContactVo getDefaultContact() {
         ContactVo contactVo = new ContactVo();
 
         boolean userFound = false;
