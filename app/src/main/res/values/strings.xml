@@ -58,7 +58,7 @@
     <string name="str_error_no_mileage">Please enter correct mileage</string>
 
     <!-- Configuration Items, not to be translated-->
-    <string name="github_source_visible_url" translatable="false">https://github.com/midhunhk/trip-o-meter</string>
+    <string name="github_source_visible_url" translatable="false">github.com/midhunhk/trip-o-meter</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
