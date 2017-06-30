@@ -10,6 +10,11 @@ import org.junit.runner.RunWith;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import static org.junit.Assert.*;
+import static android.support.test.espresso.Espresso.*;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static android.support.test.espresso.matcher.ViewActions.*;
+
 @RunWith(AndroidJUnit4.class)
 public class FuelCalcTest {
 
