@@ -12,8 +12,8 @@ android {
         applicationId "com.ae.apps.tripmeter"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 13
-        versionName "2.1.0"
+        versionCode 12
+        versionName "2.0.19"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -44,9 +44,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     // The lib project is defined in settings.gradle
     compile project(':AeAppsLibrary')
@@ -56,5 +53,17 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    // Unit Tests
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+    // Instrumented Unit Tests
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
+    androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
+
 }
