@@ -1,5 +1,7 @@
 package com.ae.apps.tripmeter.activities;
 
+import com.ae.apps.tripmeter.R;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
