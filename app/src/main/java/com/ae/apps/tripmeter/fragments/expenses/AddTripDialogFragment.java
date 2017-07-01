@@ -82,8 +82,10 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
 
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        if(null != getDialog().getWindow()) {
+            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     @Override
@@ -105,13 +107,6 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
         mMembersContainer = (LinearLayout) view.findViewById(R.id.selectedContactsContainer);
 
-        // Removing default profile feature
-        /*
-        ContactVo defaultProfile = mExpenseManager.getDefaultProfile();
-        mExpenseMembers.add(defaultProfile);
-        addMemberToContainer(defaultProfile);
-        */
-
         // Set action for adding a trip
         Button btnAdd = (Button) view.findViewById(R.id.btnTripAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -123,9 +118,18 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
                     sendResult(trip);
 
                     dismiss();
-                } catch(TripValidationException e){
+                } catch (TripValidationException e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        // Handle Cancel click on the dialog
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
 
@@ -141,8 +145,8 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
         return view;
     }
 
-    private Trip saveTrip() throws TripValidationException{
-        if(TextUtils.isEmpty(txtTripName.getText().toString())){
+    private Trip saveTrip() throws TripValidationException {
+        if (TextUtils.isEmpty(txtTripName.getText().toString())) {
             throw new TripValidationException("Please enter trip name");
         }
 
@@ -195,7 +199,8 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
                 StringBuilder debugInfo = new StringBuilder("Added contact with id " + contactVo.getId());
                 if (null != contactVo.getName()) {
-                    debugInfo.append(" " + contactVo.getName());
+                    debugInfo.append(" ")
+                            .append(contactVo.getName());
                 }
 
                 // Toast.makeText(getActivity(), debugInfo.toString(), Toast.LENGTH_SHORT).show();
@@ -206,7 +211,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
                 mExpenseMembers.add(contactVo);
             } else {
-                Log.d(TAG, "contactvo.getId() is null");
+                Log.d(TAG, "contactVo.getId() is null");
             }
         }
     }
@@ -224,7 +229,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
      * Activity/Fragment that invokes this DialogFragment should implement this
      * interface to pass data back
      */
-    public interface AddTripDialogListener {
+    interface AddTripDialogListener {
         void onTripAdded(Trip trip);
     }
 
@@ -233,7 +238,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
      */
     private class TripValidationException extends Exception {
 
-        public TripValidationException(String message) {
+        TripValidationException(String message) {
             super(message);
         }
     }

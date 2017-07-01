@@ -231,6 +231,15 @@ public class TripsListFragment extends Fragment
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(null != mListener){
+            mListener.showAddTripFAB();
+            mListener.registerFABListener(this);
+        }
+    }
+
     private void showAddTripDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();

@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.ae.apps.tripmeter.fragments.expenses.AddExpenseDialogFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.ae.apps.tripmeter.fragments.expenses.AddExpenseDialogFragment">
 
     <RelativeLayout
         android:id="@+id/addTripDialogHeader"
@@ -14,8 +14,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/empty_text"
             android:layout_centerInParent="true"
+            android:contentDescription="@string/empty_text"
             android:src="@drawable/ic_car"/>
 
     </RelativeLayout>
@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/addTripDialogHeader"
-        android:padding="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
 
         <!-- Trip Name -->
         <LinearLayout
@@ -63,17 +63,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_trip_members"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:text="@string/str_trip_members"
                 android:textSize="18sp"/>
 
             <Button
                 android:id="@+id/btnTripMemberAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/str_trip_add_member"/>
         </RelativeLayout>
 
@@ -85,14 +85,29 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical"/>
 
-        <Button
-            android:id="@+id/btnTripAdd"
-            style="?attr/buttonBarPositiveButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_trip_add"/>
+            android:gravity="end"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btnCancel"
+                style="?attr/buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@android:string/cancel"
+                android:textAllCaps="true"/>
+
+            <Button
+                android:id="@+id/btnTripAdd"
+                style="?attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/str_trip_add"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
