@@ -1,5 +1,12 @@
 ## Trip 'O Meter Version History
 
+Version 2.1 (Camelot)
+----------------------
+**Trip O Meter 2.1.3 [Jul 2017]**
+* [FIXED] FAB Layout issues
+* [ADDED] Unit Testing
+* [IMPROVED] Layouts and performance
+
 Version 2.0 (Balanjar)
 ----------------------
 **Trip O Meter 2.0.19 [Apr 2017]**
