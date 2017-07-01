@@ -44,6 +44,7 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.PickProfileDialogFragment;
 import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.listeners.FloatingActionButtonClickListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
@@ -59,7 +60,7 @@ import java.util.List;
  */
 public class TripsListFragment extends Fragment
         implements AddTripDialogFragment.AddTripDialogListener, PickProfileDialogFragment.SelectProfileListener,
-        ExpenseListUpdateListener {
+        ExpenseListUpdateListener, FloatingActionButtonClickListener {
 
     private static final String TAG = "TripsListFragment";
 
@@ -189,6 +190,7 @@ public class TripsListFragment extends Fragment
         }
 
         // Locate the FAB and add a trip when its clicked
+        /*
         FloatingActionButton actionButton = (FloatingActionButton) view.findViewById(R.id.fab);
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +198,7 @@ public class TripsListFragment extends Fragment
                 showAddTripDialog();
             }
         });
+        */
 
         // Update the main content view with the trips list layout
         mContentView = view;
@@ -214,6 +217,8 @@ public class TripsListFragment extends Fragment
         super.onAttach(context);
         if (context instanceof ExpensesInteractionListener) {
             mListener = (ExpensesInteractionListener) context;
+            mListener.showAddTripFAB();
+            mListener.registerFABListener(this);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -285,5 +290,8 @@ public class TripsListFragment extends Fragment
 
     }
 
-
+    @Override
+    public void onFloatingActionClick() {
+        showAddTripDialog();
+    }
 }

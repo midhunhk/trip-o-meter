@@ -27,20 +27,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
-import com.ae.apps.tripmeter.fragments.fuelcalc.FuelCalcFragment;
-import com.ae.apps.tripmeter.fragments.prices.FuelPricesFragment;
 import com.ae.apps.tripmeter.fragments.expenses.TripDetailsFragment;
 import com.ae.apps.tripmeter.fragments.expenses.TripsListFragment;
+import com.ae.apps.tripmeter.fragments.fuelcalc.FuelCalcFragment;
+import com.ae.apps.tripmeter.fragments.prices.FuelPricesFragment;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.listeners.FloatingActionButtonClickListener;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
 
@@ -51,8 +54,11 @@ public class MainActivity extends ToolBarBaseActivity
         implements ExpensesInteractionListener {
 
     public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
+
+    private View mFloatingActionButton;
     private FragmentManager mFragmentManager;
     private boolean isChildFragmentDisplayed;
+    private FloatingActionButtonClickListener mFloatingActionClickListener;
 
     private static final int FRAGMENT_TRIP_DETAILS = 1001;
 
@@ -75,22 +81,23 @@ public class MainActivity extends ToolBarBaseActivity
             }
         });
 
+        // Setup the Floating Action Button
+        mFloatingActionButton = findViewById(R.id.fab);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mFloatingActionClickListener) {
+                    mFloatingActionClickListener.onFloatingActionClick();
+                }
+            }
+        });
+
         // Check for the last feature that was used by the user, else default
         int featureFragment = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .getInt(AppConstants.PREF_KEY_LAST_FEATURE, DEFAULT_FEATURE);
 
         updateDisplayedFragment(featureFragment, null);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-         */
     }
 
     @Override
@@ -108,10 +115,12 @@ public class MainActivity extends ToolBarBaseActivity
      *
      * @param itemId id of the menu
      */
-    private void updateDisplayedFragment(int itemId, Bundle bundle) {
+    private void updateDisplayedFragment(int itemId, @Nullable Bundle bundle) {
         Fragment fragment;
         int feature = itemId;
         isChildFragmentDisplayed = false;
+        mFloatingActionButton.setVisibility(View.INVISIBLE);
+
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
             case R.id.action_trip_calc:
@@ -140,7 +149,7 @@ public class MainActivity extends ToolBarBaseActivity
                 setToolbarTitle(getResources().getString(R.string.app_name));
         }
         // Pass in the argument bundle if it exists
-        if (null != bundle ) {
+        if (null != bundle) {
             fragment.setArguments(bundle);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
@@ -166,7 +175,7 @@ public class MainActivity extends ToolBarBaseActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -186,12 +195,22 @@ public class MainActivity extends ToolBarBaseActivity
     }
 
     @Override
-    public void showTripDetails(Trip trip) {
+    public void showTripDetails(@NonNull Trip trip) {
         // Pass in the trip id as a parameter when creating and switching to the details
         Bundle bundle = new Bundle();
         bundle.putString(AppConstants.KEY_TRIP_ID, trip.getId());
 
         updateDisplayedFragment(FRAGMENT_TRIP_DETAILS, bundle);
+    }
+
+    @Override
+    public void showAddTripFAB() {
+        mFloatingActionButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void registerFABListener(FloatingActionButtonClickListener clickListener) {
+        this.mFloatingActionClickListener = clickListener;
     }
 
 }

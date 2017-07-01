@@ -32,12 +32,12 @@ public interface ExpenseChangeObserver {
      *
      * @param listener listener
      */
-    public void addListener(ExpenseChangeListener listener);
+    void addListener(ExpenseChangeListener listener);
 
     /**
      * Remove a listener
      *
      * @param listener listener
      */
-    public void removeListener(ExpenseChangeListener listener);
+    void removeListener(ExpenseChangeListener listener);
 }
