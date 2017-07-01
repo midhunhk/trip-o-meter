@@ -119,7 +119,6 @@ public class MainActivity extends ToolBarBaseActivity
         Fragment fragment;
         int feature = itemId;
         isChildFragmentDisplayed = false;
-        mFloatingActionButton.setVisibility(View.INVISIBLE);
 
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
@@ -156,6 +155,11 @@ public class MainActivity extends ToolBarBaseActivity
                 .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
                 .apply();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+
+        // Hide the FAB only if we are not showing trip expense fragment
+        if(R.id.action_trip_expenses != itemId) {
+            mFloatingActionButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
