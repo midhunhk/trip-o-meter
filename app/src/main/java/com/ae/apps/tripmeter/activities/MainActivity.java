@@ -157,7 +157,7 @@ public class MainActivity extends ToolBarBaseActivity
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
 
         // Hide the FAB only if we are not showing trip expense fragment
-        if(R.id.action_trip_expenses != itemId) {
+        if (R.id.action_trip_expenses != itemId) {
             mFloatingActionButton.setVisibility(View.INVISIBLE);
         }
     }
@@ -209,7 +209,9 @@ public class MainActivity extends ToolBarBaseActivity
 
     @Override
     public void showAddTripFAB() {
-        mFloatingActionButton.setVisibility(View.VISIBLE);
+        if (null != mFloatingActionButton) {
+            mFloatingActionButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
