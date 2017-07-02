@@ -109,6 +109,15 @@ public class ExpenseManager {
     }
 
     /**
+     * Updates a trip
+     *
+     * @param trip trip to update
+     */
+    public void updateTrip(final Trip trip){
+        mExpensesDatabase.updateTrip(trip);
+    }
+
+    /**
      * Delete a trip from the database
      */
     public void deleteTrip(final Trip trip) {

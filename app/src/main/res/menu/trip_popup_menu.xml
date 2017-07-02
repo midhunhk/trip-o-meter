@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_delete_trip"
+        android:orderInCategory="100"
+        android:title="@string/str_trips_menu_delete_trip"/>
+
+    <item
+        android:id="@+id/action_edit_trip_name"
+        android:orderInCategory="101"
+        android:title="@string/str_trips_menu_edit_trip"/>
+</menu>

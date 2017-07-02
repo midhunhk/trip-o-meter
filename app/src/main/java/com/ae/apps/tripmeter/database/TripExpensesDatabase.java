@@ -63,6 +63,21 @@ public class TripExpensesDatabase extends DataBaseHelper {
     }
 
     /**
+     * Updates a trip and returns the status
+     *
+     * @param trip trip to update
+     * @return update status
+     */
+    public long updateTrip(Trip trip){
+        String[] args = {trip.getId()};
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseConstants.TRIPS_MASTER_TRIP_NAME, trip.getName());
+        return update(DatabaseConstants.TRIPS_MASTER_TABLE, contentValues,
+                DatabaseConstants.TRIPS_MASTER_ID + " = ? ",
+                args);
+    }
+
+    /**
      * Adds a trip expense row
      *
      * @param tripExpense expnese

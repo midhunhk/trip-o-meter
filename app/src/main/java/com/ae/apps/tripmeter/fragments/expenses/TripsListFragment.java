@@ -31,7 +31,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +46,7 @@ import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.listeners.FloatingActionButtonClickListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.List;
@@ -184,23 +184,12 @@ public class TripsListFragment extends Fragment
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener, this);
 
-        if (recyclerView instanceof RecyclerView) {
+        if (null != recyclerView) {
             Context context = view.getContext();
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(mViewAdapter);
             recyclerView.setEmptyView(emptyView);
         }
-
-        // Locate the FAB and add a trip when its clicked
-        /*
-        FloatingActionButton actionButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddTripDialog();
-            }
-        });
-        */
 
         // Update the main content view with the trips list layout
         mContentView = view;
@@ -236,7 +225,7 @@ public class TripsListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if(null != mListener){
+        if (null != mListener) {
             mListener.showAddTripFAB();
             mListener.registerFABListener(this);
         }
@@ -249,6 +238,18 @@ public class TripsListFragment extends Fragment
         dialogFragment.show(fragmentManager, "fragment_add_trip");
     }
 
+    private void showEditTripDialog(final String tripId) {
+        FragmentManager fragmentManager = getFragmentManager();
+        EditTripDialogFragment dialogFragment = EditTripDialogFragment.newInstance();
+        dialogFragment.setTargetFragment(TripsListFragment.this, 300);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.KEY_TRIP_ID, tripId);
+        dialogFragment.setArguments(bundle);
+
+        dialogFragment.show(fragmentManager, "fragment_edit_trip");
+    }
+
     @Override
     public void onTripAdded(Trip trip) {
         // add trip to database, update with the tripId
@@ -258,6 +259,15 @@ public class TripsListFragment extends Fragment
 
         // add trip to list view
         mTrips.add(trip);
+        if (null != mViewAdapter) {
+            mViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onTripUpdated(Trip trip) {
+        mExpenseManager.updateTrip(trip);
+
         if (null != mViewAdapter) {
             mViewAdapter.notifyDataSetChanged();
         }
@@ -298,7 +308,7 @@ public class TripsListFragment extends Fragment
 
     @Override
     public void updateTrip(Trip trip) {
-
+        showEditTripDialog(trip.getId());
     }
 
     @Override

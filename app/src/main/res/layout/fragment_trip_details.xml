@@ -42,7 +42,7 @@
                         android:layout_marginStart="@dimen/margin_medium"
                         android:layout_marginTop="@dimen/margin_small"
                         android:padding="@dimen/card_padding"
-                        android:text="@string/hello_blank_fragment"
+                        android:text="@string/empty_text"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_large"/>
 
@@ -69,7 +69,7 @@
                     android:layout_marginLeft="@dimen/margin_medium"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:padding="@dimen/card_padding"
-                    android:text="@string/hello_blank_fragment"
+                    android:text="@string/empty_text"
                     android:textColor="@color/white"/>
 
                 <!-- Display included members in the trip -->

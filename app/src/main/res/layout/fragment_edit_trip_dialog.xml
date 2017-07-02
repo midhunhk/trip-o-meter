@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.ae.apps.tripmeter.fragments.expenses.AddExpenseDialogFragment">
+
+    <RelativeLayout
+        android:id="@+id/editTripDialogHeader"
+        style="@style/DialogHeaderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialog_header_height"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/empty_text"
+            android:src="@drawable/ic_car"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTripDialogHeader"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <!-- Trip Name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".35"
+                android:text="@string/str_trip_name"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/txtTripName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="right"
+                android:inputType="text|textCapWords"
+                tools:ignore="RtlHardcoded"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="?attr/buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@android:string/cancel"
+                android:textAllCaps="true"/>
+
+            <Button
+                android:id="@+id/btnTripUpdate"
+                style="?attr/buttonBarPositiveButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/str_trip_edit"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

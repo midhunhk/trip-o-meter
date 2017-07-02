@@ -47,6 +47,9 @@
     <string name="str_trip_add_title">Add New Trip</string>
     <string name="str_trip_delete_confirm">Delete this trip?</string>
 
+    <!-- Edit Trip Dialog -->
+    <string name="str_trip_edit">Update</string>
+
     <!-- Add Profile Dialog -->
     <string name="str_profile_select_title">Choose Default Profile</string>
     <string name="str_profile_select_text">To use Expenses, we need to know who you are. Please select from contacts list.</string>
@@ -133,12 +136,16 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <!-- Permission Related -->
     <string name="str_permission_title">Permission Needed</string>
     <string name="str_permission_contacts_reason">Contacts access is needed for this feature</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Empty list view texts -->
     <string name="str_empty_list_trips">Start by adding a trip</string>
     <string name="str_empty_list_trip_expense">Start by adding a trip expense</string>
+
+    <!-- Trip popup menu -->
+    <string name="str_trips_menu_delete_trip">Delete</string>
+    <string name="str_trips_menu_edit_trip">Edit Trip Name</string>
 
 </resources>

@@ -25,7 +25,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +38,8 @@ import android.widget.Toast;
 
 import com.ae.apps.common.vo.ContactVo;
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.exceptions.TripValidationException;
+import com.ae.apps.tripmeter.fragments.TripMeterDialogFragment;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.utils.AppConstants;
@@ -52,7 +53,7 @@ import java.util.HashSet;
  * <p>
  * The interface AddTripDialogListener should be implemented by invoking Activity / Fragment
  */
-public class AddTripDialogFragment extends AppCompatDialogFragment {
+public class AddTripDialogFragment extends TripMeterDialogFragment {
 
     private static final String TAG = "AddTripDialog";
 
@@ -63,6 +64,7 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
     private Collection<ContactVo> mExpenseMembers;
 
     private EditText txtTripName;
+
     private LinearLayout mMembersContainer;
 
     /**
@@ -76,16 +78,6 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
 
     public AddTripDialogFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        if(null != getDialog().getWindow()) {
-            getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
     }
 
     @Override
@@ -230,17 +222,10 @@ public class AddTripDialogFragment extends AppCompatDialogFragment {
      * interface to pass data back
      */
     interface AddTripDialogListener {
+
         void onTripAdded(Trip trip);
-    }
 
-    /**
-     * Exception that is thrown when validating data while creating a trip
-     */
-    private class TripValidationException extends Exception {
-
-        TripValidationException(String message) {
-            super(message);
-        }
+        void onTripUpdated(Trip trip);
     }
 
 }
