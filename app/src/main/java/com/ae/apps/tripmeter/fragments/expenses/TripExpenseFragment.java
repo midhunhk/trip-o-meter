@@ -23,11 +23,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ae.apps.common.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
@@ -49,7 +49,7 @@ public class TripExpenseFragment extends Fragment implements ExpenseChangeListen
 
     private ExpenseChangeObserver mObserver;
     private ExpenseManager mExpenseManager;
-    private RecyclerView mRecyclerView;
+    private EmptyRecyclerView mRecyclerView;
     private List<TripExpense> mTripExpenses;
 
     /**
@@ -78,6 +78,7 @@ public class TripExpenseFragment extends Fragment implements ExpenseChangeListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tripexpense_list, container, false);
+        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
 
         if (null != getArguments()) {
             tripId = getArguments().getString(AppConstants.KEY_TRIP_ID);
@@ -88,14 +89,17 @@ public class TripExpenseFragment extends Fragment implements ExpenseChangeListen
         }
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (null != recyclerView) {
             mExpenseManager = ExpenseManager.newInstance(getContext());
             mTripExpenses = mExpenseManager.getExpensesForTrip(tripId);
 
             Context context = getContext();
-            mRecyclerView = (RecyclerView) view;
+            mRecyclerView = recyclerView;
             mRecyclerView.setAdapter(new TripExpenseRecyclerViewAdapter(mTripExpenses));
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+            View emptyView = view.findViewById(R.id.empty_view);
+            mRecyclerView.setEmptyView(emptyView);
         }
         return view;
     }

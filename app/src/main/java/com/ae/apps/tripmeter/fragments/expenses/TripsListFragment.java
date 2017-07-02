@@ -25,7 +25,6 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -40,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ae.apps.common.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.PickProfileDialogFragment;
 import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
@@ -110,7 +110,8 @@ public class TripsListFragment extends Fragment
         // When rebuilding this view, we are getting the below IllegalStateException
         // The specified child already has a parent. You must call removeView() on the child's parent first
         if (null != mContentView.getParent()) {
-            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
+            ((ViewGroup) mContentView.getParent())
+                    .removeView(mContentView);
         }
 
         // If waiting for permission, mContentView will have dummy layout, else TripsListFragment Layout
@@ -176,17 +177,18 @@ public class TripsListFragment extends Fragment
 
     private void createExpenseView() {
         View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
-        View list = view.findViewById(R.id.list);
+        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
+        View emptyView = view.findViewById(R.id.empty_view);
 
         mExpenseManager = ExpenseManager.newInstance(getActivity());
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener, this);
 
-        if (list instanceof RecyclerView) {
+        if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) list;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(mViewAdapter);
+            recyclerView.setEmptyView(emptyView);
         }
 
         // Locate the FAB and add a trip when its clicked

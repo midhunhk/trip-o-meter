@@ -23,11 +23,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ae.apps.common.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
@@ -47,7 +47,7 @@ public class TripMemberShareFragment extends Fragment implements ExpenseChangeLi
     private ExpenseManager mExpenseManager;
     private ExpenseChangeObserver mObserver;
     private List<TripMemberShare> mMemberShares;
-    private RecyclerView mRecyclerView;
+    private EmptyRecyclerView mRecyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,7 +59,7 @@ public class TripMemberShareFragment extends Fragment implements ExpenseChangeLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(null != mObserver) {
+        if (null != mObserver) {
             mObserver.addListener(this);
         }
     }
@@ -82,6 +82,7 @@ public class TripMemberShareFragment extends Fragment implements ExpenseChangeLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tripmembershare_list, container, false);
+        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
 
         if (null != getArguments()) {
             mTripId = getArguments().getString(AppConstants.KEY_TRIP_ID);
@@ -94,14 +95,17 @@ public class TripMemberShareFragment extends Fragment implements ExpenseChangeLi
         mExpenseManager = ExpenseManager.newInstance(getContext());
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (null != recyclerView) {
             mMemberShares = mExpenseManager.getExpenseShareForTrip(mTripId);
 
             Context context = view.getContext();
-            mRecyclerView = (RecyclerView) view;
+            mRecyclerView = recyclerView;
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(new TripMemberShareRecyclerViewAdapter(mMemberShares));
+
+            View emptyView = view.findViewById(R.id.empty_view);
+            mRecyclerView.setEmptyView(emptyView);
         }
         return view;
     }

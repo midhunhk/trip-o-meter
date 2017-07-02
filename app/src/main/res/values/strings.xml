@@ -138,6 +138,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="str_empty_list_trips">Start by adding a trip.</string>
+    <string name="str_empty_list_trips">Start by adding a trip</string>
+    <string name="str_empty_list_trip_expense">Start by adding a trip expense</string>
 
 </resources>
