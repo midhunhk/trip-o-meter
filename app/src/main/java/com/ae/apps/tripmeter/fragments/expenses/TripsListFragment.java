@@ -31,6 +31,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -267,6 +268,19 @@ public class TripsListFragment extends Fragment
     @Override
     public void onTripUpdated(Trip trip) {
         mExpenseManager.updateTrip(trip);
+
+        // Convert this trip to an index of the trips list
+        int index = -1;
+        for(Trip tempTrip : mTrips){
+            if(TextUtils.equals(tempTrip.getId(), trip.getId())){
+                index = mTrips.indexOf(tempTrip);
+                break;
+            }
+        }
+
+        if(index > -1){
+            mTrips.get(index).setName(trip.getName());
+        }
 
         if (null != mViewAdapter) {
             mViewAdapter.notifyDataSetChanged();
