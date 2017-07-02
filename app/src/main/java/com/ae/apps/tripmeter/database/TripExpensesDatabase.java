@@ -80,7 +80,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
     /**
      * Adds a trip expense row
      *
-     * @param tripExpense expnese
+     * @param tripExpense expense
      * @return expense creation status
      */
     public long addExpense(TripExpense tripExpense) {

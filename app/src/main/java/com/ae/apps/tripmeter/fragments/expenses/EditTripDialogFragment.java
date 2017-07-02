@@ -35,7 +35,7 @@ public class EditTripDialogFragment extends TripMeterDialogFragment {
     }
 
     public EditTripDialogFragment() {
-
+        // Required empty constructor
     }
 
     @Override
@@ -43,7 +43,6 @@ public class EditTripDialogFragment extends TripMeterDialogFragment {
         super.onCreate(savedInstanceState);
 
         mExpenseManager = ExpenseManager.newInstance(getActivity());
-
     }
 
     @Override
@@ -57,6 +56,7 @@ public class EditTripDialogFragment extends TripMeterDialogFragment {
             mTripId = savedInstanceState.getString(AppConstants.KEY_TRIP_ID);
         }
 
+        // TripId is required to be present at this point. Else we will fail at below operation
         mTrip = mExpenseManager.getTripByTripId(mTripId);
 
         // Inflate the layout for this fragment
@@ -64,6 +64,7 @@ public class EditTripDialogFragment extends TripMeterDialogFragment {
 
         txtTripName = (EditText) view.findViewById(R.id.txtTripName);
 
+        // Populate with old trip name
         txtTripName.setText(mTrip.getName());
 
         Button btnUpdate = (Button) view.findViewById(R.id.btnTripUpdate);
