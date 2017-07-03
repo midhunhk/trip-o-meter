@@ -283,6 +283,8 @@ public class TripsListFragment extends Fragment
         }
 
         if (null != mViewAdapter) {
+            // TODO Optimize the update call?
+            // mViewAdapter.notifyItemChanged(index);
             mViewAdapter.notifyDataSetChanged();
         }
     }
