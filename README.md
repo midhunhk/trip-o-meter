@@ -1,6 +1,7 @@
 # Trip-O-Meter
 [![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=camelot)](https://travis-ci.org/midhunhk/trip-o-meter) 
 [![Release](https://img.shields.io/github/release/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/releases) 
+[![GitHub commits](https://img.shields.io/github/commits-since/midhunhk/trip-o-meter/v2.0.18.svg)](https://github.com/midhunhk/trip-o-meter) 
 [![Issues](https://img.shields.io/github/issues/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/issues)  
 
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
