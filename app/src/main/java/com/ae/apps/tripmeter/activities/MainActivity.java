@@ -77,7 +77,7 @@ public class MainActivity extends ToolBarBaseActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 updateDisplayedFragment(item.getItemId(), null);
-                return false;
+                return true;
             }
         });
 
