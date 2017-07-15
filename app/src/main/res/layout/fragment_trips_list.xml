@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/margin_extra_large"
+            android:layout_marginTop="@dimen/margin_extra_extra_large"
             android:drawablePadding="@dimen/padding_medium"
             android:drawableTop="@drawable/icon_trip_round"
             android:gravity="center"
