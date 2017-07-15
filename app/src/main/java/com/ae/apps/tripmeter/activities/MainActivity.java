@@ -98,6 +98,8 @@ public class MainActivity extends ToolBarBaseActivity
 
         updateDisplayedFragment(featureFragment, null);
 
+        // Update the selected menu item in the bottom navigation view
+        navigationView.setSelectedItemId(featureFragment);
     }
 
     @Override
