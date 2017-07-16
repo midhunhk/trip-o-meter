@@ -1,6 +1,8 @@
-Trip-O-Meter
-=================================
-[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=master)](https://travis-ci.org/midhunhk/trip-o-meter) ![(https://github.com/midhunhk/trip-o-meter/releases)](https://img.shields.io/badge/version-2.0.19-9C27B0.svg)
+# Trip-O-Meter
+[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=camelot)](https://travis-ci.org/midhunhk/trip-o-meter) 
+[![Release](https://img.shields.io/github/release/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/releases) 
+[![GitHub commits](https://img.shields.io/github/commits-since/midhunhk/trip-o-meter/v2.0.18.svg)](https://github.com/midhunhk/trip-o-meter) 
+[![Issues](https://img.shields.io/github/issues/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/issues)  
 
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
 
@@ -23,7 +25,7 @@ The codenames for development branches are names of Lost or Mythical cities from
 
 The current development branch name is :
 
-***Balanjar*** was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.
+***Camelot*** is a castle and court associated with the legendary King Arthur.
 
 See more - [Codenames](https://github.com/midhunhk/trip-o-meter/wiki/Codenames)
 
@@ -45,7 +47,6 @@ Get the latest release version of the app from the Google Play Store.
 <a href="https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter">
  <img alt="Get it on Google Play" width="200px" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png">
 </a>
-[](https://play.google.com/store/apps/details?id=com.ae.apps.tripmeter)
 
 ## Contribute
 You can contribute to this project by sharing ideas or features you would like to see or code, reviews to the project codebase. Follow below links.
@@ -56,7 +57,6 @@ You can contribute to this project by sharing ideas or features you would like t
 
 ## Components
 * [Ae Apps Lib](https://github.com/midhunhk/ae-apps-library)
-* [Trip O Meter API](https://github.com/RaghuChandrasekaran/trip-o-meter-api) 
 * [Trip O Meter Web](https://github.com/RaghuChandrasekaran/trip-o-meter-web)
 
 @[RaghuChandrasekaran](https://github.com/RaghuChandrasekaran) contributes the API for current fuel prices in India.
@@ -69,7 +69,7 @@ This project is released under MIT license
 
 MIT License
 
-Copyright (c) 2016 Midhun Harikumar
+Copyright (c) 2017 Midhun Harikumar
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

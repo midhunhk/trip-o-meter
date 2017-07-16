@@ -5,7 +5,7 @@
                 tools:context="com.ae.apps.tripmeter.fragments.expenses.AddExpenseDialogFragment">
 
     <RelativeLayout
-        android:id="@+id/addTripDialogHeader"
+        android:id="@+id/editTripDialogHeader"
         style="@style/DialogHeaderStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dialog_header_height"
@@ -23,7 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addTripDialogHeader"
+        android:layout_below="@+id/editTripDialogHeader"
         android:orientation="vertical"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -53,38 +53,6 @@
                 tools:ignore="RtlHardcoded"/>
         </LinearLayout>
 
-        <!-- Members included -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:text="@string/str_trip_members"
-                android:textSize="18sp"/>
-
-            <Button
-                android:id="@+id/btnTripMemberAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/str_trip_add_member"/>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/selectedContactsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,12 +69,12 @@
                 android:textAllCaps="true"/>
 
             <Button
-                android:id="@+id/btnTripAdd"
+                android:id="@+id/btnTripUpdate"
                 style="?attr/buttonBarPositiveButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@string/str_trip_add"/>
+                android:text="@string/str_trip_edit"/>
         </LinearLayout>
     </LinearLayout>
 

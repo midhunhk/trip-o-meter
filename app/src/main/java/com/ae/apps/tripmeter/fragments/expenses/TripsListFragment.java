@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.ae.apps.tripmeter.fragments;
+package com.ae.apps.tripmeter.fragments.expenses;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,14 +25,13 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +39,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.common.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
+import com.ae.apps.tripmeter.fragments.PickProfileDialogFragment;
 import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
+import com.ae.apps.tripmeter.listeners.FloatingActionButtonClickListener;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 import com.ae.apps.tripmeter.models.Trip;
+import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.TripRecyclerViewAdapter;
 
 import java.util.List;
@@ -59,7 +61,7 @@ import java.util.List;
  */
 public class TripsListFragment extends Fragment
         implements AddTripDialogFragment.AddTripDialogListener, PickProfileDialogFragment.SelectProfileListener,
-        ExpenseListUpdateListener {
+        ExpenseListUpdateListener, FloatingActionButtonClickListener {
 
     private static final String TAG = "TripsListFragment";
 
@@ -108,8 +110,9 @@ public class TripsListFragment extends Fragment
 
         // When rebuilding this view, we are getting the below IllegalStateException
         // The specified child already has a parent. You must call removeView() on the child's parent first
-        if(null != mContentView.getParent()){
-            ((ViewGroup) mContentView.getParent()).removeView(mContentView);
+        if (null != mContentView.getParent()) {
+            ((ViewGroup) mContentView.getParent())
+                    .removeView(mContentView);
         }
 
         // If waiting for permission, mContentView will have dummy layout, else TripsListFragment Layout
@@ -175,27 +178,19 @@ public class TripsListFragment extends Fragment
 
     private void createExpenseView() {
         View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
-        View list = view.findViewById(R.id.list);
+        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
+        View emptyView = view.findViewById(R.id.empty_view);
 
         mExpenseManager = ExpenseManager.newInstance(getActivity());
         mTrips = mExpenseManager.getAllTrips();
         mViewAdapter = new TripRecyclerViewAdapter(mTrips, mListener, this);
 
-        if (list instanceof RecyclerView) {
+        if (null != recyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) list;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(mViewAdapter);
+            recyclerView.setEmptyView(emptyView);
         }
-
-        // Locate the FAB and add a trip when its clicked
-        FloatingActionButton actionButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddTripDialog();
-            }
-        });
 
         // Update the main content view with the trips list layout
         mContentView = view;
@@ -209,21 +204,13 @@ public class TripsListFragment extends Fragment
         }
     }
 
-
-    @SuppressWarnings("unused")
-    private void checkForDefaultProfile() {
-        // Ask ExpenseManager for the default profile
-        ContactVo contactVo = mExpenseManager.getDefaultProfile();
-        if (null == contactVo) {
-            showSelectProfileDialog();
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ExpensesInteractionListener) {
             mListener = (ExpensesInteractionListener) context;
+            mListener.showAddTripFAB();
+            mListener.registerFABListener(this);
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
@@ -236,6 +223,15 @@ public class TripsListFragment extends Fragment
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (null != mListener) {
+            mListener.showAddTripFAB();
+            mListener.registerFABListener(this);
+        }
+    }
+
     private void showAddTripDialog() {
         FragmentManager fragmentManager = getFragmentManager();
         AddTripDialogFragment dialogFragment = AddTripDialogFragment.newInstance();
@@ -243,12 +239,16 @@ public class TripsListFragment extends Fragment
         dialogFragment.show(fragmentManager, "fragment_add_trip");
     }
 
-    private void showSelectProfileDialog() {
+    private void showEditTripDialog(final String tripId) {
         FragmentManager fragmentManager = getFragmentManager();
-        PickProfileDialogFragment dialogFragment = PickProfileDialogFragment.newInstance();
+        EditTripDialogFragment dialogFragment = EditTripDialogFragment.newInstance();
         dialogFragment.setTargetFragment(TripsListFragment.this, 300);
-        dialogFragment.setCancelable(false);
-        dialogFragment.show(fragmentManager, "fragment_select_profile");
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.KEY_TRIP_ID, tripId);
+        dialogFragment.setArguments(bundle);
+
+        dialogFragment.show(fragmentManager, "fragment_edit_trip");
     }
 
     @Override
@@ -266,9 +266,33 @@ public class TripsListFragment extends Fragment
     }
 
     @Override
+    public void onTripUpdated(Trip trip) {
+        mExpenseManager.updateTrip(trip);
+
+        // Convert this trip to an index of the trips list
+        int index = -1;
+        for(Trip tempTrip : mTrips){
+            if(TextUtils.equals(tempTrip.getId(), trip.getId())){
+                index = mTrips.indexOf(tempTrip);
+                break;
+            }
+        }
+
+        if(index > -1){
+            mTrips.get(index).setName(trip.getName());
+        }
+
+        if (null != mViewAdapter) {
+            // TODO Optimize the update call?
+            // mViewAdapter.notifyItemChanged(index);
+            mViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void onProfileSelected(String contactId) {
         // Save this id in shared preferences
-        mExpenseManager.saveDefaultProfile(contactId);
+        mExpenseManager.saveDefaultProfile(contactId, getContext());
     }
 
     @Override
@@ -300,8 +324,11 @@ public class TripsListFragment extends Fragment
 
     @Override
     public void updateTrip(Trip trip) {
-
+        showEditTripDialog(trip.getId());
     }
 
-
+    @Override
+    public void onFloatingActionClick() {
+        showAddTripDialog();
+    }
 }

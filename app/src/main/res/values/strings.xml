@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">2.0.19 (Balanjar)</string>
-    <string name="app_version_code">Balanjar was a medieval city located in the North Caucasus region, between the cities of Derbent and Samandar, which flourished from the seventh to the tenth centuries CE.</string>
-    <string name="app_release_date">Apr 2017</string>
+    <string name="app_version_name">2.1.0 (Camelot)</string>
+    <string name="app_version_code">Camelot is a castle and court associated with the legendary King Arthur.</string>
+    <string name="app_release_date">Jul 2017</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
     <string name="app_developer_info">Designed &amp; Developed at ae labs</string>
@@ -47,6 +47,9 @@
     <string name="str_trip_add_title">Add New Trip</string>
     <string name="str_trip_delete_confirm">Delete this trip?</string>
 
+    <!-- Edit Trip Dialog -->
+    <string name="str_trip_edit">Update</string>
+
     <!-- Add Profile Dialog -->
     <string name="str_profile_select_title">Choose Default Profile</string>
     <string name="str_profile_select_text">To use Expenses, we need to know who you are. Please select from contacts list.</string>
@@ -58,7 +61,7 @@
     <string name="str_error_no_mileage">Please enter correct mileage</string>
 
     <!-- Configuration Items, not to be translated-->
-    <string name="github_source_visible_url" translatable="false">https://github.com/midhunhk/trip-o-meter</string>
+    <string name="github_source_visible_url" translatable="false">github.com/midhunhk/trip-o-meter</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -133,11 +136,16 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <!-- Permission Related -->
     <string name="str_permission_title">Permission Needed</string>
     <string name="str_permission_contacts_reason">Contacts access is needed for this feature</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="str_empty_list_trips">Start by adding a trip.</string>
+    <!-- Empty list view texts -->
+    <string name="str_empty_list_trips">Start by adding a trip</string>
+    <string name="str_empty_list_trip_expense">Start by adding a trip expense</string>
+
+    <!-- Trip popup menu -->
+    <string name="str_trips_menu_delete_trip">Delete</string>
+    <string name="str_trips_menu_edit_trip">Edit Trip Name</string>
 
 </resources>

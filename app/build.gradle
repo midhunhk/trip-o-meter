@@ -5,33 +5,33 @@ android {
         config {
         }
     }
-    
+
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.ae.apps.tripmeter"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 12
-        versionName "2.0.19"
+        versionCode 14
+        versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-    
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    
+
     lintOptions {
         abortOnError false
     }
-    
+
     compileOptions {
     }
-    
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def fileName = android.defaultConfig.applicationId + "-" + variant.buildType.name
@@ -44,17 +44,26 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     // The lib project is defined in settings.gradle
     compile project(':AeAppsLibrary')
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:support-v4:25.2.0'
-    compile 'com.android.support:support-vector-drawable:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    // Unit Tests
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+    // Instrumented Unit Tests
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
+    androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
+
 }

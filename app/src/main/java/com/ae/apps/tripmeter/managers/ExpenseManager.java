@@ -21,6 +21,7 @@ package com.ae.apps.tripmeter.managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,11 +45,13 @@ import java.util.List;
  */
 public class ExpenseManager {
 
-    private final String TAG = "ExpenseManager";
+    private static final String MEMBER_ID_SEPARATOR = ",";
+
+    final String TAG = getClass().getSimpleName();
 
     private static ExpenseManager sInstance;
 
-    private Context mContext;
+    private final Resources mResources;
 
     private Bitmap mDefaultProfilePic;
 
@@ -60,7 +63,7 @@ public class ExpenseManager {
      * Use this method to return an instance of the Expense Manager
      *
      * @param context the context
-     * @return
+     * @return an instance of ExpenseManager
      */
     public static ExpenseManager newInstance(final Context context) {
         if (null == sInstance) {
@@ -75,11 +78,17 @@ public class ExpenseManager {
      * @param context new instance
      */
     private ExpenseManager(final Context context) {
-        mContext = context;
-        mExpensesDatabase = new TripExpensesDatabase(mContext);
-        mContactManager = ExpenseContactManager.newInstance(mContext.getContentResolver());
+        mResources = context.getResources();
+        mExpensesDatabase = new TripExpensesDatabase(context);
 
-        mDefaultProfilePic = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
+        mContactManager = ExpenseContactManager.newInstance(context.getContentResolver(), mResources);
+        // Fetch all contacts
+        // Note that permission is required in Android L and up
+        mContactManager.fetchAllContacts();
+
+        mDefaultProfilePic = BitmapFactory.decodeResource(mResources, R.drawable.default_profile_image);
+
+        Log.d(TAG, "Created ExpenseManager instance");
     }
 
     //--------------------------------------------------------------------
@@ -97,6 +106,15 @@ public class ExpenseManager {
         trip.setId(String.valueOf(rowId));
         Log.d(TAG, "Added trip with id " + rowId + " and name " + trip.getName());
         return trip;
+    }
+
+    /**
+     * Updates a trip
+     *
+     * @param trip trip to update
+     */
+    public void updateTrip(final Trip trip){
+        mExpensesDatabase.updateTrip(trip);
     }
 
     /**
@@ -142,8 +160,8 @@ public class ExpenseManager {
     /**
      * Gets a list of Expenses for a trip
      *
-     * @param tripId
-     * @return
+     * @param tripId tripId
+     * @return list of trips
      */
     public List<TripExpense> getExpensesForTrip(String tripId) {
         return mExpensesDatabase.getExpensesForTrip(tripId);
@@ -152,8 +170,8 @@ public class ExpenseManager {
     /**
      * Get a list of Member Shares for a trip
      *
-     * @param tripId
-     * @return
+     * @param tripId tripId
+     * @return List of trips
      */
     public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
         List<TripMemberShare> memberShares = mExpensesDatabase.getExpenseShareForTrip(tripId);
@@ -163,14 +181,14 @@ public class ExpenseManager {
         for (TripMemberShare memberShare : memberShares) {
             contactVo = mContactManager.getContactInfo(memberShare.getMemberId());
             memberShare.setContactVo(contactVo);
-            bitmapDrawable = new BitmapDrawable(mContext.getResources(),
+            bitmapDrawable = new BitmapDrawable(mResources,
                     mContactManager.getContactPhoto(memberShare.getMemberId(), mDefaultProfilePic));
             memberShare.setContactPhoto(bitmapDrawable);
         }
         return memberShares;
     }
 
-    public float getTotalTripExpenses(String tripId){
+    public float getTotalTripExpenses(String tripId) {
         return mExpensesDatabase.getTotalTripExpenses(tripId);
     }
 
@@ -181,7 +199,7 @@ public class ExpenseManager {
         TripMemberShare tripMemberShare;
 
         float totalExpense = tripExpense.getAmount();
-        String[] memberIds = tripExpense.getMemberIds().split(",");
+        String[] memberIds = tripExpense.getMemberIds().split(MEMBER_ID_SEPARATOR);
         String contributorId = tripExpense.getPaidById();
         int memberCount = memberIds.length;
 
@@ -216,6 +234,9 @@ public class ExpenseManager {
 
     /**
      * Add an expense share
+     *
+     * @param tripExpenseShare share
+     * @return share with updated id
      */
     public TripMemberShare addExpenseShare(TripMemberShare tripExpenseShare) {
         long rowId = mExpensesDatabase.addMemberShare(tripExpenseShare);
@@ -230,16 +251,16 @@ public class ExpenseManager {
     /**
      * @param contactId the contactId
      */
-    public void saveDefaultProfile(String contactId) {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
-        preferenceManager.edit().putString(AppConstants.PREF_KEY_CURRENT_PROFILE, contactId).commit();
+    public void saveDefaultProfile(String contactId, Context context) {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
+        preferenceManager.edit().putString(AppConstants.PREF_KEY_CURRENT_PROFILE, contactId).apply();
     }
 
     /**
      * @return ContactVo
      */
-    public ContactVo getDefaultProfile() {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(mContext);
+    public ContactVo getDefaultProfile(Context context) {
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
         String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
         if (TextUtils.isEmpty(profileId)) {
             return null;
@@ -315,12 +336,12 @@ public class ExpenseManager {
     }
 
     /**
-     *  Gets the contact photo, gives a default if none exists
+     * Gets the contact photo, gives a default if none exists
      *
      * @param contactId
      * @return
      */
-    public Bitmap getContactPhoto(final String contactId){
+    public Bitmap getContactPhoto(final String contactId) {
         return mContactManager.getContactPhoto(contactId, mDefaultProfilePic);
     }
 }

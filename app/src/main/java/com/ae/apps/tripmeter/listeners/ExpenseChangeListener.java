@@ -26,8 +26,8 @@ package com.ae.apps.tripmeter.listeners;
 public interface ExpenseChangeListener {
 
     /**
-     * Invioked when an expense is added or removed
+     * Invoked when an expense is added or removed
      */
-    public void onExpenseChanged();
+    void onExpenseChanged();
 
 }

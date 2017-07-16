@@ -37,4 +37,16 @@ public interface ExpensesInteractionListener {
      */
     void showTripDetails(Trip trip);
 
+    /**
+     * Show the FAB to add a new trip in the main activity
+     *
+     */
+    void showAddTripFAB();
+
+    /**
+     * Registers a listener for the FAB click hosted on the main activity
+     *
+     * @param clickListener
+     */
+    void registerFABListener(FloatingActionButtonClickListener clickListener);
 }

@@ -5,17 +5,26 @@ jdk:
 
 # Install Dependencies
 before_install:
-    - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
+    - git clone --depth=50 --branch=elderberry https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
 
 # Android settings
 android:
   components:
     - tools
     # Same version as specified in build.gradle
+
+    # Build Tools version
     - build-tools-25.0.1
+
+    # SDK version to compile against
     - android-25
+
+   # Additional components
     - extra-android-m2repository
+
+    # Specify a system image
     - sys-img-armeabi-v7a-android-21
+
   licenses:
     - '.+'
      

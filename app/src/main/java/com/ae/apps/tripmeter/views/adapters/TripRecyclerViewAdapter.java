@@ -19,8 +19,11 @@
  */
 package com.ae.apps.tripmeter.views.adapters;
 
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ import com.ae.apps.tripmeter.utils.AppConstants;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Trip}
@@ -68,7 +72,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(trip.getStartDate());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConstants.TRIP_DATE_FORMAT, Locale.getDefault());
         holder.mTripDate.setText(simpleDateFormat.format(calendar.getTime()));
 
         if (null != trip.getMemberIds() && trip.getMemberIds().trim().length() > 0) {
@@ -87,14 +91,21 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             }
         });
 
-        holder.mDeleteTrip.setOnClickListener(new View.OnClickListener() {
+        holder.mPopupMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mExpensesInteractionListener) {
-                    mListUpdateListener.deleteTrip(mValues.get(position));
-                }
+                showPopupMenu(holder.mPopupMenu, position);
             }
         });
+
+    }
+
+    private void showPopupMenu(View mPopupMenu, int position) {
+        PopupMenu popupMenu = new PopupMenu(mPopupMenu.getContext(), mPopupMenu);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.trip_popup_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new TripMenuItemClickListener(position));
+        popupMenu.show();
     }
 
     @Override
@@ -107,7 +118,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         final TextView mTripName;
         final TextView mTripDate;
         final TextView mTripMemberCount;
-        final ImageView mDeleteTrip;
+        final ImageView mPopupMenu;
         Trip mItem;
 
         ViewHolder(View view) {
@@ -117,7 +128,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             mTripName = (TextView) view.findViewById(R.id.tripName);
             mTripDate = (TextView) view.findViewById(R.id.tripDate);
             mTripMemberCount = (TextView) view.findViewById(R.id.tripMemberCount);
-            mDeleteTrip = (ImageView) view.findViewById(R.id.btnDeleteTrip);
+            mPopupMenu = (ImageView) view.findViewById(R.id.tripMenu);
         }
 
         @Override
@@ -125,4 +136,28 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             return super.toString() + " '" + mTripDate.getText() + "'";
         }
     }
+
+    private class TripMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+
+        private int mPosition;
+
+        TripMenuItemClickListener(int position) {
+            this.mPosition = position;
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete_trip:
+                    mListUpdateListener.deleteTrip(mValues.get(mPosition));
+                    return true;
+                case R.id.action_edit_trip_name:
+                    mListUpdateListener.updateTrip(mValues.get(mPosition));
+                    return true;
+            }
+            return false;
+        }
+    }
+
+
 }
