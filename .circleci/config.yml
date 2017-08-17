@@ -1,8 +1,4 @@
-I am basically going mental trying to integrate an Android app with CircleCI.
-
-I have the following Version 2.0 config file as per documentation.
-
-    version: 2
+version: 2
 
     jobs:
       build:
