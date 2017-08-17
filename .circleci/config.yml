@@ -1,47 +1,26 @@
-# Java Gradle CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-java/ for more details
+# Build configuration for Circle CI
 #
-version: 2
 
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-           
-    working_directory: ~/repo
-
+machine:
     environment:
-      ANDROID_HOME: /usr/local/android-sdk-linux
-      ANDROID_NDK_HOME: ''
-        
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
+        ANDROID_HOME: /usr/local/android-sdk-linux
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
 
-    dependencies:
-      pre:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.1,android-23,extra-google-m2repository,extra-google-google_play_services,extra-android-support,extra-libs/android-support-v7-cardview.jar,extra-libraryForFloatingButton,extra-libs/engine.io-client-0.5.0.jar,extra-libs/httpmime-4.2.5.jar,extra-libs/okhttp-2.3.0.jar,extra-libs/okhttp-ws-2.3.0.jar,extra-libs/okio-1.3.0.jar,extra-libs/socket.io-client-0.5.0.jar,extra-com.crashlytics.sdk.android:crashlytics:2.5.5@aar
-        - chmod +x gradlew
-        - ANDROID_HOME = /usr/local/android-sdk-linux ./gradlew dependencies
+dependencies:
+    pre:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-23
+        - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+        - echo y | android update sdk --no-ui --all --filter android-23
+        - echo y | android update sdk --no-ui --all --filter tools
+        - echo y | android update sdk --no-ui --all --filter extra-android-m2repository
+        - echo y | android update sdk --no-ui --all --filter extra-android-support
+        - echo y | android update sdk --no-ui --all --filter extra-google-google_play_services
+        - echo y | android update sdk --no-ui --all --filter extra-google-m2repository
+    override:
+        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
 
-    steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: gradle dependencies
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-        
-      # run tests!
-      - run: gradle test
+test:
+    override:
+        - (./gradlew assemble):
+            timeout: 360
