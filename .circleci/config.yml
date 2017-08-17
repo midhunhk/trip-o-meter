@@ -1,26 +1,28 @@
-#
-# Build configuration for Circle CI
-#
+I am basically going mental trying to integrate an Android app with CircleCI.
 
-machine:
-    environment:
-        ANDROID_HOME: /usr/local/android-sdk-linux
-        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+I have the following Version 2.0 config file as per documentation.
 
-dependencies:
-    pre:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-23
-        - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-        - echo y | android update sdk --no-ui --all --filter android-23
-        - echo y | android update sdk --no-ui --all --filter tools
-        - echo y | android update sdk --no-ui --all --filter extra-android-m2repository
-        - echo y | android update sdk --no-ui --all --filter extra-android-support
-        - echo y | android update sdk --no-ui --all --filter extra-google-google_play_services
-        - echo y | android update sdk --no-ui --all --filter extra-google-m2repository
-    override:
-        - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
+    version: 2
 
-test:
-    override:
-        - (./gradlew assemble):
-            timeout: 360
+    jobs:
+      build:
+        docker:
+          - image: circleci/openjdk:8-jdk
+           
+          working_directory: ~/repo
+
+          environment:
+            ANDROID_HOME: /usr/local/android-sdk-linux
+            JVM_OPTS: -Xmx3200m
+            TERM: dumb
+
+         dependencies:
+           pre:
+             - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.1,android-23,extra-google-m2repository,extra-google-google_play_services,extra-android-support,extra-libs/android-support-v7-cardview.jar,extra-libraryForFloatingButton,extra-libs/engine.io-client-0.5.0.jar,extra-libs/httpmime-4.2.5.jar,extra-libs/okhttp-2.3.0.jar,extra-libs/okhttp-ws-2.3.0.jar,extra-libs/okio-1.3.0.jar,extra-libs/socket.io-client-0.5.0.jar,extra-com.crashlytics.sdk.android:crashlytics:2.5.5@aar
+             - chmod +x gradlew
+             - ANDROID_HOME = /usr/local/android-sdk-linux ./gradlew dependencies
+
+        steps:
+          - checkout
+          - run: gradle dependencies    
+          - run: gradle test
