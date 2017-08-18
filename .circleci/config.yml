@@ -3,7 +3,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk
+      # - image: circleci/openjdk:8-jdk
+      - image: circleci/android:api-25-alpha
            
     working_directory: ~/repo
 
