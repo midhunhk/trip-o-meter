@@ -4,7 +4,7 @@ jdk: oraclejdk8
 # Install Dependencies
 before_install:
     - android list targets
-    - android list sdk --extended --no-ui --all
+    # - android list sdk --extended --no-ui --all
     - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
 
 # Android settings
@@ -31,7 +31,7 @@ before_script:
     - export GRADLE_HOME=$PWD/gradle-3.3
     - export PATH=$GRADLE_HOME/bin:$PATH
     # - echo no | android create avd --force -n test -t android-22 
-    - echo "n" | android create avd -t "android-22" --abi "default/armeabi-v7a"
+    - echo "n" | android create avd --name android22 -t "android-22" --abi "default/armeabi-v7a"
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
