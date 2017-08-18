@@ -42,8 +42,9 @@ android:
 before_script:
   # Create and start emulator
   - echo no | android create avd --force -n test -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-  - emulator -avd test -no-audio -no-window &
+  - emulator -avd test &
   - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
   - ./gradlew app:connectedGmsDebugAndroidTest -PdisablePreDex
