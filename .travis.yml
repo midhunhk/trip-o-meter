@@ -18,7 +18,7 @@ android:
     # Additional components
     - extra-android-m2repository
     # Specify a system image
-    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-25
 
   licenses:
     - '.+'
@@ -29,7 +29,7 @@ before_script:
     - unzip gradle-3.3-bin.zip
     - export GRADLE_HOME=$PWD/gradle-3.3
     - export PATH=$GRADLE_HOME/bin:$PATH
-    - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+    - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
