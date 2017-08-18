@@ -1,7 +1,7 @@
-language: android
-  jdk: oraclejdk7
+language:android
+  jdk:oraclejdk7
   # Don't use the Travis Container-Based Infrastructure - causes memory issues
-  sudo: true
+  sudo:true
 
   # Install Dependencies
   before_install:
