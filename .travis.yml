@@ -1,51 +1,45 @@
 language: android
+dist: precise
 jdk: oraclejdk8
-# Use the Travis Container-Based Infrastructure
-sudo: false
 
 # Install Dependencies
 before_install:
-  - android list targets
-  - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
+    - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
 
-env:
-  global:
-    - ANDROID_API_LEVEL=24
-    - EMULATOR_API_LEVEL=21
-    - ANDROID_BUILD_TOOLS_VERSION=23.0.3
-    - ANDROID_ABI=armeabi-v7a
-    - ANDROID_TAG=google_apis
-    #- ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
-
+# Android settings
 android:
   components:
-    - tools # to get the new `repository-11.xml`
-    - platform-tools
-    - tools # to install Android SDK tools 25.1.x
-    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
-    - android-$ANDROID_API_LEVEL
-    - android-$EMULATOR_API_LEVEL
-    # For Google APIs
-    - addon-google_apis-google-$ANDROID_API_LEVEL
-    - addon-google_apis-google-$EMULATOR_API_LEVEL
-    # Google Play Services
-    - extra-google-google_play_services
-    # Support library
-    - extra-android-support
-    # Latest artifacts in local repository
-    - extra-google-m2repository
+    - tools
+    # Same version as specified in build.gradle
+
+    # Build Tools version
+    - build-tools-25.0.1
+
+    # SDK version to compile against
+    - android-25
+
+   # Additional components
     - extra-android-m2repository
-    # Specify at least one system image
-    - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
-    - sys-img-armeabi-v7a-google_apis-$EMULATOR_API_LEVEL
 
+    # Specify a system image
+    - sys-img-armeabi-v7a-android-21
+
+  licenses:
+    - '.+'
+     
+# Run before runnig the build script
 before_script:
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-
-script:
-  #- ./gradlew app:connectedGmsDebugAndroidTest -PdisablePreDex
-  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+    - wget http://services.gradle.org/distributions/gradle-3.3-bin.zip
+    - unzip gradle-3.3-bin.zip
+    - export GRADLE_HOME=$PWD/gradle-3.3
+    - export PATH=$GRADLE_HOME/bin:$PATH
+    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+    - emulator -avd test -no-skin -no-audio -no-window &
+    - android-wait-for-emulator
+    - adb shell input keyevent 82 &
+    
+# Licenses to be accepted
+licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
