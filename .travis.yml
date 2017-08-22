@@ -1,9 +1,9 @@
 language: android
+dist: precise
 jdk: oraclejdk8
 
 # Install Dependencies
 before_install:
-    - android list targets
     - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
 
 # Android settings
@@ -11,14 +11,18 @@ android:
   components:
     - tools
     # Same version as specified in build.gradle
+
     # Build Tools version
     - build-tools-25.0.1
+
     # SDK version to compile against
     - android-25
-    # Additional components
+
+   # Additional components
     - extra-android-m2repository
+
     # Specify a system image
-    - sys-img-armeabi-v7a-android-25
+    - sys-img-armeabi-v7a-android-21
 
   licenses:
     - '.+'
@@ -29,7 +33,7 @@ before_script:
     - unzip gradle-3.3-bin.zip
     - export GRADLE_HOME=$PWD/gradle-3.3
     - export PATH=$GRADLE_HOME/bin:$PATH
-    - echo no | android create avd --force -n test -t android-25 
+    - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - android-wait-for-emulator
     - adb shell input keyevent 82 &
@@ -39,11 +43,3 @@ licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
-
-cache: 
-  directories: 
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-script: 
-  - "./gradlew build connectedCheck --stacktrace"
