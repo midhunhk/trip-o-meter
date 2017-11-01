@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">2.1.0 (Camelot)</string>
+    <string name="app_version_name">2.1.1 (Camelot)</string>
     <string name="app_version_code">Camelot is a castle and court associated with the legendary King Arthur.</string>
-    <string name="app_release_date">Jul 2017</string>
-    <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
+    <string name="app_release_date">Nov 2017</string>
+    <string name="app_disclaim">The data shown in this app is approximate and should be used as a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
-    <string name="app_developer_info">Designed &amp; Developed at ae labs</string>
+    <string name="app_developer_info">Designed &amp; Developed at ae app labs</string>
 
     <!-- Menu texts -->
     <string name="empty_text"/>
