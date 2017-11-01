@@ -7,7 +7,7 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.ae.apps.tripmeter"
         minSdkVersion 16
@@ -33,26 +33,23 @@ android {
     }
 
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+        variant.outputs.all { output ->
             def fileName = android.defaultConfig.applicationId + "-" + variant.buildType.name
             fileName = fileName + "-v${variant.versionName}"
             fileName = fileName + "-build-${variant.versionCode}.apk"
-            output.outputFile = new File(output.outputFile.parent, fileName)
+            outputFileName = new File(output.outputFile.parent, fileName)
         }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-
-    // The lib project is defined in settings.gradle
-    compile project(':AeAppsLibrary')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.ae.apps:android-libraries:2.2.0'
+    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support:cardview-v7:25.4.0'
+    compile 'com.android.support:support-v4:25.4.0'
+    compile 'com.android.support:support-vector-drawable:25.4.0'
+    compile 'com.android.support:recyclerview-v7:25.4.0'
 
     // Unit Tests
     testCompile 'junit:junit:4.12'
@@ -62,7 +59,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
+    androidTestCompile 'org.hamcrest:hamcrest-core:1.3'
     androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
 
