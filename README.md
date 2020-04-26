@@ -1,3 +1,5 @@
+_*This project is not in active development or support*_
+
 # Trip-O-Meter
 [![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=camelot)](https://travis-ci.org/midhunhk/trip-o-meter) 
 [![Release](https://img.shields.io/github/release/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/releases) 
