@@ -23,25 +23,25 @@
  */
 package com.ae.apps.tripmeter.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.Button;
 
-import com.ae.apps.common.activities.ToolBarBaseActivity;
-import com.ae.apps.common.utils.DialogUtils;
+import com.ae.apps.lib.common.utils.DialogUtils;
 import com.ae.apps.tripmeter.R;
+
+import java.util.Objects;
 
 /**
  * The About Activity
  */
-public class AboutActivity extends ToolBarBaseActivity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +72,21 @@ public class AboutActivity extends ToolBarBaseActivity {
                         R.string.str_license, android.R.string.ok);
             }
         });
+
+        // Find the toolbar and set it as action bar
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        if (null != mToolbar) {
+            setSupportActionBar(mToolbar);
+        }
+
+        setContentView(R.layout.activity_about);
     }
 
-    @Override
-    protected int getToolbarResourceId() {
-        return R.id.toolbar;
+    protected void displayHomeAsUp() {
+        // Show the back arrow in toolbar to go back
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    protected int getLayoutResourceId() {
-        return R.layout.activity_about;
-    }
+
 }

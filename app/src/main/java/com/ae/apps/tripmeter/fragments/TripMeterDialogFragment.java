@@ -1,6 +1,6 @@
 package com.ae.apps.tripmeter.fragments;
 
-import android.support.v7.app.AppCompatDialogFragment;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import android.view.ViewGroup;
 
 /**

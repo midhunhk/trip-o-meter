@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/unit_m"
         android:text="@string/str_empty_list_trip_expense"
         android:textSize="@dimen/text_size_large"/>
 </RelativeLayout>

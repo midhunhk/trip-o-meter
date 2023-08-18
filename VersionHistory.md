@@ -1,14 +1,16 @@
 ## Trip 'O Meter Version History
+## Version 3.0 (Dvaraka)
+**Trip O Meter 3.0.0 [Aug 2023]**
+* [IMPROVED] Hero image
+* [IMPROVED] Target API 31
 
-Version 2.1 (Camelot)
-----------------------
+## Version 2.1 (Camelot)
 **Trip O Meter 2.1.3 [Jul 2017]**
 * [FIXED] FAB Layout issues
 * [ADDED] Unit Testing
 * [IMPROVED] Layouts and performance
 
-Version 2.0 (Balanjar)
-----------------------
+## Version 2.0 (Balanjar)
 **Trip O Meter 2.0.19 [Apr 2017]**
 * [FIXED] App crash on selecting contacts without phone numbers
 
@@ -42,8 +44,7 @@ Version 2.0 (Balanjar)
 * [ADDED] Remember and restore last used feature
 * [FIXED] NullPointer on orientation changes in trip details
 
-Version 1.0 (Atlantis)
-----------------------
+## Version 1.0 (Atlantis)
 **Trip O Meter 1.0.0 [Jan 2017]**
 * [RELEASE] First Public Release
 

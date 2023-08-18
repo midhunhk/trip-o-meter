@@ -16,4 +16,12 @@
 
     <dimen name="dialog_header_height">100dp</dimen>
     <dimen name="dialog_header_height_small">70dp</dimen>
+
+    <dimen name="unit_xxs">1dp</dimen>
+    <dimen name="unit_xs">2dp</dimen>
+    <dimen name="unit_s">4dp</dimen>
+    <dimen name="unit_m">8dp</dimen>
+    <dimen name="unit_l">16dp</dimen>
+    <dimen name="unit_xl">32dp</dimen>
+    <dimen name="unit_xxl">48dp</dimen>
 </resources>

@@ -26,22 +26,22 @@ package com.ae.apps.tripmeter.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ae.apps.common.activities.ToolBarBaseActivity;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.expenses.TripDetailsFragment;
-import com.ae.apps.tripmeter.fragments.expenses.TripsListFragment;
 import com.ae.apps.tripmeter.fragments.fuelcalc.FuelCalcFragment;
-import com.ae.apps.tripmeter.fragments.prices.FuelPricesFragment;
 import com.ae.apps.tripmeter.listeners.ExpensesInteractionListener;
 import com.ae.apps.tripmeter.listeners.FloatingActionButtonClickListener;
 import com.ae.apps.tripmeter.models.Trip;
@@ -50,7 +50,7 @@ import com.ae.apps.tripmeter.utils.AppConstants;
 /**
  * The Main Activity
  */
-public class MainActivity extends ToolBarBaseActivity
+public class MainActivity extends AppCompatActivity
         implements ExpensesInteractionListener {
 
     public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
@@ -100,16 +100,24 @@ public class MainActivity extends ToolBarBaseActivity
 
         // Update the selected menu item in the bottom navigation view
         navigationView.setSelectedItemId(featureFragment);
+
+        // Find the toolbar and set it as action bar
+        Toolbar mToolbar = findViewById(getToolbarResourceId());
+        if (null != mToolbar) {
+            setSupportActionBar(mToolbar);
+        }
+
+        setContentView(R.layout.activity_main);
     }
 
-    @Override
     protected int getToolbarResourceId() {
         return R.id.toolbar;
     }
 
-    @Override
-    protected int getLayoutResourceId() {
-        return R.layout.activity_main;
+    protected void setToolbarTitle(String title) {
+        if (null != getSupportActionBar()) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
     /**
@@ -124,6 +132,7 @@ public class MainActivity extends ToolBarBaseActivity
 
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         switch (itemId) {
+            /*
             case R.id.action_trip_calc:
                 fragment = FuelCalcFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.app_name));
@@ -136,6 +145,8 @@ public class MainActivity extends ToolBarBaseActivity
                 fragment = TripsListFragment.newInstance();
                 setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
                 break;
+             */
+
             // Inner fragment of Trip Expenses
             case FRAGMENT_TRIP_DETAILS:
                 // Store parent feature id
