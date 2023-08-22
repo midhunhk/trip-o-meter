@@ -9,7 +9,7 @@
 
     <include layout="@layout/expenses_empty_view" />
 
-    <com.ae.apps.common.views.EmptyRecyclerView
+    <com.ae.apps.lib.custom.views.EmptyRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

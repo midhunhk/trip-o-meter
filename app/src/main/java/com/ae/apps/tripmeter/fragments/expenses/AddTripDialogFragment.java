@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.exceptions.TripValidationException;
 import com.ae.apps.tripmeter.fragments.TripMeterDialogFragment;
@@ -61,7 +61,7 @@ public class AddTripDialogFragment extends TripMeterDialogFragment {
 
     private ExpenseManager mExpenseManager;
 
-    private Collection<ContactVo> mExpenseMembers;
+    private Collection<ContactInfo> mExpenseMembers;
 
     private EditText txtTripName;
 
@@ -143,7 +143,7 @@ public class AddTripDialogFragment extends TripMeterDialogFragment {
         }
 
         StringBuilder builder = new StringBuilder();
-        for (ContactVo contactVo : mExpenseMembers) {
+        for (ContactInfo contactVo : mExpenseMembers) {
             builder.append(contactVo.getId()).append(AppConstants.CONTACT_ID_SEPARATOR);
         }
 
@@ -184,7 +184,7 @@ public class AddTripDialogFragment extends TripMeterDialogFragment {
             Uri result = data.getData();
             String contactId = result.getLastPathSegment();
 
-            ContactVo contactVo = mExpenseManager.getContactFromContactId(contactId);
+            ContactInfo contactVo = mExpenseManager.getContactFromContactId(contactId);
 
             // Debug data
             if (null != contactVo.getId()) {
@@ -208,7 +208,7 @@ public class AddTripDialogFragment extends TripMeterDialogFragment {
         }
     }
 
-    private void addMemberToContainer(ContactVo contactVo) {
+    private void addMemberToContainer(ContactInfo contactVo) {
         TextView textView = new TextView(getActivity());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

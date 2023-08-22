@@ -23,64 +23,64 @@
  */
 package com.ae.apps.tripmeter.activities;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.widget.Button;
 
-import com.ae.apps.common.activities.ToolBarBaseActivity;
-import com.ae.apps.common.utils.DialogUtils;
+import com.ae.apps.lib.common.utils.DialogUtils;
 import com.ae.apps.tripmeter.R;
+
+import java.util.Objects;
 
 /**
  * The About Activity
  */
-public class AboutActivity extends ToolBarBaseActivity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        displayHomeAsUp();
+        setContentView(R.layout.activity_about);
+
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Navigate to GitHub Page
-        Button viewSourceCodeBtn = (Button) findViewById(R.id.viewSourceCode);
-        viewSourceCodeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = getString(R.string.github_source_visible_url);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-            }
+        Button viewSourceCodeBtn = findViewById(R.id.viewSourceCode);
+        viewSourceCodeBtn.setOnClickListener(view -> {
+            String url = getString(R.string.github_source_visible_url);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         });
 
         final Context context = this;
 
         // Show the License as a dialog
-        Button viewLicenseBtn = (Button) findViewById(R.id.viewLicense);
-        viewLicenseBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                DialogUtils.showMaterialInfoDialog(context, R.string.menu_license,
-                        R.string.str_license, android.R.string.ok);
-            }
-        });
+        Button viewLicenseBtn = findViewById(R.id.viewLicense);
+        viewLicenseBtn.setOnClickListener(view -> DialogUtils.showMaterialInfoDialog(context, R.string.menu_license,
+                R.string.str_license, android.R.string.ok));
+
+        // Find the toolbar and set it as action bar
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        if (null != mToolbar) {
+            setSupportActionBar(mToolbar);
+        }
+
     }
 
     @Override
-    protected int getToolbarResourceId() {
-        return R.id.toolbar;
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
-    @Override
-    protected int getLayoutResourceId() {
-        return R.layout.activity_about;
-    }
 }

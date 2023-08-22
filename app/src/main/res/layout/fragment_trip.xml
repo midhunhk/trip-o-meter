@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -33,9 +33,9 @@
             android:layout_toRightOf="@+id/tripImage"
             android:paddingBottom="@dimen/padding_small"
             android:paddingEnd="@dimen/padding_small"
-            android:paddingLeft="@dimen/padding_medium"
+            android:paddingLeft="@dimen/unit_m"
             android:paddingRight="@dimen/padding_small"
-            android:paddingStart="@dimen/padding_medium"
+            android:paddingStart="@dimen/unit_m"
             android:paddingTop="@dimen/padding_small"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="@dimen/text_size_large"
@@ -48,7 +48,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:contentDescription="@string/empty_text"
-            android:padding="@dimen/padding_medium"
+            android:padding="@dimen/unit_m"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_dots"/>
 
@@ -60,9 +60,9 @@
             android:layout_toEndOf="@+id/tripImage"
             android:layout_toRightOf="@+id/tripImage"
             android:paddingEnd="@dimen/padding_small"
-            android:paddingLeft="@dimen/padding_medium"
+            android:paddingLeft="@dimen/unit_m"
             android:paddingRight="@dimen/padding_small"
-            android:paddingStart="@dimen/padding_medium"
+            android:paddingStart="@dimen/unit_m"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
@@ -71,19 +71,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tripDate"
-            android:layout_marginEnd="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/unit_m"
+            android:layout_marginRight="@dimen/unit_m"
             android:layout_toEndOf="@+id/tripImage"
             android:layout_toRightOf="@+id/tripImage"
             android:paddingBottom="@dimen/padding_small"
             android:paddingEnd="@dimen/padding_small"
-            android:paddingLeft="@dimen/padding_medium"
+            android:paddingLeft="@dimen/unit_m"
             android:paddingRight="@dimen/padding_small"
-            android:paddingStart="@dimen/padding_medium"
+            android:paddingStart="@dimen/unit_m"
             android:paddingTop="@dimen/padding_small"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="14sp"/>
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

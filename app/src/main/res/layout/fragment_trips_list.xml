@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.ae.apps.tripmeter.fragments.expenses.TripsListFragment">
 
-    <com.ae.apps.common.views.EmptyRecyclerView
+    <com.ae.apps.lib.custom.views.EmptyRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,20 +23,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/padding_large"
+        android:paddingTop="@dimen/unit_l"
         android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/margin_extra_large"
-            android:drawablePadding="@dimen/padding_medium"
-            android:drawableTop="@drawable/icon_trip_round"
+            android:layout_marginTop="@dimen/unit_xl"
+            android:drawablePadding="@dimen/unit_m"
             android:gravity="center"
             android:text="@string/str_empty_list_trips"
-            android:textSize="@dimen/text_size_large"/>
+            android:textSize="@dimen/text_size_large"
+            app:drawableTopCompat="@drawable/icon_trip_round" />
     </RelativeLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

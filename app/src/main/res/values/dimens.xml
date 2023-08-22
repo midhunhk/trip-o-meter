@@ -16,4 +16,5 @@
 
     <dimen name="dialog_header_height">100dp</dimen>
     <dimen name="dialog_header_height_small">70dp</dimen>
+
 </resources>

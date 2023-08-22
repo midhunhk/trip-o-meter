@@ -21,13 +21,13 @@ package com.ae.apps.tripmeter.fragments.expenses;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ae.apps.common.views.EmptyRecyclerView;
+import com.ae.apps.lib.custom.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;
@@ -78,7 +78,7 @@ public class TripExpenseFragment extends Fragment implements ExpenseChangeListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tripexpense_list, container, false);
-        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
+        EmptyRecyclerView recyclerView = view.findViewById(R.id.list);
 
         if (null != getArguments()) {
             tripId = getArguments().getString(AppConstants.KEY_TRIP_ID);

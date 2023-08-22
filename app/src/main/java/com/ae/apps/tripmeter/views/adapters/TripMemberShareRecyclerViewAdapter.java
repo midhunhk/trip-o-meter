@@ -19,8 +19,11 @@
  */
 package com.ae.apps.tripmeter.views.adapters;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +34,11 @@ import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.models.TripMemberShare;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
- * Adapter for
+ * Adapter for TripMemberShare
  */
 public class TripMemberShareRecyclerViewAdapter extends
         RecyclerView.Adapter<TripMemberShareRecyclerViewAdapter.ViewHolder> {
@@ -45,6 +49,7 @@ public class TripMemberShareRecyclerViewAdapter extends
         mValues = items;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -52,10 +57,11 @@ public class TripMemberShareRecyclerViewAdapter extends
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getContactVo().getName());
+        holder.mIdView.setText(mValues.get(position).getContactInfo().getName());
         holder.mContactImage.setImageDrawable(mValues.get(position).getContactPhoto());
 
         // Color code for -ve or +ve amount of share indicates amount to give or receive
@@ -66,7 +72,7 @@ public class TripMemberShareRecyclerViewAdapter extends
         }
 
         BigDecimal roundedAmount = new BigDecimal(Float.toString(mValues.get(position).getShare()));
-        roundedAmount = roundedAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        roundedAmount = roundedAmount.setScale(2, RoundingMode.HALF_UP);
         holder.mContentView.setText(roundedAmount.toString());
     }
 
@@ -75,7 +81,7 @@ public class TripMemberShareRecyclerViewAdapter extends
         return mValues.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mIdView;
         final TextView mContentView;
@@ -90,6 +96,7 @@ public class TripMemberShareRecyclerViewAdapter extends
             mContactImage = (ImageView) view.findViewById(R.id.contactImage);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";

@@ -23,11 +23,12 @@
  */
 package com.ae.apps.tripmeter.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.ae.apps.common.db.DataBaseHelper;
+import com.ae.apps.lib.db.DataBaseHelper;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.models.TripMemberShare;
@@ -296,6 +297,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param cursor cursor
      * @return model
      */
+    @SuppressLint("Range")
     private Trip mapTripModel(Cursor cursor) {
         Trip trip = new Trip();
         trip.setId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIPS_MASTER_ID)));
@@ -312,6 +314,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param cursor cursor
      * @return model
      */
+    @SuppressLint("Range")
     private TripExpense mapTripExpenseModel(Cursor cursor) {
         TripExpense tripExpense = new TripExpense();
         tripExpense.setId(cursor.getString(cursor.getColumnIndex(DatabaseConstants.TRIP_EXPENSE_ID)));
@@ -330,6 +333,7 @@ public class TripExpensesDatabase extends DataBaseHelper {
      * @param cursor cursor
      * @return model
      */
+    @SuppressLint("Range")
     private TripMemberShare mapExpenseShareModel(Cursor cursor) {
         TripMemberShare memberShare = new TripMemberShare();
         memberShare.setShare(cursor.getFloat(0));

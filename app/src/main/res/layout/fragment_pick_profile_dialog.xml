@@ -49,12 +49,12 @@
             android:padding="@dimen/padding_small"
             android:orientation="horizontal">
         
-            <com.ae.apps.common.views.RoundedImageView
+            <com.ae.apps.lib.custom.views.RoundedImageView
                 android:id="@+id/contactImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/card_margin"
+                android:layout_margin="@dimen/unit_m"
                 android:minWidth="@dimen/image_size"
                 android:minHeight="@dimen/image_size"
                 android:maxWidth="@dimen/image_size"
@@ -66,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/card_padding"/>
+                android:paddingLeft="@dimen/unit_m"
+                android:paddingStart="@dimen/unit_m" />
         </LinearLayout>
 
         <Button
