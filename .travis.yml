@@ -2,10 +2,6 @@ language: android
 dist: precise
 jdk: oraclejdk8
 
-# Install Dependencies
-# before_install:
-#     - git clone --depth=50 --branch=master https://github.com/midhunhk/ae-apps-library.git ../AeAppsLib
-
 # Android settings
 android:
   components:
@@ -27,11 +23,11 @@ android:
   licenses:
     - '.+'
      
-# Run before runnig the build script
+# Run before running the build script
 before_script:
-    - wget https://services.gradle.org/distributions/gradle-8.3-bin.zip
-    - unzip gradle-8.3-bin.zip
-    - export GRADLE_HOME=$PWD/gradle-8.3
+    - wget https://services.gradle.org/distributions/gradle-8.1-bin.zip
+    - unzip gradle-8.1-bin.zip
+    - export GRADLE_HOME=$PWD/gradle-8.1
     - export PATH=$GRADLE_HOME/bin:$PATH
     - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
