@@ -78,7 +78,7 @@ public class TripExpenseFragment extends Fragment implements ExpenseChangeListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tripexpense_list, container, false);
-        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
+        EmptyRecyclerView recyclerView = view.findViewById(R.id.list);
 
         if (null != getArguments()) {
             tripId = getArguments().getString(AppConstants.KEY_TRIP_ID);

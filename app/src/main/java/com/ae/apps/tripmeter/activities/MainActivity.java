@@ -28,6 +28,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.ae.apps.tripmeter.fragments.expenses.TripsListFragment;
+import com.ae.apps.tripmeter.fragments.prices.FuelPricesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +41,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.expenses.TripDetailsFragment;
@@ -55,10 +59,11 @@ public class MainActivity extends AppCompatActivity
 
     public static final int DEFAULT_FEATURE = R.id.action_trip_calc;
 
+    private FloatingActionButtonClickListener mFloatingActionClickListener;
+
     private View mFloatingActionButton;
     private FragmentManager mFragmentManager;
     private boolean isChildFragmentDisplayed;
-    private FloatingActionButtonClickListener mFloatingActionClickListener;
 
     private static final int FRAGMENT_TRIP_DETAILS = 1001;
 
@@ -69,26 +74,25 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+
         mFragmentManager = getSupportFragmentManager();
 
         // Implementing BottomNavigationView
-        BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                updateDisplayedFragment(item.getItemId(), null);
-                return true;
-            }
+        BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
+        navigationView.setOnItemSelectedListener(item -> {
+            updateDisplayedFragment(item.getItemId(), null);
+            return true;
         });
 
         // Setup the Floating Action Button
         mFloatingActionButton = findViewById(R.id.fab);
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mFloatingActionClickListener) {
-                    mFloatingActionClickListener.onFloatingActionClick();
-                }
+
+        mFloatingActionButton.setOnClickListener(v -> {
+            if (null != mFloatingActionClickListener) {
+                mFloatingActionClickListener.onFloatingActionClick();
+            } else {
+                Toast.makeText(getBaseContext(),"FAB Listener is missing", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         int featureFragment = PreferenceManager.getDefaultSharedPreferences(getBaseContext())
                 .getInt(AppConstants.PREF_KEY_LAST_FEATURE, DEFAULT_FEATURE);
 
-        updateDisplayedFragment(featureFragment, null);
+        updateDisplayedFragment(R.id.action_trip_calc, null);
 
         // Update the selected menu item in the bottom navigation view
         navigationView.setSelectedItemId(featureFragment);
@@ -106,8 +110,6 @@ public class MainActivity extends AppCompatActivity
         if (null != mToolbar) {
             setSupportActionBar(mToolbar);
         }
-
-        setContentView(R.layout.activity_main);
     }
 
     protected int getToolbarResourceId() {
@@ -127,45 +129,38 @@ public class MainActivity extends AppCompatActivity
      */
     private void updateDisplayedFragment(int itemId, @Nullable Bundle bundle) {
         Fragment fragment;
-        int feature = itemId;
         isChildFragmentDisplayed = false;
 
         final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        switch (itemId) {
-            /*
-            case R.id.action_trip_calc:
-                fragment = FuelCalcFragment.newInstance();
-                setToolbarTitle(getResources().getString(R.string.app_name));
-                break;
-            case R.id.action_fuel_price:
-                fragment = FuelPricesFragment.newInstance();
-                setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
-                break;
-            case R.id.action_trip_expenses:
-                fragment = TripsListFragment.newInstance();
-                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
-                break;
-             */
 
+        if(itemId == R.id.action_trip_calc) {
+            fragment = FuelCalcFragment.newInstance();
+            setToolbarTitle(getResources().getString(R.string.app_name));
+        } else if(itemId == R.id.action_fuel_price) {
+            fragment = FuelPricesFragment.newInstance();
+            setToolbarTitle(getResources().getString(R.string.menu_fuel_price));
+        } else if(itemId == R.id.action_trip_expenses) {
+            fragment = TripsListFragment.newInstance();
+            setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
+        } else if(itemId == FRAGMENT_TRIP_DETAILS) {
             // Inner fragment of Trip Expenses
-            case FRAGMENT_TRIP_DETAILS:
-                // Store parent feature id
-                feature = R.id.action_trip_expenses;
-                fragment = TripDetailsFragment.newInstance();
-                fragmentTransaction.addToBackStack("TripExpense");
-                setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
-                isChildFragmentDisplayed = true;
-                break;
-            default:
-                fragment = FuelCalcFragment.newInstance();
-                setToolbarTitle(getResources().getString(R.string.app_name));
+            // Store parent feature id
+            //feature = R.id.action_trip_expenses;
+            fragment = TripDetailsFragment.newInstance();
+            fragmentTransaction.addToBackStack("TripExpense");
+            setToolbarTitle(getResources().getString(R.string.menu_trip_expenses));
+            isChildFragmentDisplayed = true;
+        } else {
+            fragment = FuelCalcFragment.newInstance();
+            setToolbarTitle(getResources().getString(R.string.app_name));
         }
+
         // Pass in the argument bundle if it exists
         if (null != bundle) {
             fragment.setArguments(bundle);
         }
         PreferenceManager.getDefaultSharedPreferences(getBaseContext())
-                .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, feature)
+                .edit().putInt(AppConstants.PREF_KEY_LAST_FEATURE, itemId)
                 .apply();
         fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
 

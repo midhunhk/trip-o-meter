@@ -147,5 +147,6 @@
     <!-- Trip popup menu -->
     <string name="str_trips_menu_delete_trip">Delete</string>
     <string name="str_trips_menu_edit_trip">Edit Trip Name</string>
+    <string name="str_fab_description">FAB</string>
 
 </resources>

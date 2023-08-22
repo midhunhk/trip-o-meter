@@ -112,9 +112,9 @@ public class TripDetailsFragment extends Fragment
         // Update the trip with the ContactVos from member ids
         mTrip.getMembers().addAll(mExpenseManager.getContactsFromIds(mTrip.getMemberIds()));
 
-        TextView tripName = (TextView) inflatedView.findViewById(R.id.txtTripName);
-        mTripTotalExpenses = (TextView) inflatedView.findViewById(R.id.txtTripTotalAmount);
-        mTripMembersContainer = (LinearLayout) inflatedView.findViewById(R.id.tripMembersContainer);
+        TextView tripName = inflatedView.findViewById(R.id.txtTripName);
+        mTripTotalExpenses =  inflatedView.findViewById(R.id.txtTripTotalAmount);
+        mTripMembersContainer =  inflatedView.findViewById(R.id.tripMembersContainer);
 
         addTripMembersToContainer();
 
@@ -122,38 +122,30 @@ public class TripDetailsFragment extends Fragment
 
         updateTripTotalExpenses();
 
-        FloatingActionButton floatingActionButton = (FloatingActionButton) inflatedView.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddExpenseDialog();
+        FloatingActionButton floatingActionButton = inflatedView.findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(v -> showAddExpenseDialog());
+
+        final ImageButton btnShowHideExpenseMembers = inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
+        btnShowHideExpenseMembers.setOnClickListener(v -> {
+            ObjectAnimator btnAnimation;
+            if (isMembersContainerDisplayed) {
+                mTripMembersContainer.setVisibility(View.GONE);
+                isMembersContainerDisplayed = false;
+                btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
+                        "rotation", 180, 0);
+            } else {
+                mTripMembersContainer.setVisibility(View.VISIBLE);
+                isMembersContainerDisplayed = true;
+                btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
+                        "rotation", 0, 180);
             }
+            btnAnimation.setDuration(200).start();
         });
 
-        final ImageButton btnShowHideExpenseMembers = (ImageButton) inflatedView.findViewById(R.id.btnShowHideExpenseMembers);
-        btnShowHideExpenseMembers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ObjectAnimator btnAnimation;
-                if (isMembersContainerDisplayed) {
-                    mTripMembersContainer.setVisibility(View.GONE);
-                    isMembersContainerDisplayed = false;
-                    btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
-                            "rotation", 180, 0);
-                } else {
-                    mTripMembersContainer.setVisibility(View.VISIBLE);
-                    isMembersContainerDisplayed = true;
-                    btnAnimation = ObjectAnimator.ofFloat(btnShowHideExpenseMembers,
-                            "rotation", 0, 180);
-                }
-                btnAnimation.setDuration(200).start();
-            }
-        });
-
-        mViewPager = (ViewPager) inflatedView.findViewById(R.id.viewpager);
+        mViewPager = inflatedView.findViewById(R.id.viewpager);
         setUpViewPager();
 
-        TabLayout mTabLayout = (TabLayout) inflatedView.findViewById(R.id.tabs);
+        TabLayout mTabLayout = inflatedView.findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
 
         // Bundle args = new Bundle();

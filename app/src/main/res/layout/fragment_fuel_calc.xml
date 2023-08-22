@@ -14,7 +14,7 @@
     <!-- Hero Image -->
     <ImageView
         android:id="@+id/imgHero"
-        android:src="@drawable/hero_trips_1"
+        android:src="@drawable/hero_trips"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="120dp"

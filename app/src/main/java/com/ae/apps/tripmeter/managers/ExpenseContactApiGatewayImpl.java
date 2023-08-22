@@ -39,6 +39,8 @@ class ExpenseContactApiGatewayImpl extends AbstractContactsApiGateway {
 
     private static ExpenseContactApiGatewayImpl apiInstance;
 
+    private ContactsApiGateway contactsApi;
+
     /**
      * Return a reference to the ExpenseContactApiGatewayImpl implementation
      *
@@ -55,37 +57,38 @@ class ExpenseContactApiGatewayImpl extends AbstractContactsApiGateway {
 
     private ExpenseContactApiGatewayImpl(ContactsApiGateway contactsApi) {
         super();
+        this.contactsApi = contactsApi;
     }
 
     @Override
     protected void readContacts(ContactInfoFilterOptions contactInfoFilterOptions) {
-
+        contactsApi.initialize(contactInfoFilterOptions);
     }
 
 
     @Override
     public ContactInfo getRandomContact() throws IllegalStateException {
-        return apiInstance.getRandomContact();
+        return contactsApi.getRandomContact();
     }
 
     @Override
     public ContactInfo getContactInfo(String id) {
-        return apiInstance.getContactInfo(id);
+        return contactsApi.getContactInfo(id);
     }
 
     @Override
     public ContactInfo getContactInfo(String id, ContactInfoOptions contactInfoOptions) {
-        return apiInstance.getContactInfo(id, contactInfoOptions);
+        return contactsApi.getContactInfo(id, contactInfoOptions);
     }
 
     @Override
     public String getContactIdFromRawContact(String s) {
-        return apiInstance.getContactIdFromRawContact(s);
+        return contactsApi.getContactIdFromRawContact(s);
     }
 
     @Override
     public String getContactIdFromAddress(String s) {
-        return apiInstance.getContactIdFromAddress(s);
+        return contactsApi.getContactIdFromAddress(s);
     }
 
     public List<ContactInfo> getContactsFromIds(String contactIds) {

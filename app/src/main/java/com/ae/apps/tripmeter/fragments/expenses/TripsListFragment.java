@@ -178,7 +178,7 @@ public class TripsListFragment extends Fragment
 
     private void createExpenseView() {
         View view = mInflater.inflate(R.layout.fragment_trips_list, mContainer, false);
-        EmptyRecyclerView recyclerView = (EmptyRecyclerView) view.findViewById(R.id.list);
+        EmptyRecyclerView recyclerView = view.findViewById(R.id.list);
         View emptyView = view.findViewById(R.id.empty_view);
 
         mExpenseManager = ExpenseManager.newInstance(getActivity());

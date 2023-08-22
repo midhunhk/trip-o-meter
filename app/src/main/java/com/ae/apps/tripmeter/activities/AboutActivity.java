@@ -30,7 +30,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
 import android.widget.Button;
 
 import com.ae.apps.lib.common.utils.DialogUtils;
@@ -47,31 +46,28 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        displayHomeAsUp();
+        setContentView(R.layout.activity_about);
+
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         // Navigate to GitHub Page
-        Button viewSourceCodeBtn = (Button) findViewById(R.id.viewSourceCode);
-        viewSourceCodeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = getString(R.string.github_source_visible_url);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-            }
+        Button viewSourceCodeBtn = findViewById(R.id.viewSourceCode);
+        viewSourceCodeBtn.setOnClickListener(view -> {
+            String url = getString(R.string.github_source_visible_url);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         });
 
         final Context context = this;
 
         // Show the License as a dialog
-        Button viewLicenseBtn = (Button) findViewById(R.id.viewLicense);
-        viewLicenseBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                DialogUtils.showMaterialInfoDialog(context, R.string.menu_license,
-                        R.string.str_license, android.R.string.ok);
-            }
-        });
+        Button viewLicenseBtn = findViewById(R.id.viewLicense);
+        viewLicenseBtn.setOnClickListener(view -> DialogUtils.showMaterialInfoDialog(context, R.string.menu_license,
+                R.string.str_license, android.R.string.ok));
 
         // Find the toolbar and set it as action bar
         Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -79,14 +75,12 @@ public class AboutActivity extends AppCompatActivity {
             setSupportActionBar(mToolbar);
         }
 
-        setContentView(R.layout.activity_about);
     }
 
-    protected void displayHomeAsUp() {
-        // Show the back arrow in toolbar to go back
-        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
-
 
 }

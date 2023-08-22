@@ -19,6 +19,7 @@
  */
 package com.ae.apps.tripmeter.views.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ public class TripExpenseRecyclerViewAdapter extends RecyclerView.Adapter<TripExp
         mValues = items;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -60,7 +62,7 @@ public class TripExpenseRecyclerViewAdapter extends RecyclerView.Adapter<TripExp
         return mValues.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
@@ -69,10 +71,11 @@ public class TripExpenseRecyclerViewAdapter extends RecyclerView.Adapter<TripExp
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.txtExpenseAmount);
+            mIdView = view.findViewById(R.id.id);
+            mContentView = view.findViewById(R.id.txtExpenseAmount);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";

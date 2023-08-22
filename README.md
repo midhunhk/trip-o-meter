@@ -1,7 +1,7 @@
 _*This project is not in active development or support*_
 
 # Trip-O-Meter
-[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=camelot)](https://travis-ci.org/midhunhk/trip-o-meter) 
+[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=main)](https://travis-ci.org/midhunhk/trip-o-meter) 
 [![Release](https://img.shields.io/github/release/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/releases) 
 [![GitHub commits](https://img.shields.io/github/commits-since/midhunhk/trip-o-meter/v2.0.18.svg)](https://github.com/midhunhk/trip-o-meter) 
 [![Issues](https://img.shields.io/github/issues/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/issues)  
@@ -27,7 +27,9 @@ The codenames for development branches are names of Lost or Mythical cities from
 
 The current development branch name is :
 
-***Camelot*** is a castle and court associated with the legendary King Arthur.
+***Dvaraka*** was a prosperous and advanced city located along the western coast of present-day Gujarat, India. 
+It was known for its grandeur, opulence, and divine association with Lord Krishna. 
+The city is often described as having majestic palaces, gardens, temples, and well-planned streets.
 
 See more - [Codenames](https://github.com/midhunhk/trip-o-meter/wiki/Codenames)
 

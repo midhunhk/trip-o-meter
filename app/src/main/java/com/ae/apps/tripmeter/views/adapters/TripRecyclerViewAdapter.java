@@ -129,10 +129,10 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             super(view);
             view.setClickable(true);
             mView = view;
-            mTripName = (TextView) view.findViewById(R.id.tripName);
-            mTripDate = (TextView) view.findViewById(R.id.tripDate);
-            mTripMemberCount = (TextView) view.findViewById(R.id.tripMemberCount);
-            mPopupMenu = (ImageView) view.findViewById(R.id.tripMenu);
+            mTripName =  view.findViewById(R.id.tripName);
+            mTripDate =  view.findViewById(R.id.tripDate);
+            mTripMemberCount =  view.findViewById(R.id.tripMemberCount);
+            mPopupMenu =  view.findViewById(R.id.tripMenu);
         }
 
         @NonNull
@@ -152,16 +152,13 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            /* TODO Fix menu click
-            switch (item.getItemId()) {
-                case R.id.action_delete_trip:
-                    mListUpdateListener.deleteTrip(mValues.get(mPosition));
-                    return true;
-                case R.id.action_edit_trip_name:
-                    mListUpdateListener.updateTrip(mValues.get(mPosition));
-                    return true;
+            if(item.getItemId() == R.id.action_delete_trip) {
+                mListUpdateListener.deleteTrip(mValues.get(mPosition));
+                return true;
+            } else if (item.getItemId() == R.id.action_edit_trip_name) {
+                mListUpdateListener.updateTrip(mValues.get(mPosition));
+                return true;
             }
-             */
             return false;
         }
     }

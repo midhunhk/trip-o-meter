@@ -2,7 +2,8 @@
 ## Version 3.0 (Dvaraka)
 **Trip O Meter 3.0.0 [Aug 2023]**
 * [IMPROVED] Hero image
-* [IMPROVED] Target API 31
+* [IMPROVED] Target API 33
+* [IMPROVED] Use lib-aeapps v5
 
 ## Version 2.1 (Camelot)
 **Trip O Meter 2.1.3 [Jul 2017]**
