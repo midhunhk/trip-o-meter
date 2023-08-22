@@ -29,7 +29,9 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.api.contacts.types.ContactInfoFilterOptions;
+import com.ae.apps.lib.api.contacts.types.ContactInfoOptions;
+import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.database.TripExpensesDatabase;
 import com.ae.apps.tripmeter.models.Trip;
@@ -57,7 +59,7 @@ public class ExpenseManager {
 
     private TripExpensesDatabase mExpensesDatabase;
 
-    private ExpenseContactManager mContactManager;
+    private ExpenseContactApiGatewayImpl mContactManager;
 
     /**
      * Use this method to return an instance of the Expense Manager
@@ -81,12 +83,11 @@ public class ExpenseManager {
         mResources = context.getResources();
         mExpensesDatabase = new TripExpensesDatabase(context);
 
-        mContactManager = ExpenseContactManager.newInstance(context.getContentResolver(), mResources);
+        mContactManager = ExpenseContactApiGatewayImpl.newInstance(context);
         // Fetch all contacts
-        // Note that permission is required in Android L and up
-        mContactManager.fetchAllContacts();
+        mContactManager.initialize(ContactInfoFilterOptions.of(true));
 
-        mDefaultProfilePic = BitmapFactory.decodeResource(mResources, R.drawable.default_profile_image);
+        mDefaultProfilePic = BitmapFactory.decodeResource(mResources, com.ae.apps.lib.core.R.drawable.profile_icon_4);
 
         Log.d(TAG, "Created ExpenseManager instance");
     }
@@ -175,14 +176,20 @@ public class ExpenseManager {
      */
     public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
         List<TripMemberShare> memberShares = mExpensesDatabase.getExpenseShareForTrip(tripId);
-        ContactVo contactVo;
+        ContactInfo contactInfo;
         BitmapDrawable bitmapDrawable;
-        //Bitmap defaultProfile = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.default_profile_image);
+
+        ContactInfoOptions options = new ContactInfoOptions.Builder()
+                .includeContactPicture(true)
+                .includePhoneDetails(false)
+                .defaultContactPicture(com.ae.apps.lib.core.R.drawable.profile_icon_5)
+                .filterDuplicatePhoneNumbers(true)
+                .build();
+
         for (TripMemberShare memberShare : memberShares) {
-            contactVo = mContactManager.getContactInfo(memberShare.getMemberId());
-            memberShare.setContactVo(contactVo);
-            bitmapDrawable = new BitmapDrawable(mResources,
-                    mContactManager.getContactPhoto(memberShare.getMemberId(), mDefaultProfilePic));
+            contactInfo = mContactManager.getContactInfo(memberShare.getMemberId(), options);
+            memberShare.setContactInfo(contactInfo);
+            bitmapDrawable = new BitmapDrawable(mResources, contactInfo.getPicture() );
             memberShare.setContactPhoto(bitmapDrawable);
         }
         return memberShares;
@@ -259,6 +266,7 @@ public class ExpenseManager {
     /**
      * @return ContactVo
      */
+/*
     public ContactVo getDefaultProfile(Context context) {
         SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
         String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
@@ -267,23 +275,7 @@ public class ExpenseManager {
         }
         return getContactFromContactId(profileId);
     }
-
-    /**
-     * Returns the default default device account.
-     * You can get the name of the user from this
-     * <p>
-     * Use the @link{getDefaultProfile()} method instead to get the Contact
-     *
-     * @return contactVo
-     */
-    @Deprecated
-    public ContactVo getDefaultContact() {
-        return mContactManager.getDefaultContact();
-    }
-
-    //--------------------------------------------------------------------
-    // Private methods
-    //--------------------------------------------------------------------
+ */
 
     /**
      * Convert memberIds to List of ContactVos
@@ -313,14 +305,14 @@ public class ExpenseManager {
      * @param contactId contact Id
      * @return ContactVo object
      */
-    public ContactVo getContactFromContactId(String contactId) {
+    public ContactInfo getContactFromContactId(String contactId) {
         return mContactManager.getContactInfo(contactId);
     }
 
     /**
      * Wraps call to ContactManager and returns list of ContactVo  from contact ids
      */
-    public List<ContactVo> getContactsFromIds(String contactIds) {
+    public List<ContactInfo> getContactsFromIds(String contactIds) {
         return mContactManager.getContactsFromIds(contactIds);
     }
 
@@ -332,7 +324,8 @@ public class ExpenseManager {
      * @return
      */
     public Bitmap getContactPhoto(final String contactId, final Bitmap defaultImage) {
-        return mContactManager.getContactPhoto(contactId, defaultImage);
+        return mContactManager.getContactInfo(contactId).getPicture();
+        // return mContactManager.getContactPhoto(contactId, defaultImage);
     }
 
     /**
@@ -342,6 +335,7 @@ public class ExpenseManager {
      * @return
      */
     public Bitmap getContactPhoto(final String contactId) {
-        return mContactManager.getContactPhoto(contactId, mDefaultProfilePic);
+        return mContactManager.getContactInfo(contactId).getPicture();
+        //return mContactManager.getContactPhoto(contactId, mDefaultProfilePic);
     }
 }

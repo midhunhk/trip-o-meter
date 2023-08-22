@@ -34,7 +34,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 
@@ -113,7 +113,7 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
             Uri result = data.getData();
             contactId = result.getLastPathSegment();
 
-            ContactVo profile = mExpenseManager.getContactFromContactId(contactId);
+            ContactInfo profile = mExpenseManager.getContactFromContactId(contactId);
             mProfileName.setText(profile.getName());
 
             Drawable profileImage = new BitmapDrawable(getResources(),

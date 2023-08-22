@@ -34,12 +34,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.models.Trip;
 import com.ae.apps.tripmeter.models.TripExpense;
 import com.ae.apps.tripmeter.utils.AppConstants;
 import com.ae.apps.tripmeter.views.adapters.ContactSpinnerAdapter;
+
+import java.util.Objects;
 
 /**
  * Add an Expense entry
@@ -66,7 +68,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+        Objects.requireNonNull(getDialog().getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
@@ -102,7 +104,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                ContactVo expenseContributor = (ContactVo) mSpinnerExpenseContributor.getSelectedItem();
+                ContactInfo expenseContributor = (ContactInfo) mSpinnerExpenseContributor.getSelectedItem();
 
                 try {
                     TripExpense tripExpense = getTripExpense(expenseContributor);
@@ -140,7 +142,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
     }
 
     @NonNull
-    private TripExpense getTripExpense(ContactVo expenseContributor) throws ExpenseValidationException {
+    private TripExpense getTripExpense(ContactInfo expenseContributor) throws ExpenseValidationException {
         TripExpense tripExpense = new TripExpense();
         if (TextUtils.isEmpty(mTxtExpenseAmount.getText())) {
             throw new ExpenseValidationException("Please Enter expense amount");
@@ -182,7 +184,7 @@ public class AddExpenseDialogFragment extends DialogFragment {
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
         CheckBox checkBox;
-        for (ContactVo contactVo : trip.getMembers()) {
+        for (ContactInfo contactVo : trip.getMembers()) {
             checkBox = new CheckBox(getActivity());
             checkBox.setLayoutParams(layoutParams);
             checkBox.setText(contactVo.getName());

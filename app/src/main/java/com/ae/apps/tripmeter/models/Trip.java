@@ -1,6 +1,6 @@
 package com.ae.apps.tripmeter.models;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.common.models.ContactInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Trip {
     private float totalExpenses;
     private boolean isSettled;
 
-    private List<ContactVo> members;
+    private List<ContactInfo> members;
 
     public void setId(String id) {
         this.id = id;
@@ -66,7 +66,7 @@ public class Trip {
         return isSettled;
     }
 
-    public List<ContactVo> getMembers() {
+    public List<ContactInfo> getMembers() {
         if(null == members){
             members = new ArrayList<>();
         }

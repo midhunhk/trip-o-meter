@@ -7,21 +7,4 @@
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#757575</color>
 
-    <!-- few named colors -->
-    <color name="color_white">#FFFFFF</color>
-    <color name="color_black">#000000</color>
-    <color name="color_red">#ff0000</color>
-    <color name="color_silver">#c0c0c0</color>
-    <color name="color_bright_orange">#FF9900</color>
-    <color name="color_grey_dark">#333333</color>
-    <color name="color_grey_light">#9a9a9a</color>
-    <color name="color_almost_white">#f4f4f4</color>
-    <color name="color_slate_blue_dark">#483D8B</color>
-    <color name="color_lime_green">#99AF1C</color>
-    <color name="color_blue_dark">#253D61</color>
-
-    <color name="color_charcoal">#222222</color>
-    <color name="color_radical_red">#ff3366</color>
-    <color name="color_matterhorn_brown">#535353</color>
-    <color name="color_alabaster_white">#f9f9f9</color>
 </resources>

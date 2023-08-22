@@ -22,6 +22,8 @@ package com.ae.apps.tripmeter.fragments.expenses;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+
+import com.ae.apps.lib.custom.views.RoundedImageView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
@@ -34,7 +36,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ae.apps.common.views.RoundedImageView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;

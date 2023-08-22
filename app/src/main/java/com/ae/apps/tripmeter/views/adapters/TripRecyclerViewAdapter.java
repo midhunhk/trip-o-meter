@@ -19,8 +19,11 @@
  */
 package com.ae.apps.tripmeter.views.adapters;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,6 +59,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         mListUpdateListener = listUpdateListener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -65,7 +69,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Trip trip = mValues.get(position);
         holder.mItem = trip;
         holder.mTripName.setText(trip.getName());
@@ -113,7 +117,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
         return mValues.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mTripName;
         final TextView mTripDate;
@@ -131,6 +135,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
             mPopupMenu = (ImageView) view.findViewById(R.id.tripMenu);
         }
 
+        @NonNull
         @Override
         public String toString() {
             return super.toString() + " '" + mTripDate.getText() + "'";
@@ -139,7 +144,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
     private class TripMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-        private int mPosition;
+        private final int mPosition;
 
         TripMenuItemClickListener(int position) {
             this.mPosition = position;
@@ -147,6 +152,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
+            /* TODO Fix menu click
             switch (item.getItemId()) {
                 case R.id.action_delete_trip:
                     mListUpdateListener.deleteTrip(mValues.get(mPosition));
@@ -155,6 +161,7 @@ public class TripRecyclerViewAdapter extends RecyclerView.Adapter<TripRecyclerVi
                     mListUpdateListener.updateTrip(mValues.get(mPosition));
                     return true;
             }
+             */
             return false;
         }
     }

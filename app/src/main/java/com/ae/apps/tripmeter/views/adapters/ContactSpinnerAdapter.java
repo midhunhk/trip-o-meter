@@ -20,14 +20,15 @@
 package com.ae.apps.tripmeter.views.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.ae.apps.common.vo.ContactVo;
+import androidx.annotation.NonNull;
+
+import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 
 import java.util.List;
@@ -36,12 +37,12 @@ import java.util.List;
  * Custom spinner adapter
  */
 
-public class ContactSpinnerAdapter extends ArrayAdapter<ContactVo> {
+public class ContactSpinnerAdapter extends ArrayAdapter<ContactInfo> {
 
     private Context mContext;
-    private List<ContactVo> mValues;
+    private List<ContactInfo> mValues;
 
-    public ContactSpinnerAdapter(Context context, List<ContactVo> contacts) {
+    public ContactSpinnerAdapter(Context context, List<ContactInfo> contacts) {
         super(context, R.layout.contact_spinner_item, contacts);
 
         this.mContext = context;

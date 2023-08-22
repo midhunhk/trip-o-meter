@@ -6,15 +6,14 @@ android {
         }
     }
 
-    compileSdkVersion 33
-    buildToolsVersion "34.0.0"
     defaultConfig {
         namespace "com.ae.apps.tripmeter"
         applicationId "com.ae.apps.tripmeter"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 33
-        versionCode 15
-        versionName "3.0.0"
+        compileSdk 33
+        versionCode 16
+        versionName "3.1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }
@@ -45,8 +44,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // implementation 'com.github.midhunhk.lib-aeapps:4.1.0'
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // implementation 'com.github.midhunhk.lib-aeapps::4.1.0'
+    implementation 'com.github.midhunhk.lib-aeapps:aeapps:v5.0.0-alpha.12'
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.cardview:cardview:1.0.0'

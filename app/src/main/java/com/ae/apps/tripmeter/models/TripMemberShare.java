@@ -2,7 +2,7 @@ package com.ae.apps.tripmeter.models;
 
 import android.graphics.drawable.BitmapDrawable;
 
-import com.ae.apps.common.vo.ContactVo;
+import com.ae.apps.lib.common.models.ContactInfo;
 
 /**
  * Represents the share of a member
@@ -16,7 +16,16 @@ public class TripMemberShare {
     private float share;
 
     // Used by view
-    private ContactVo contactVo;
+    private ContactInfo contactInfo;
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(ContactInfo contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
     private BitmapDrawable contactPhoto;
 
     public String getId() {
@@ -57,14 +66,6 @@ public class TripMemberShare {
 
     public void setShare(float share) {
         this.share = share;
-    }
-
-    public void setContactVo(ContactVo contactVo) {
-        this.contactVo = contactVo;
-    }
-
-    public ContactVo getContactVo() {
-        return contactVo;
     }
 
     public void setContactPhoto(BitmapDrawable contactPhoto) {

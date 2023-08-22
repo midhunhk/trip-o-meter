@@ -27,7 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ae.apps.common.views.EmptyRecyclerView;
+import com.ae.apps.lib.custom.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeListener;
 import com.ae.apps.tripmeter.listeners.ExpenseChangeObserver;

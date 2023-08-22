@@ -39,7 +39,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ae.apps.common.views.EmptyRecyclerView;
+import com.ae.apps.lib.custom.views.EmptyRecyclerView;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.fragments.PickProfileDialogFragment;
 import com.ae.apps.tripmeter.listeners.ExpenseListUpdateListener;
