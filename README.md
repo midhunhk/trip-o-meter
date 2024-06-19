@@ -1,9 +1,8 @@
 _*This project is not in active development or support*_
 
 # Trip-O-Meter
-[![Build Status](https://travis-ci.org/midhunhk/trip-o-meter.svg?branch=main)](https://travis-ci.org/midhunhk/trip-o-meter) 
 [![Release](https://img.shields.io/github/release/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/releases) 
-[![GitHub commits](https://img.shields.io/github/commits-since/midhunhk/trip-o-meter/v2.0.18.svg)](https://github.com/midhunhk/trip-o-meter) 
+[![GitHub commits](https://img.shields.io/github/commits-since/midhunhk/trip-o-meter/v3.0.0.svg)](https://github.com/midhunhk/trip-o-meter) 
 [![Issues](https://img.shields.io/github/issues/midhunhk/trip-o-meter.svg)](https://github.com/midhunhk/trip-o-meter/issues)  
 
 <img alt="Trip O Meter" src="/resources/promotional/feature_graphic_v2.png" width="820"/>
@@ -27,9 +26,9 @@ The codenames for development branches are names of Lost or Mythical cities from
 
 The current development branch name is :
 
-***Dvaraka*** was a prosperous and advanced city located along the western coast of present-day Gujarat, India. 
-It was known for its grandeur, opulence, and divine association with Lord Krishna. 
-The city is often described as having majestic palaces, gardens, temples, and well-planned streets.
+***El Dorado*** is a legendary city or place believed to be overflowing with gold and riches. According to these stories, 
+El Dorado was a city or kingdom located somewhere in the unexplored regions of South America, often associated with 
+present-day Colombia or Venezuela.
 
 See more - [Codenames](https://github.com/midhunhk/trip-o-meter/wiki/Codenames)
 

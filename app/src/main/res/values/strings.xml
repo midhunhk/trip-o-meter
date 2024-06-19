@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trip O Meter</string>
-    <string name="app_version_name">3.0.0 (Dvaraka)</string>
-    <string name="app_version_code">Dwarka is an ancient city in the northwestern Indian state of Gujarat.</string>
-    <string name="app_release_date">Aug 2023</string>
+    <string name="app_version_name">3.1.0 (El Dorado)</string>
+    <string name="app_version_code">El Dorado is a legendary city or place believed to be overflowing with gold and riches. According to these stories, El Dorado was a city or kingdom located somewhere in the unexplored regions of South America, often associated with present-day Colombia or Venezuela.</string>
+    <string name="app_release_date">Jun 2024</string>
     <string name="app_disclaim">The data shown in this app is approximate and should be used for a rough estimate only and may vary with actually observed values.</string>
     <string name="app_desc">This app calculates an estimate of fuel and cost needed for a trip</string>
     <string name="app_developer_info">Designed &amp; Developed at ae labs</string>

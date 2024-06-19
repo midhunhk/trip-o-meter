@@ -194,17 +194,14 @@ public class TripExpensesDatabase extends DataBaseHelper {
     public List<TripMemberShare> getExpenseShareForTrip(String tripId) {
         List<TripMemberShare> memberShares = new ArrayList<>();
         String[] selectionArgs = {tripId};
-        Cursor cursor = rawQuery("SELECT SUM (" + DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE + ")," +
+        try (Cursor cursor = rawQuery("SELECT SUM (" + DatabaseConstants.EXPENSE_SHARE_MEMBER_SHARE + ")," +
                 " " + DatabaseConstants.EXPENSE_SHARE_MEMBER_ID +
                 " FROM " + DatabaseConstants.EXPENSE_SHARE_TABLE +
                 " WHERE " + DatabaseConstants.EXPENSE_SHARE_TRIP_ID + " = ? " +
-                " GROUP BY " + DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, selectionArgs);
-        try {
+                " GROUP BY " + DatabaseConstants.EXPENSE_SHARE_MEMBER_ID, selectionArgs)) {
             while (cursor.moveToNext()) {
                 memberShares.add(mapExpenseShareModel(cursor));
             }
-        } finally {
-            cursor.close();
         }
         return memberShares;
     }
