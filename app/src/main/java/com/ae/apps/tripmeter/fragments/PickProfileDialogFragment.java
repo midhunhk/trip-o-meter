@@ -38,6 +38,8 @@ import com.ae.apps.lib.common.models.ContactInfo;
 import com.ae.apps.tripmeter.R;
 import com.ae.apps.tripmeter.managers.ExpenseManager;
 
+import java.util.Objects;
+
 /**
  * A DialogFragment that is used to select a profile from contacts list
  */
@@ -62,8 +64,9 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
 
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow())
+                .setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -111,6 +114,7 @@ public class PickProfileDialogFragment extends AppCompatDialogFragment {
         if (resultCode == Activity.RESULT_OK && requestCode == CONTACT_PICKER_RESULT) {
 
             Uri result = data.getData();
+            assert result != null;
             contactId = result.getLastPathSegment();
 
             ContactInfo profile = mExpenseManager.getContactFromContactId(contactId);

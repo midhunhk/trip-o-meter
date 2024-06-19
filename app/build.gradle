@@ -46,7 +46,7 @@ android {
 dependencies {
     // implementation fileTree(include: ['*.jar'], dir: 'libs')
     // implementation 'com.github.midhunhk.lib-aeapps::4.1.0'
-    implementation 'com.github.midhunhk.lib-aeapps:aeapps:v5.0.0-alpha.19'
+    implementation 'com.github.midhunhk.lib-aeapps:aeapps:v5.0.0-alpha.20'
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
