@@ -39,7 +39,7 @@ class ExpenseContactApiGatewayImpl extends AbstractContactsApiGateway {
 
     private static ExpenseContactApiGatewayImpl apiInstance;
 
-    private ContactsApiGateway contactsApi;
+    private final ContactsApiGateway contactsApi;
 
     /**
      * Return a reference to the ExpenseContactApiGatewayImpl implementation
