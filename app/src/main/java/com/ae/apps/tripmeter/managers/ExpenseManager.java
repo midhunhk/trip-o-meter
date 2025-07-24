@@ -55,11 +55,9 @@ public class ExpenseManager {
 
     private final Resources mResources;
 
-    private Bitmap mDefaultProfilePic;
+    private final TripExpensesDatabase mExpensesDatabase;
 
-    private TripExpensesDatabase mExpensesDatabase;
-
-    private ExpenseContactApiGatewayImpl mContactManager;
+    private final ExpenseContactApiGatewayImpl mContactManager;
 
     /**
      * Use this method to return an instance of the Expense Manager
@@ -86,8 +84,6 @@ public class ExpenseManager {
         mContactManager = ExpenseContactApiGatewayImpl.newInstance(context);
         // Fetch all contacts
         mContactManager.initialize(ContactInfoFilterOptions.of(true));
-
-        mDefaultProfilePic = BitmapFactory.decodeResource(mResources, com.ae.apps.lib.core.R.drawable.profile_icon_4);
 
         Log.d(TAG, "Created ExpenseManager instance");
     }
@@ -264,20 +260,6 @@ public class ExpenseManager {
     }
 
     /**
-     * @return ContactVo
-     */
-/*
-    public ContactVo getDefaultProfile(Context context) {
-        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
-        String profileId = preferenceManager.getString(AppConstants.PREF_KEY_CURRENT_PROFILE, "");
-        if (TextUtils.isEmpty(profileId)) {
-            return null;
-        }
-        return getContactFromContactId(profileId);
-    }
- */
-
-    /**
      * Convert memberIds to List of ContactVos
      *
      * @param trips list of trips
@@ -288,9 +270,6 @@ public class ExpenseManager {
         }
     }
 
-    /**
-     * @return
-     */
     private Trip getMockTrip() {
         Trip trip = new Trip();
         trip.setName("Test Trip " + Math.round(Math.random() * 10));
@@ -321,21 +300,15 @@ public class ExpenseManager {
      *
      * @param contactId    the contactId
      * @param defaultImage a default contact image
-     * @return
      */
     public Bitmap getContactPhoto(final String contactId, final Bitmap defaultImage) {
         return mContactManager.getContactInfo(contactId).getPicture();
-        // return mContactManager.getContactPhoto(contactId, defaultImage);
     }
 
     /**
      * Gets the contact photo, gives a default if none exists
-     *
-     * @param contactId
-     * @return
      */
     public Bitmap getContactPhoto(final String contactId) {
         return mContactManager.getContactInfo(contactId).getPicture();
-        //return mContactManager.getContactPhoto(contactId, mDefaultProfilePic);
     }
 }

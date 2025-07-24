@@ -36,12 +36,11 @@ import com.ae.apps.tripmeter.utils.AppConstants;
 
 public class FuelCalcManager {
 
-    private Context mContext;
+    private final Context mContext;
 
     /**
      * Creates and initialises an instance of the FuelCalcManager class
      *
-     * @param context
      */
     public FuelCalcManager(Context context) {
         this.mContext = context;
@@ -50,10 +49,6 @@ public class FuelCalcManager {
     /**
      * Calculates the Fuel and Price needed for a trip
      *
-     * @param distance
-     * @param fuelPrice
-     * @param mileage
-     * @return
      */
     public FuelCalcResult calculateFuelAndPrice(float distance, float fuelPrice, float mileage) {
         FuelCalcResult calcResult = new FuelCalcResult();
@@ -65,8 +60,11 @@ public class FuelCalcManager {
 
             // Store Mileage and Current Fuel Price
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-            preferences.edit().putString(AppConstants.PREF_KEY_FUEL_PRICE, String.valueOf(fuelPrice)).commit();
-            preferences.edit().putString(AppConstants.PREF_KEY_MILEAGE, String.valueOf(mileage)).commit();
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.putString(AppConstants.PREF_KEY_FUEL_PRICE, String.valueOf(fuelPrice));
+            editor.putString(AppConstants.PREF_KEY_MILEAGE, String.valueOf(mileage));
+            editor.apply();
         } else {
             calcResult.setDataError(true);
         }
